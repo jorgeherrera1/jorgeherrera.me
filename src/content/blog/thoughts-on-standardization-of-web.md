@@ -1,6 +1,8 @@
 ---
 title: Thoughts on Standardization of the Web
 date: "2022-12-27"
+tags:
+  - Web
 ---
 
 Today the web is living such golden days: frameworks are mature, build tools and bundlers are amazing these days, dev tools (such as VS Code) are in a good shape. New developers may not know but creating web apps years ago was very painful; JavaScript accumulated some hate because of that, probably some with good reasons.

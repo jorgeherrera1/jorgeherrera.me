@@ -1,6 +1,8 @@
 ---
 title: The Web Is Going Back To The Basis
 date: "2022-11-22"
+tags:
+  - Web
 ---
 
 It is very interesting how things evolve over time; most of them becoming more and more complex. The web is a very special subject for this conversation because it has become both simpler and more complex depending on the angle you see it. 
