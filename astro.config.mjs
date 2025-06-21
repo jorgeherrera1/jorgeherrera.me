@@ -7,9 +7,15 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://jorgeherrera.me',
   integrations: [mdx(), sitemap()],
-
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true
+    }
+  },
   vite: {
     plugins: [tailwindcss()],
   },
