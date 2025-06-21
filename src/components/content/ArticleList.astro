@@ -1,0 +1,24 @@
+---
+import type { Article } from '../../utils/blog.ts';
+import ArticleListItem from './ArticleListItem.astro';
+
+export interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+---
+
+{articles.length === 0 ? (
+  <div class="text-center py-12">
+    <p class="text-gray-600 dark:text-gray-400 text-lg font-mono">
+      No articles found. Check back soon!
+    </p>
+  </div>
+) : (
+  <section class="space-y-6">
+    {articles.map(article => (
+      <ArticleListItem article={article} />
+    ))}
+  </section>
+)}

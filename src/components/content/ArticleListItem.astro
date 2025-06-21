@@ -1,0 +1,46 @@
+---
+import type { Article } from '../../utils/blog.ts';
+import { formatDate, formatDateForAttribute, generateExcerpt } from '../../utils/blog.ts';
+
+export interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const excerpt = generateExcerpt(article.body);
+---
+
+<article class="mb-6 p-4 border border-gray-300 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
+  <header class="mb-3">
+    <h2 class="text-xl font-semibold mb-2">
+      <a 
+        href={`/blog/${article.id}`}
+        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 no-underline hover:underline"
+      >
+        {article.data.title}
+      </a>
+    </h2>
+    <time 
+      datetime={formatDateForAttribute(article.data.date)}
+      class="text-sm text-gray-600 dark:text-gray-400 font-mono"
+    >
+      {formatDate(article.data.date)}
+    </time>
+  </header>
+  
+  <div class="text-gray-800 dark:text-gray-200 leading-relaxed">
+    {excerpt}
+  </div>
+  
+  {article.data.tags && article.data.tags.length > 0 && (
+    <footer class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+      <div class="flex flex-wrap gap-2">
+        {article.data.tags.map(tag => (
+          <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded font-mono">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </footer>
+  )}
+</article>

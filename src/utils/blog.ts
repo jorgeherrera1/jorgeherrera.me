@@ -43,3 +43,36 @@ export function formatDate(date: Date): string {
 export function formatDateForAttribute(date: Date): string {
   return date.toISOString().split('T')[0];
 }
+
+// Generate excerpt from article content
+export function generateExcerpt(content: string, maxLength: number = 150): string {
+  // Remove markdown syntax and HTML tags
+  const cleanContent = content
+    .replace(/#{1,6}\s+/g, '') // Remove headers
+    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+    .replace(/\*(.*?)\*/g, '$1') // Remove italic
+    .replace(/`(.*?)`/g, '$1') // Remove inline code
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links, keep text
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/\n+/g, ' ') // Replace newlines with spaces
+    .trim();
+  
+  if (cleanContent.length <= maxLength) {
+    return cleanContent;
+  }
+  
+  // Find the last complete sentence within the limit
+  const truncated = cleanContent.substring(0, maxLength);
+  const lastSentence = truncated.lastIndexOf('.');
+  const lastSpace = truncated.lastIndexOf(' ');
+  
+  if (lastSentence > maxLength - 50) {
+    return cleanContent.substring(0, lastSentence + 1);
+  }
+  
+  if (lastSpace > 0) {
+    return cleanContent.substring(0, lastSpace) + '...';
+  }
+  
+  return truncated + '...';
+}

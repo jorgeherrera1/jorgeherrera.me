@@ -2,7 +2,11 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ArticleList from '../components/content/ArticleList.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getAllArticles } from '../utils/blog';
+
+const articles = await getAllArticles();
 ---
 
 <!doctype html>
@@ -10,13 +14,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-mono">
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				This is Jorge Herrera's personal website.
-			</p>
+		<main class="max-w-4xl mx-auto px-4 py-8">
+			<header class="mb-8">
+				<h1 class="text-3xl font-bold mb-4">Jorge Herrera</h1>
+				<p class="text-gray-600 dark:text-gray-400 text-lg">
+					Welcome to my corner of the web. Here you'll find my thoughts on technology, development, and more.
+				</p>
+			</header>
+			
+			<section>
+				<h2 class="text-2xl font-semibold mb-6">Latest Articles</h2>
+				<ArticleList articles={articles} />
+			</section>
 		</main>
 		<Footer />
 	</body>
