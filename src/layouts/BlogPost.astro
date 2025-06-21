@@ -17,16 +17,15 @@ const { title, description, date } = Astro.props;
 
 	<body>
 		<Header />
-		<main>
-			<article>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={date} />
-						</div>
-						<h1>{title}</h1>
-						<hr />
+		<main class="max-w-4xl mx-auto px-4 py-8">
+			<article class="max-w-prose mx-auto">
+				<header class="mb-8 border-b border-gray-300 pb-6">
+					<div class="text-sm text-gray-600 mb-2 font-mono">
+						<FormattedDate date={date} />
 					</div>
+					<h1 class="text-3xl font-bold mb-4 leading-tight font-mono">{title}</h1>
+				</header>
+				<div class="prose max-w-none">
 					<slot />
 				</div>
 			</article>
