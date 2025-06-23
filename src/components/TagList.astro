@@ -1,0 +1,81 @@
+---
+import { normalizeTag } from '../utils/tags';
+
+export interface Props {
+  tags: string[];
+  showLinks?: boolean;
+  className?: string;
+}
+
+const { tags, showLinks = true, className = '' } = Astro.props;
+---
+
+{tags && tags.length > 0 && (
+  <div class={`tag-list ${className}`}>
+    {tags.map(tag => 
+      showLinks ? (
+        <a 
+          href={`/tags/${normalizeTag(tag)}`} 
+          class="tag-link"
+          aria-label={`View all articles tagged with ${tag}`}
+        >
+          {tag}
+        </a>
+      ) : (
+        <span class="tag">
+          {tag}
+        </span>
+      )
+    )}
+  </div>
+)}
+
+<style>
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .tag-link,
+  .tag {
+    font-family: var(--font-mono), 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-surface, #f5f5f5);
+    border: 1px solid var(--color-border, #d1d5db);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: var(--color-text-muted, #6b7280);
+    transition: all 0.2s ease;
+  }
+
+  .tag-link:hover,
+  .tag-link:focus {
+    background: var(--color-accent, #3b82f6);
+    color: var(--color-text, #ffffff);
+    outline: 2px solid var(--color-accent, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  .tag-link:focus {
+    outline-style: solid;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .tag-link,
+    .tag {
+      background: var(--color-surface, #374151);
+      border-color: var(--color-border, #4b5563);
+      color: var(--color-text-muted, #9ca3af);
+    }
+
+    .tag-link:hover,
+    .tag-link:focus {
+      background: var(--color-accent, #60a5fa);
+      color: var(--color-text, #000000);
+    }
+  }
+</style>

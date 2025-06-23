@@ -1,0 +1,58 @@
+---
+import { getAllTags, getArticlesByTag } from '../../utils/tags.ts';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleList from '../../components/content/ArticleList.astro';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map((tag) => ({
+    params: { tag: tag.name },
+    props: { tag: tag.name },
+  }));
+}
+
+const { tag } = Astro.props;
+const articles = await getArticlesByTag(tag);
+
+// Convert CollectionEntry to Article type for ArticleList
+const articleData = articles.map(article => ({
+  id: article.id,
+  slug: article.slug,
+  body: article.body,
+  data: article.data
+}));
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`Tag: ${tag}`} description={`Articles tagged with ${tag}`} />
+  </head>
+
+  <body>
+    <Header />
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <article class="max-w-prose mx-auto">
+        <header class="mb-8 border-b border-gray-300 pb-6">
+          <div class="text-sm text-gray-600 mb-2 font-mono">
+            <a href="/tags" class="hover:underline">Tags</a> → {tag}
+          </div>
+          <h1 class="text-3xl font-bold mb-4 leading-tight font-mono">Tag: {tag}</h1>
+          <p class="text-gray-600 dark:text-gray-400">
+            {articles.length} {articles.length === 1 ? 'article' : 'articles'} tagged with "{tag}"
+          </p>
+        </header>
+        
+        <div class="space-y-6">
+          {articles.length > 0 ? (
+            <ArticleList articles={articleData} />
+          ) : (
+            <p class="text-gray-600 dark:text-gray-400">No articles found for this tag.</p>
+          )}
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
