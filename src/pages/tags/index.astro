@@ -2,7 +2,6 @@
 import { getAllTags, normalizeTag } from '../../utils/tags.ts';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 
 const tags = await getAllTags();
 ---
@@ -12,130 +11,35 @@ const tags = await getAllTags();
     <BaseHead title="Tags" description="Browse articles by tag" />
   </head>
 
-  <body>
+  <body class="bg-slate-900 text-slate-100 font-mono">
     <Header />
     <main class="max-w-4xl mx-auto px-4 py-8">
-      <article class="max-w-prose mx-auto">
-        <header class="mb-8 border-b border-gray-300 pb-6">
-          <h1 class="text-3xl font-bold mb-4 leading-tight font-mono">Tags</h1>
-          <p class="text-gray-600 dark:text-gray-400">Browse articles by topic</p>
-        </header>
-        
-        <div class="space-y-6">
-          {tags.length > 0 ? (
-            <div>
-              <h2 class="text-xl font-semibold mb-4 font-mono">All Tags ({tags.length})</h2>
-              <div class="tag-overview-grid">
-                {tags.map(tag => (
-                  <a 
-                    href={`/tags/${normalizeTag(tag.name)}`}
-                    class="tag-overview-item"
-                    aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
-                  >
-                    <span class="tag-name">{tag.name}</span>
-                    <span class="tag-count">{tag.count}</span>
-                  </a>
-                ))}
-              </div>
+      <header class="mb-8 border-b border-slate-700 pb-6">
+        <h1 class="text-3xl font-bold mb-4 text-amber-400">Tags</h1>
+        <p class="text-slate-400">Browse articles by topic</p>
+      </header>
+      
+      <div class="space-y-6">
+        {tags.length > 0 ? (
+          <div>
+            <h2 class="text-xl font-semibold mb-4 text-slate-200">All Tags ({tags.length})</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {tags.map(tag => (
+                <a 
+                  href={`/tags/${normalizeTag(tag.name)}`}
+                  class="flex justify-between items-center p-3 bg-slate-800 border border-slate-700 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                  aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
+                >
+                  <span class="font-medium text-sm">{tag.name}</span>
+                  <span class="bg-slate-600 text-slate-300 px-2 py-1 rounded text-xs font-semibold min-w-[1.5rem] text-center">{tag.count}</span>
+                </a>
+              ))}
             </div>
-          ) : (
-            <p class="text-gray-600 dark:text-gray-400">No tags found.</p>
-          )}
-        </div>
-      </article>
+          </div>
+        ) : (
+          <p class="text-slate-400">No tags found.</p>
+        )}
+      </div>
     </main>
-    <Footer />
   </body>
 </html>
-
-<style>
-  .tag-overview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .tag-overview-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background: var(--color-surface, #f9fafb);
-    border: 1px solid var(--color-border, #e5e7eb);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: var(--color-text, #111827);
-    transition: all 0.2s ease;
-    font-family: var(--font-mono), 'JetBrains Mono', monospace;
-  }
-
-  .tag-overview-item:hover,
-  .tag-overview-item:focus {
-    background: var(--color-accent, #3b82f6);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-    outline: 2px solid var(--color-accent, #3b82f6);
-    outline-offset: 2px;
-  }
-
-  .tag-name {
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-
-  .tag-count {
-    background: var(--color-muted, #e5e7eb);
-    color: var(--color-text-muted, #6b7280);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    min-width: 1.5rem;
-    text-align: center;
-  }
-
-  .tag-overview-item:hover .tag-count,
-  .tag-overview-item:focus .tag-count {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-  }
-
-  /* Responsive design */
-  @media (max-width: 640px) {
-    .tag-overview-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .tag-overview-item {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-
-  /* Dark mode support */
-  @media (prefers-color-scheme: dark) {
-    .tag-overview-item {
-      background: var(--color-surface, #374151);
-      border-color: var(--color-border, #4b5563);
-      color: var(--color-text, #f9fafb);
-    }
-
-    .tag-count {
-      background: var(--color-muted, #4b5563);
-      color: var(--color-text-muted, #d1d5db);
-    }
-
-    .tag-overview-item:hover,
-    .tag-overview-item:focus {
-      background: var(--color-accent, #60a5fa);
-      color: #000000;
-    }
-
-    .tag-overview-item:hover .tag-count,
-    .tag-overview-item:focus .tag-count {
-      background: rgba(0, 0, 0, 0.2);
-      color: #000000;
-    }
-  }
-</style>

@@ -2,7 +2,6 @@
 import { getAllTags, getArticlesByTag } from '../../utils/tags.ts';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 import ArticleList from '../../components/content/ArticleList.astro';
 
 export async function getStaticPaths() {
@@ -53,6 +52,5 @@ const articleData = articles.map(article => ({
         </div>
       </article>
     </main>
-    <Footer />
   </body>
 </html>

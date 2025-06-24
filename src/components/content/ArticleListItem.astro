@@ -11,17 +11,17 @@ const { article } = Astro.props;
 const readingTime = calculateReadingTime(article.body);
 ---
 
-<article class="mb-6 p-4 border border-gray-300 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
+<article class="mb-6 p-4 border border-slate-700 rounded-lg hover:border-slate-600 transition-colors bg-slate-800">
   <header class="mb-3">
     <h2 class="text-xl font-semibold mb-2">
       <a 
         href={`/blog/${article.id}`}
-        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 no-underline hover:underline"
+        class="text-blue-400 hover:text-blue-300 no-underline hover:underline"
       >
         {article.data.title}
       </a>
     </h2>
-    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 font-mono">
+    <div class="flex items-center gap-3 text-sm text-slate-400 font-mono">
       <time datetime={formatDateForAttribute(article.data.date)}>
         {formatDate(article.data.date)}
       </time>
@@ -30,9 +30,9 @@ const readingTime = calculateReadingTime(article.body);
     </div>
   </header>
   
-  <div class="text-gray-800 dark:text-gray-200 leading-relaxed article-preview">
+  <div class="text-slate-200 leading-relaxed article-preview">
     {article.body.slice(0, 300)}
   </div>
   
-  <TagList tags={article.data.tags || []} className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700" />
+  <TagList tags={article.data.tags || []} className="mt-3 pt-3 border-t border-slate-700" />
 </article>

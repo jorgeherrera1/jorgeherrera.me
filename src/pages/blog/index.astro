@@ -1,7 +1,6 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
@@ -17,17 +16,21 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="bg-slate-900 text-slate-100 font-mono">
 		<Header />
-		<main>
+		<main class="max-w-4xl mx-auto px-4 py-8">
+			<header class="mb-8">
+				<h1 class="text-3xl font-bold mb-4 text-amber-400">Blog</h1>
+				<p class="text-slate-400">All articles and thoughts</p>
+			</header>
 			<section>
-				<ul>
+				<ul class="space-y-8">
 					{
 						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
+							<li class="border-b border-slate-700 pb-6">
+								<a href={`/blog/${post.id}/`} class="block hover:text-amber-400 transition-colors">
+									<h2 class="text-xl font-semibold mb-2 text-blue-400">{post.data.title}</h2>
+									<p class="text-slate-400 text-sm">
 										<FormattedDate date={post.data.date} />
 									</p>
 								</a>
@@ -37,6 +40,5 @@ const posts = (await getCollection('blog')).sort(
 				</ul>
 			</section>
 		</main>
-		<Footer />
 	</body>
 </html>
