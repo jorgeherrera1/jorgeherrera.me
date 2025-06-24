@@ -32,6 +32,9 @@ export async function getAllTags(): Promise<{ name: string; count: number }[]> {
 
 // Format date consistently
 export function formatDate(date: Date): string {
+  if (!date || isNaN(date.getTime())) {
+    return 'Invalid Date';
+  }
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -41,7 +44,27 @@ export function formatDate(date: Date): string {
 
 // Get formatted date string for datetime attribute
 export function formatDateForAttribute(date: Date): string {
+  if (!date || isNaN(date.getTime())) {
+    return '';
+  }
   return date.toISOString().split('T')[0];
+}
+
+// Calculate reading time for article content
+export function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  
+  // Remove code blocks to avoid inflating word count
+  const contentWithoutCodeBlocks = content
+    .replace(/```[\s\S]*?```/g, '') // Remove fenced code blocks
+    .replace(/`[^`]+`/g, ''); // Remove inline code
+  
+  // Count words by splitting on whitespace and filtering empty strings
+  const words = contentWithoutCodeBlocks
+    .split(/\s+/)
+    .filter(word => word.length > 0).length;
+  
+  return Math.max(1, Math.ceil(words / wordsPerMinute));
 }
 
 // Generate excerpt from article content

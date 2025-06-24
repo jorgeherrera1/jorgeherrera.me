@@ -1,6 +1,6 @@
 ---
 import type { Article } from '../../utils/blog.ts';
-import { formatDate, formatDateForAttribute, generateExcerpt } from '../../utils/blog.ts';
+import { formatDate, formatDateForAttribute, calculateReadingTime } from '../../utils/blog.ts';
 import TagList from '../TagList.astro';
 
 export interface Props {
@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const { article } = Astro.props;
-const excerpt = generateExcerpt(article.body);
+const readingTime = calculateReadingTime(article.body);
 ---
 
 <article class="mb-6 p-4 border border-gray-300 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
@@ -21,16 +21,17 @@ const excerpt = generateExcerpt(article.body);
         {article.data.title}
       </a>
     </h2>
-    <time 
-      datetime={formatDateForAttribute(article.data.date)}
-      class="text-sm text-gray-600 dark:text-gray-400 font-mono"
-    >
-      {formatDate(article.data.date)}
-    </time>
+    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 font-mono">
+      <time datetime={formatDateForAttribute(article.data.date)}>
+        {formatDate(article.data.date)}
+      </time>
+      <span>•</span>
+      <span>{readingTime} min read</span>
+    </div>
   </header>
   
-  <div class="text-gray-800 dark:text-gray-200 leading-relaxed">
-    {excerpt}
+  <div class="text-gray-800 dark:text-gray-200 leading-relaxed article-preview">
+    {article.body.slice(0, 300)}
   </div>
   
   <TagList tags={article.data.tags || []} className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700" />

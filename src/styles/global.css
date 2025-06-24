@@ -230,3 +230,30 @@ body {
   }
 }
 
+/* Article Preview Text Truncation */
+.article-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+@supports not (-webkit-line-clamp: 3) {
+  .article-preview {
+    display: block;
+    max-height: calc(1.6em * 3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .article-preview::after {
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: inherit;
+    padding-left: 0.5rem;
+  }
+}
+
