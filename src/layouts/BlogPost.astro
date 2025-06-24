@@ -5,13 +5,15 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import TagList from '../components/TagList.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
 import { calculateReadingTime, formatDate, formatDateForAttribute } from '../utils/blog.ts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   content?: string;
+  relatedArticles?: CollectionEntry<'blog'>[];
 };
 
-const { title, description, date, tags, content } = Astro.props;
+const { title, description, date, tags, content, relatedArticles } = Astro.props;
 const readingTime = content ? calculateReadingTime(content) : 0;
 ---
 
@@ -24,6 +26,15 @@ const readingTime = content ? calculateReadingTime(content) : 0;
 		<Header />
 		<main class="max-w-4xl mx-auto px-4 py-8">
 			<article class="max-w-prose mx-auto">
+				<nav class="mb-6">
+					<a 
+						href="/blog" 
+						class="back-to-articles"
+						aria-label="Back to all articles"
+					>
+						← Back to Articles
+					</a>
+				</nav>
 				<header class="mb-8 border-b border-gray-300 pb-6">
 					<div class="flex items-center gap-3 text-sm text-gray-600 mb-2 font-mono">
 						<time datetime={formatDateForAttribute(date)}>
@@ -42,8 +53,51 @@ const readingTime = content ? calculateReadingTime(content) : 0;
 				<div class="prose max-w-none">
 					<slot />
 				</div>
+				{relatedArticles && relatedArticles.length > 0 && (
+					<RelatedArticles articles={relatedArticles} />
+				)}
 			</article>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+  .back-to-articles {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-mono), 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #6b7280);
+    text-decoration: none;
+    background: var(--color-surface, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+  }
+
+  .back-to-articles:hover,
+  .back-to-articles:focus {
+    color: var(--color-accent, #3b82f6);
+    background: var(--color-surface-hover, #f3f4f6);
+    border-color: var(--color-accent, #3b82f6);
+    transform: translateX(-2px);
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .back-to-articles {
+      color: var(--color-text-muted, #d1d5db);
+      background: var(--color-surface, #374151);
+      border-color: var(--color-border, #4b5563);
+    }
+
+    .back-to-articles:hover,
+    .back-to-articles:focus {
+      color: var(--color-accent, #60a5fa);
+      background: var(--color-surface-hover, #4b5563);
+      border-color: var(--color-accent, #60a5fa);
+    }
+  }
+</style>

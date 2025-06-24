@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { normalizeTag } from './tags';
 
 export type Article = CollectionEntry<'blog'>;
 
@@ -98,4 +99,20 @@ export function generateExcerpt(content: string, maxLength: number = 150): strin
   }
   
   return truncated + '...';
+}
+
+// Find related articles based on shared tags
+export function findRelatedArticles(currentPost: CollectionEntry<'blog'>, allPosts: CollectionEntry<'blog'>[], limit = 4): CollectionEntry<'blog'>[] {
+  const currentTags = currentPost.data.tags?.map(normalizeTag) || [];
+  
+  return allPosts
+    .filter(post => post.slug !== currentPost.slug)
+    .map(post => ({
+      post,
+      sharedTags: (post.data.tags?.map(normalizeTag) || []).filter(tag => currentTags.includes(tag)).length
+    }))
+    .filter(({ sharedTags }) => sharedTags > 0)
+    .sort((a, b) => b.sharedTags - a.sharedTags || new Date(b.post.data.date).getTime() - new Date(a.post.data.date).getTime())
+    .slice(0, limit)
+    .map(({ post }) => post);
 }

@@ -25,9 +25,11 @@ export async function getArticlesByTag(tagName: string): Promise<CollectionEntry
   const articles = await getCollection('blog');
   const normalizedTag = normalizeTag(tagName);
   
-  return articles.filter(article => 
-    article.data.tags?.some(tag => normalizeTag(tag) === normalizedTag)
-  );
+  return articles
+    .filter(article => 
+      article.data.tags?.some(tag => normalizeTag(tag) === normalizedTag)
+    )
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
 /**
