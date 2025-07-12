@@ -1,7 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import ArticleList from '../components/content/ArticleList.astro';
+import ArticleCardGrid from '../components/content/ArticleCardGrid.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getAllArticles } from '../utils/blog';
 
@@ -24,8 +24,16 @@ const articles = await getAllArticles();
 			</header>
 			
 			<section>
-				<h2 class="text-2xl font-semibold mb-6 text-slate-200">Latest Articles</h2>
-				<ArticleList articles={articles} />
+				<div class="flex justify-between items-center mb-6">
+					<h2 class="text-2xl font-semibold text-slate-200">Latest Articles</h2>
+					<a 
+						href="/blog" 
+						class="text-slate-200 hover:text-slate-100 font-mono text-sm font-medium no-underline hover:underline transition-colors focus:outline-2 focus:outline-amber-400 focus:outline-offset-2 focus:rounded"
+					>
+						View All →
+					</a>
+				</div>
+				<ArticleCardGrid articles={articles} maxCards={3} showViewAllLink={false} />
 			</section>
 		</main>
 	</body>

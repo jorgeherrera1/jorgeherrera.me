@@ -1,0 +1,33 @@
+---
+import type { Article } from '../../utils/blog.ts';
+import ArticleCard from './ArticleCard.astro';
+
+export interface Props {
+  articles: Article[];
+  maxCards?: number;
+  showViewAllLink?: boolean;
+  class?: string;
+}
+
+const { articles, maxCards = 3, showViewAllLink = true, class: className = '' } = Astro.props;
+const displayArticles = articles.slice(0, maxCards);
+---
+
+<section class={`w-full ${className}`}>
+  <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    {displayArticles.map(article => (
+      <ArticleCard article={article} />
+    ))}
+  </div>
+  
+  {showViewAllLink && (
+    <div class="mt-8 text-center">
+      <a 
+        href="/blog" 
+        class="btn-retro text-sm"
+      >
+        View All Articles →
+      </a>
+    </div>
+  )}
+</section>
