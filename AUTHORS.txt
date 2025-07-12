@@ -6,5 +6,4 @@
 # Name or Organization <email address>
 
 JetBrains <>
-Philipp Nurullin <philipp.nurullin@jetbrains.com>
-Konstantin Bulenkov <kb@jetbrains.com>
+Jorge Herrera <jorge@jorgeherrera.me>
