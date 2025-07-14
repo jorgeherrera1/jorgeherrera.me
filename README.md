@@ -1,54 +1,119 @@
-# Astro Starter Kit: Blog
+# Jorge Herrera's Personal Blog
 
-```sh
-npm create astro@latest -- --template blog
-```
+Welcome to my personal blog! This is where I share my thoughts on web development, technology, and software engineering.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+## Tech Stack
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This blog is built with modern web technologies:
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+- **[Astro](https://astro.build)** - Static site generator with component islands architecture
+- **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework for styling
+- **[MDX](https://mdxjs.com)** - Markdown with embedded React components
+- **TypeScript** - Type-safe JavaScript development
 
-Features:
+## Features
 
-- ✅ Minimal styling (make it your own!)
+- ✅ Fast, static-first architecture with Astro
+- ✅ Responsive design with Tailwind CSS
 - ✅ 100/100 Lighthouse performance
 - ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+- ✅ Automatic sitemap generation
+- ✅ RSS feed support
+- ✅ Syntax highlighting for code blocks
+- ✅ Tag-based article organization
 
-## 🚀 Project Structure
+## Architecture
 
-Inside of your Astro project, you'll see the following folders and files:
+This blog follows Astro's **islands architecture**, which delivers lightning-fast performance by shipping minimal JavaScript to the browser.
+
+### Project Structure
 
 ```text
-├── public/
+├── public/                    # Static assets (fonts, favicon, etc.)
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/           # Reusable Astro components
+│   │   ├── BaseHead.astro   # HTML head metadata
+│   │   ├── Header.astro     # Site navigation
+│   │   └── content/         # Blog-specific components
+│   ├── content/
+│   │   └── blog/            # Blog posts (Markdown/MDX)
+│   ├── layouts/
+│   │   └── BlogPost.astro   # Blog post layout template
+│   ├── pages/               # File-based routing
+│   │   ├── index.astro      # Homepage
+│   │   ├── about.astro      # About page
+│   │   ├── blog/            # Blog listing & individual posts
+│   │   └── tags/            # Tag-based filtering
+│   ├── styles/              # Global CSS styles
+│   └── utils/               # Utility functions
+├── astro.config.mjs         # Astro configuration
+└── tailwind.config.js       # Tailwind CSS configuration
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Key Architectural Decisions
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Static-first**: All pages are pre-rendered at build time for optimal performance
+- **Component islands**: Interactive components are hydrated only when needed
+- **Content collections**: Blog posts are managed through Astro's type-safe content system
+- **Tailwind CSS**: Utility-first styling for rapid development and consistent design
+- **MDX support**: Enhanced Markdown with embedded components for rich content
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## How to Add New Blog Posts
 
-Any static assets, like images, can be placed in the `public/` directory.
+Adding a new blog post is straightforward:
 
-## 🧞 Commands
+1. **Create a new file** in the `src/content/blog/` directory with a `.md` or `.mdx` extension
+2. **Add frontmatter** at the top of the file with required metadata:
 
-All commands are run from the root of the project, from a terminal:
+```yaml
+---
+title: "Your Post Title"
+date: "2024-01-15"
+tags:
+  - "JavaScript"
+  - "Web Development"
+---
+```
+
+3. **Write your content** below the frontmatter using Markdown or MDX syntax
+4. **Save the file** - Astro will automatically generate the blog post page
+
+### Frontmatter Schema
+
+All blog posts must include these frontmatter fields:
+
+- `title` (string): The post title
+- `date` (string): Publication date in YYYY-MM-DD format  
+- `tags` (array): List of tags for categorization
+
+### Example Blog Post
+
+```markdown
+---
+title: "Getting Started with Astro"
+date: "2024-01-15"
+tags:
+  - "Astro"
+  - "JavaScript"
+  - "Static Sites"
+---
+
+# Getting Started with Astro
+
+Astro is a modern static site generator that delivers exceptional performance...
+
+## Key Benefits
+
+- Lightning fast loading
+- SEO optimized
+- Developer friendly
+
+// Your markdown content here
+```
+
+## Development Commands
+
+All commands are run from the root of the project:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -59,10 +124,8 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## Learn More
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+- [Astro Documentation](https://docs.astro.build)
+- [Astro Discord Community](https://astro.build/chat)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
