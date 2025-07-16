@@ -1,5 +1,50 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4 Custom Theme Configuration */
+@theme {
+  /* Retro Color Palette - Bowser Castle & LEGO Inspired */
+  --color-castle-black: #0f0f0f;
+  --color-stone-gray: #1a1a1a;
+  --color-bowser-orange: #ff6b35;
+  --color-lego-red: #dc2626;
+  --color-coin-yellow: #fbbf24;
+  --color-pipe-green: #10b981;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  
+  /* Extended Color Palette */
+  --color-dark-stone: #111827;
+  --color-castle-purple: #7c3aed;
+  --color-fire-red: #ef4444;
+  --color-power-blue: #3b82f6;
+  
+  /* LEGO Shadow Effects */
+  --shadow-lego-sm: 0 2px 0 0 rgba(0,0,0,0.4), 0 4px 0 0 rgba(0,0,0,0.2);
+  --shadow-lego-md: 0 4px 0 0 rgba(0,0,0,0.3), 0 8px 0 0 rgba(0,0,0,0.2);
+  --shadow-lego-lg: 0 6px 0 0 rgba(0,0,0,0.3), 0 12px 0 0 rgba(0,0,0,0.2), 0 18px 0 0 rgba(0,0,0,0.1);
+  
+  /* Pixel Shadow Effects */
+  --shadow-pixel-sm: 1px 1px 0 0 rgba(0,0,0,0.5);
+  --shadow-pixel-md: 2px 2px 0 0 rgba(0,0,0,0.5);
+  --shadow-pixel-lg: 3px 3px 0 0 rgba(0,0,0,0.5);
+  
+  /* Retro Border Styles */
+  --border-pixel: 2px solid;
+  --border-lego: 4px solid;
+  --border-thick: 6px solid;
+  
+  /* LEGO Plastic Gradients */
+  --gradient-lego-red: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  --gradient-lego-yellow: linear-gradient(135deg, #fde047 0%, #fbbf24 50%, #f59e0b 100%);
+  --gradient-lego-green: linear-gradient(135deg, #22d3ee 0%, #10b981 50%, #059669 100%);
+  --gradient-lego-blue: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+  --gradient-lego-orange: linear-gradient(135deg, #fb923c 0%, #ff6b35 50%, #ea580c 100%);
+  
+  /* 8-bit Animation Timing */
+  --timing-pixel: cubic-bezier(1, 0, 0, 1);
+  --timing-retro: steps(4, end);
+}
+
 /* JetBrains Mono Font Face Definitions */
 @font-face {
   font-family: 'JetBrains Mono';
@@ -71,5 +116,168 @@ body {
     background: inherit;
     padding-left: 0.5rem;
   }
+}
+
+/* Retro Visual Effects Utility Classes */
+
+/* 8-bit Pixelated Rendering */
+.pixel-perfect {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* LEGO Brick Shadow Effects */
+.lego-shadow-sm {
+  box-shadow: var(--shadow-lego-sm);
+}
+
+.lego-shadow-md {
+  box-shadow: var(--shadow-lego-md);
+}
+
+.lego-shadow-lg {
+  box-shadow: var(--shadow-lego-lg);
+}
+
+/* Pixel Shadow Effects */
+.pixel-shadow-sm {
+  box-shadow: var(--shadow-pixel-sm);
+}
+
+.pixel-shadow-md {
+  box-shadow: var(--shadow-pixel-md);
+}
+
+.pixel-shadow-lg {
+  box-shadow: var(--shadow-pixel-lg);
+}
+
+/* Retro Border Styles */
+.border-pixel {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.border-lego {
+  border-width: 4px;
+  border-style: solid;
+}
+
+.border-thick {
+  border-width: 6px;
+  border-style: solid;
+}
+
+/* LEGO Brick Styling */
+.lego-brick {
+  position: relative;
+  background: var(--gradient-lego-red);
+  border-radius: 4px;
+  box-shadow: var(--shadow-lego-md);
+}
+
+.lego-brick::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* LEGO Brick Color Variants */
+.lego-red {
+  background: var(--gradient-lego-red);
+}
+
+.lego-yellow {
+  background: var(--gradient-lego-yellow);
+}
+
+.lego-green {
+  background: var(--gradient-lego-green);
+}
+
+.lego-blue {
+  background: var(--gradient-lego-blue);
+}
+
+.lego-orange {
+  background: var(--gradient-lego-orange);
+}
+
+/* Retro Hover Effects */
+.retro-hover {
+  transition: all 0.1s var(--timing-pixel);
+}
+
+.retro-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lego-lg);
+}
+
+/* 8-bit Button Styling */
+.retro-button {
+  background: var(--gradient-lego-blue);
+  border: var(--border-pixel);
+  border-color: var(--color-power-blue);
+  box-shadow: var(--shadow-pixel-md);
+  transition: all 0.1s var(--timing-pixel);
+  image-rendering: pixelated;
+}
+
+.retro-button:hover {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-pixel-sm);
+}
+
+.retro-button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Pixelated Corners */
+.pixel-corners {
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+}
+
+/* Retro Text Effects */
+.pixel-text {
+  text-shadow: var(--shadow-pixel-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Castle Theme Background */
+.castle-bg {
+  background: linear-gradient(135deg, var(--color-castle-black) 0%, var(--color-stone-gray) 50%, var(--color-dark-stone) 100%);
+}
+
+/* Interlocking LEGO Effect */
+.lego-interlock:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 25%;
+  width: 50%;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  animation: interlock 0.2s var(--timing-pixel);
+}
+
+@keyframes interlock {
+  0% { opacity: 0; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 

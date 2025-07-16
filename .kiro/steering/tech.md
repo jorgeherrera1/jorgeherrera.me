@@ -33,7 +33,6 @@
 
 - **Module Type**: ESM (type: "module")
 - **TypeScript Config**: Extends Astro strict config
-- **Syntax Highlighting**: Shiki with GitHub Light theme
 - **Site URL**: https://jorgeherrera.me
 
 ## Development Commands
