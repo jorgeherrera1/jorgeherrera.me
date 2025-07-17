@@ -13,22 +13,20 @@ const articles = await getAllArticles();
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="bg-slate-900 text-slate-100 font-mono">
+	<body class="bg-super-mario-red-500">
 		<Header />
 		<main class="max-w-4xl mx-auto px-4 py-8">
-			<header class="mb-8">
-				<h1 class="text-3xl font-bold mb-4 text-amber-400">Jorge Herrera</h1>
-				<p class="text-slate-400 text-lg">
+			<section class="mb-8">
+				<p class="text-lg">
 					Welcome to my corner of the web. Here you'll find my thoughts on technology, development, and more.
 				</p>
-			</header>
+			</section>
 			
 			<section>
 				<div class="flex justify-between items-center mb-6">
-					<h2 class="text-2xl font-semibold text-slate-200">Latest Articles</h2>
+					<h2 class="text-2xl">Latest Articles</h2>
 					<a 
 						href="/blog" 
-						class="text-slate-200 hover:text-slate-100 font-mono text-sm font-medium no-underline hover:underline transition-colors focus:outline-2 focus:outline-amber-400 focus:outline-offset-2 focus:rounded"
 					>
 						View All →
 					</a>

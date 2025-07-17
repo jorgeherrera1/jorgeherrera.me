@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@theme {
+    --color-super-mario-red-500: oklch(0.6287 0.1787 42.46);
+}
