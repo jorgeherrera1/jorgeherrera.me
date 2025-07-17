@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
-@theme {
-    --color-super-mario-red-500: oklch(0.6287 0.1787 42.46);
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("/fonts/PressStart2P-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
