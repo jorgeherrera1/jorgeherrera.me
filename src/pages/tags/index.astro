@@ -4,40 +4,79 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 
 const tags = await getAllTags();
+
+// Power-up styling function (same as TagList)
+const getPowerUpStyle = (tagName: string) => {
+  const lowerTag = tagName.toLowerCase();
+  
+  if (lowerTag.includes('javascript') || lowerTag.includes('typescript') || lowerTag.includes('react') || lowerTag.includes('code')) {
+    return { icon: '🔥', bgClass: 'bg-lava-red', borderClass: 'border-mario-red', hoverClass: 'hover:bg-mario-red' };
+  }
+  if (lowerTag.includes('css') || lowerTag.includes('design') || lowerTag.includes('ui') || lowerTag.includes('frontend')) {
+    return { icon: '❄️', bgClass: 'bg-ice-blue', borderClass: 'border-sky-blue', hoverClass: 'hover:bg-sky-blue' };
+  }
+  if (lowerTag.includes('backend') || lowerTag.includes('server') || lowerTag.includes('api') || lowerTag.includes('database')) {
+    return { icon: '🍄', bgClass: 'bg-pipe-green', borderClass: 'border-pipe-green', hoverClass: 'hover:bg-pipe-green hover:brightness-110' };
+  }
+  if (lowerTag.includes('tutorial') || lowerTag.includes('guide') || lowerTag.includes('learn') || lowerTag.includes('tips')) {
+    return { icon: '⭐', bgClass: 'bg-coin-gold', borderClass: 'border-molten-yellow', hoverClass: 'hover:bg-molten-yellow' };
+  }
+  if (lowerTag.includes('tools') || lowerTag.includes('devops') || lowerTag.includes('deployment') || lowerTag.includes('workflow')) {
+    return { icon: '⚡', bgClass: 'bg-power-purple', borderClass: 'border-power-purple', hoverClass: 'hover:bg-power-purple hover:brightness-110' };
+  }
+  return { icon: '🪙', bgClass: 'bg-fire-orange', borderClass: 'border-ember-orange', hoverClass: 'hover:bg-ember-orange' };
+};
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="Tags" description="Browse articles by tag" />
+    <BaseHead title="Power-up Collection" description="Browse articles by power-up type" />
   </head>
 
-  <body class="bg-slate-900 text-slate-100 font-mono">
+  <body class="bg-bg-primary text-text-primary font-primary">
     <Header />
-    <main class="max-w-4xl mx-auto px-4 py-8">
-      <header class="mb-8 border-b border-slate-700 pb-6">
-        <h1 class="text-3xl font-bold mb-4 text-amber-400">Tags</h1>
-        <p class="text-slate-400">Browse articles by topic</p>
+    <main class="max-w-6xl mx-auto px-6 py-12">
+      <header class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-8 mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">⚡</span>
+          <h1 class="text-coin-gold text-3xl font-normal tracking-wide">POWER-UP COLLECTION</h1>
+        </div>
+        <p class="text-text-secondary text-lg">
+          Discover levels by power-up type! Each power-up represents a different topic area.
+        </p>
+        <div class="flex items-center gap-2 mt-4">
+          <span class="text-pipe-green">●</span>
+          <span class="text-sm font-mono">{tags.length} POWER-UP TYPES DISCOVERED</span>
+        </div>
       </header>
       
-      <div class="space-y-6">
+      <div class="space-y-8">
         {tags.length > 0 ? (
           <div>
-            <h2 class="text-xl font-semibold mb-4 text-slate-200">All Tags ({tags.length})</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tags.map(tag => (
-                <a 
-                  href={`/tags/${normalizeTag(tag.name)}`}
-                  class="flex justify-between items-center p-3 bg-slate-800 border border-slate-700 rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-                  aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
-                >
-                  <span class="font-medium text-sm">{tag.name}</span>
-                  <span class="bg-slate-600 text-slate-300 px-2 py-1 rounded text-xs font-semibold min-w-[1.5rem] text-center">{tag.count}</span>
-                </a>
-              ))}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {tags.map(tag => {
+                const powerUp = getPowerUpStyle(tag.name);
+                return (
+                  <a 
+                    href={`/tags/${normalizeTag(tag.name)}`}
+                    class={`flex flex-col items-center p-6 border-2 rounded-md shadow-block transition-all duration-200 text-castle-black font-bold ${powerUp.bgClass} ${powerUp.borderClass} ${powerUp.hoverClass} hover:shadow-none hover:translate-x-1 hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-coin-gold focus:ring-offset-2 focus:ring-offset-bg-primary`}
+                    aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
+                  >
+                    <span class="text-4xl mb-3">{powerUp.icon}</span>
+                    <span class="font-mono text-sm tracking-wide text-center mb-2">{tag.name.toUpperCase()}</span>
+                    <div class="bg-castle-black text-text-primary px-3 py-1 rounded-sm text-xs font-mono">
+                      {tag.count} LEVEL{tag.count === 1 ? '' : 'S'}
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         ) : (
-          <p class="text-slate-400">No tags found.</p>
+          <div class="bg-bg-card border-2 border-border-primary shadow-block rounded-md p-8 text-center">
+            <span class="text-4xl mb-4 block">❌</span>
+            <p class="text-text-secondary">No power-ups discovered yet.</p>
+          </div>
         )}
       </div>
     </main>

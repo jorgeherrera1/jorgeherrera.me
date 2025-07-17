@@ -6,3 +6,118 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@theme {
+  /* 🏰 SUPER MARIO BROS + BOWSER'S CASTLE THEME */
+  
+  /* === PRIMARY COLORS (Castle/Stone) === */
+  --color-castle-black: #0a0a0a;
+  --color-stone-gray: #1a1a1a;
+  --color-dungeon-gray: #2a2a2a;
+  --color-fortress-gray: #3a3a3a;
+  --color-castle-light: #4a4a4a;
+  
+  /* === ACCENT COLORS (Lava/Fire) === */
+  --color-lava-red: #ff4444;
+  --color-fire-orange: #ff8800;
+  --color-ember-orange: #ffaa44;
+  --color-molten-yellow: #ffdd00;
+  
+  /* === MARIO CLASSIC COLORS (Dark Adapted) === */
+  --color-mario-red: #cc3333;
+  --color-coin-gold: #ffcc00;
+  --color-pipe-green: #22aa22;
+  --color-sky-blue: #4488ff;
+  
+  /* === MYSTICAL/POWER-UP COLORS === */
+  --color-power-purple: #8844ff;
+  --color-ice-blue: #44aaff;
+  --color-star-silver: #cccccc;
+  
+  /* === SEMANTIC COLOR MAPPINGS === */
+  --color-primary: var(--color-lava-red);
+  --color-secondary: var(--color-coin-gold);
+  --color-accent: var(--color-fire-orange);
+  --color-success: var(--color-pipe-green);
+  --color-info: var(--color-ice-blue);
+  --color-warning: var(--color-molten-yellow);
+  --color-danger: var(--color-mario-red);
+  
+  /* === BACKGROUND COLORS === */
+  --color-bg-primary: var(--color-castle-black);
+  --color-bg-secondary: var(--color-stone-gray);
+  --color-bg-tertiary: var(--color-dungeon-gray);
+  --color-bg-card: var(--color-fortress-gray);
+  
+  /* === TEXT COLORS === */
+  --color-text-primary: var(--color-star-silver);
+  --color-text-secondary: #999999;
+  --color-text-muted: #666666;
+  --color-text-accent: var(--color-coin-gold);
+  
+  /* === BORDER COLORS === */
+  --color-border-primary: var(--color-fortress-gray);
+  --color-border-secondary: var(--color-dungeon-gray);
+  --color-border-accent: var(--color-lava-red);
+  
+  /* === TYPOGRAPHY === */
+  --font-primary: "Press Start 2P", "Courier New", monospace;
+  --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  --font-display: "Press Start 2P", "Courier New", monospace;
+  
+  /* === 8-BIT SPACING SYSTEM === */
+  --spacing-px: 1px;
+  --spacing-0: 0px;
+  --spacing-1: 4px;    /* 8-bit base unit */
+  --spacing-2: 8px;    /* 2x base */
+  --spacing-3: 12px;   /* 3x base */
+  --spacing-4: 16px;   /* 4x base */
+  --spacing-5: 20px;   /* 5x base */
+  --spacing-6: 24px;   /* 6x base */
+  --spacing-8: 32px;   /* 8x base */
+  --spacing-10: 40px;  /* 10x base */
+  --spacing-12: 48px;  /* 12x base */
+  --spacing-16: 64px;  /* 16x base */
+  --spacing-20: 80px;  /* 20x base */
+  --spacing-24: 96px;  /* 24x base */
+  --spacing-32: 128px; /* 32x base */
+  
+  /* === BLOCKY BORDER RADIUS (8-bit style) === */
+  --radius-none: 0px;
+  --radius-sm: 2px;    /* Minimal rounding */
+  --radius-md: 4px;    /* Slightly blocky */
+  --radius-lg: 6px;    /* Retro rounded */
+  --radius-xl: 8px;    /* Max for retro feel */
+  --radius-full: 9999px; /* For circular elements */
+  
+  /* === 8-BIT SHADOWS (Retro depth) === */
+  --shadow-pixel: 2px 2px 0px rgba(0, 0, 0, 0.8);
+  --shadow-block: 4px 4px 0px rgba(0, 0, 0, 0.6);
+  --shadow-deep: 6px 6px 0px rgba(0, 0, 0, 0.4);
+  --shadow-glow-red: 0 0 10px rgba(255, 68, 68, 0.5);
+  --shadow-glow-gold: 0 0 10px rgba(255, 204, 0, 0.5);
+  --shadow-glow-blue: 0 0 10px rgba(68, 136, 255, 0.5);
+  
+  /* === RETRO ANIMATIONS === */
+  --ease-retro: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth retro */
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Mario bounce */
+  --ease-power: cubic-bezier(0.76, 0, 0.24, 1); /* Power-up effect */
+  
+  /* === 8-BIT BREAKPOINTS === */
+  --breakpoint-xs: 480px;  /* Game Boy size */
+  --breakpoint-sm: 640px;  /* NES resolution */
+  --breakpoint-md: 768px;  /* Tablet */
+  --breakpoint-lg: 1024px; /* Desktop */
+  --breakpoint-xl: 1280px; /* Large desktop */
+  --breakpoint-2xl: 1536px; /* Ultra wide */
+  
+  /* === Z-INDEX LAYERS === */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+  --z-toast: 70;
+}

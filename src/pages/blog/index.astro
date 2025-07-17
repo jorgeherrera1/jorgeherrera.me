@@ -1,43 +1,43 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
+import ArticleCard from '../../components/content/ArticleCard.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import { getAllArticles } from '../../utils/blog';
 
-
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getAllArticles();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`All Levels - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="bg-slate-900 text-slate-100 font-mono">
+	<body class="bg-bg-primary text-text-primary font-primary">
 		<Header />
-		<main class="max-w-4xl mx-auto px-4 py-8">
-			<header class="mb-8">
-				<h1 class="text-3xl font-bold mb-4 text-amber-400">Blog</h1>
-				<p class="text-slate-400">All articles and thoughts</p>
+		<main class="max-w-6xl mx-auto px-6 py-12">
+			<header class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-8 mb-12">
+				<div class="flex items-center gap-3 mb-4">
+					<span class="text-3xl">🏰</span>
+					<h1 class="text-coin-gold text-3xl font-normal tracking-wide">ALL LEVELS</h1>
+				</div>
+				<p class="text-text-secondary text-lg">
+					Choose your adventure! Navigate through all available levels in chronological order.
+				</p>
+				<div class="flex items-center gap-2 mt-4">
+					<span class="text-pipe-green">●</span>
+					<span class="text-sm font-mono">{posts.length} LEVELS AVAILABLE</span>
+				</div>
 			</header>
-			<section>
-				<ul class="space-y-8">
-					{
-						posts.map((post) => (
-							<li class="border-b border-slate-700 pb-6">
-								<a href={`/blog/${post.id}/`} class="block hover:text-amber-400 transition-colors">
-									<h2 class="text-xl font-semibold mb-2 text-blue-400">{post.data.title}</h2>
-									<p class="text-slate-400 text-sm">
-										<FormattedDate date={post.data.date} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+			
+			<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{posts.map((post) => (
+					<ArticleCard 
+						article={post} 
+						showExcerpt={true}
+						class="h-full"
+					/>
+				))}
 			</section>
 		</main>
 	</body>
