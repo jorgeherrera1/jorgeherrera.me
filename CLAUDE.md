@@ -167,12 +167,6 @@ src/
 
 ## Gaming Theme Guidelines
 
-### Terminology
-- **"LEVELS"** instead of "posts" or "articles"
-- **"LEVEL MAP"** for table of contents
-- **"BACK TO LEVELS"** for navigation
-- **"RELATED LEVELS"** for related articles
-
 ### Visual Elements
 - **Pixel-perfect borders**: Use `border-2` and `border-4` for retro feel
 - **8-bit shadows**: `shadow-pixel`, `shadow-block` for depth
@@ -192,3 +186,5 @@ src/
 - **Optimized images**: Use Astro's built-in image optimization
 - **Minimal CSS**: Leverage Tailwind's purging capabilities
 - **Fast builds**: Astro's efficient static generation
+
+## 
