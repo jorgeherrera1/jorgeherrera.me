@@ -1,5 +1,6 @@
 ---
-Date: 2025-07-15
+title: Initial Impressions of Kiro
+date: 2025-07-15
 tags:
    - AI
 ---
