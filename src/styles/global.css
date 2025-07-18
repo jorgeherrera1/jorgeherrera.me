@@ -196,3 +196,61 @@
   max-width: 100%;
 }
 
+/* === MARIO QUESTION BLOCK COMPONENT === */
+
+@utility question-block {
+  background-color: var(--color-mario-container-bg);
+  border-top: 4px solid #E6A85C;
+  border-left: 4px solid #E6A85C;
+  border-right: 4px solid #704214;
+  border-bottom: 4px solid #704214;
+  box-shadow: 6px 6px 0px rgba(139, 69, 19, 0.8);
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@utility question-mark {
+  color: #4A2C17;
+  font-family: var(--font-primary);
+  font-size: 40px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  user-select: none;
+  text-shadow: 2px 2px 0px #2C1A0E;
+}
+
+@utility question-block-rivet {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #000000;
+  border-radius: 0;
+}
+
+@utility question-rivet-top-left {
+  top: 8px;
+  left: 8px;
+}
+
+@utility question-rivet-top-right {
+  top: 8px;
+  right: 8px;
+}
+
+@utility question-rivet-bottom-left {
+  bottom: 8px;
+  left: 8px;
+}
+
+@utility question-rivet-bottom-right {
+  bottom: 8px;
+  right: 8px;
+}
+

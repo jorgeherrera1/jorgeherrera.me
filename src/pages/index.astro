@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import ArticleCardGrid from '../components/content/ArticleCardGrid.astro';
 import TagList from '../components/TagList.astro';
+import QuestionBlock from '../components/QuestionBlock.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getAllArticles } from '../utils/blog';
 import { getAllTags } from '../utils/tags';
@@ -19,6 +20,12 @@ const allTags = await getAllTags();
 	<body class="bg-bg-primary text-text-primary font-primary">
 		<Header />
 		<main class="max-w-6xl mx-auto px-6 py-12">
+			<!-- QuestionBlock Component Testing -->
+			<div class="mb-8 flex items-center gap-4">
+				<QuestionBlock />
+				<span class="text-text-primary">QuestionBlock Component</span>
+			</div>
+			
 			<!-- 🎮 FIRST SECTION: Two Column Grid (50/50) -->
 			<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
 				<!-- Left Column: Character Info Box -->
@@ -73,7 +80,7 @@ const allTags = await getAllTags();
 				<div class="flex justify-between items-center mb-8">
 					<h2 class="text-coin-gold text-2xl font-normal tracking-wide flex items-center gap-3">
 						<span class="text-fire-orange">🏰</span>
-						LATEST LEVELS
+						LATEST ARTICLES
 					</h2>
 					<a 
 						href="/blog" 
