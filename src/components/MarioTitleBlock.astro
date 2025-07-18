@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="mario-container">
+  <!-- 4 Corner Rivets -->
+  <div class="mario-rivet rivet-top-left"></div>
+  <div class="mario-rivet rivet-top-right"></div>
+  <div class="mario-rivet rivet-bottom-left"></div>
+  <div class="mario-rivet rivet-bottom-right"></div>
+  
+  <!-- Title Text -->
+  <h1 class="mario-title">{title.toUpperCase()}</h1>
+</div>

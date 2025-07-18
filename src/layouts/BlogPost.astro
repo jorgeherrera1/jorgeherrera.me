@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import TagList from '../components/TagList.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
+import MarioTitleBlock from '../components/MarioTitleBlock.astro';
 import { calculateReadingTime, formatDate, formatDateForAttribute } from '../utils/blog.ts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -54,41 +55,8 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 					</a>
 				</nav>
 
-				<!-- 🏰 LEVEL HEADER -->
-				<header class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-8 mb-8">
-					<div class="flex items-center justify-between mb-4">
-						<div class="flex items-center gap-3">
-							<span class="text-2xl">{levelIcon}</span>
-							<div>
-								<div class="text-xs text-text-muted font-mono">LEVEL DIFFICULTY</div>
-								<div class="text-fire-orange text-sm font-mono">{difficulty}</div>
-							</div>
-						</div>
-						<div class="text-right">
-							<time datetime={formatDateForAttribute(date)} class="text-text-muted text-sm font-mono">
-								{formatDate(date)}
-							</time>
-							{readingTime > 0 && (
-								<div class="flex items-center gap-1 text-text-muted text-sm font-mono mt-1">
-									<span>⏱️</span>
-									<span>{readingTime} MIN</span>
-								</div>
-							)}
-						</div>
-					</div>
-					
-					<h1 class="text-coin-gold text-3xl font-normal leading-tight mb-6 tracking-wide">
-						{title.toUpperCase()}
-					</h1>
-					
-					<div class="border-t-2 border-border-primary pt-4">
-						<div class="flex items-center gap-2 mb-3">
-							<span class="text-fire-orange">⚡</span>
-							<span class="text-text-muted text-sm font-mono">POWER-UPS AVAILABLE</span>
-						</div>
-						<TagList tags={tags || []} />
-					</div>
-				</header>
+				<!-- 🏰 MARIO TITLE BLOCK -->
+				<MarioTitleBlock title={title} />
 
 				<!-- 📖 LEVEL CONTENT -->
 				<article class="bg-bg-secondary border-2 border-border-primary shadow-block rounded-md p-8 mb-8">
