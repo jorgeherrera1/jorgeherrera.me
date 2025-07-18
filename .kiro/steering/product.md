@@ -22,9 +22,9 @@ The blog will cover topics related to:
 ## Design Philosophy
 
 ### Theme Requirements
-- **RETRO theme** heavily inspired by Super Mario Bros and LEGO
+- **RETRO theme** heavily inspired by 8-bit Super Mario Bros
 - **DARK theme only** - inspired by Bowser Castle stages from Super Mario Bros
-- **8-bit pixelated elements** and LEGO piece visuals expected
+- **8-bit pixelated elements** and Super Mario Bros piece visuals expected
 - **Unique design** - no other website should look like this one
 - **Monospaced fonts** preferred throughout
 - **Success metric**: Uniqueness of the retro theme implementation
