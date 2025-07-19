@@ -1,23 +1,73 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import { getCurrentDateMario } from '../utils/dateUtils';
+import MarioCoin from './MarioCoin.astro';
+
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+const subpath = pathname.match(/[^\/]+/g);
+
+function isActive(href: string): boolean {
+  return href === pathname || href === '/' + (subpath?.[0] || '');
+}
+
+const currentDate = getCurrentDateMario();
 ---
 
-<header>
-	<nav class="flex items-center justify-between p-6 max-w-6xl mx-auto">
-		<h1 class="font-primary text-2xl font-normal text-coin-gold tracking-wider">
-			<a 
-				href="/" 
-				class="hover:text-molten-yellow transition-colors duration-200 hover:drop-shadow-glow-gold"
-			>
-				{SITE_TITLE}
-			</a>
-		</h1>
-		<div class="flex gap-2">
-			<HeaderLink href="/">HOME</HeaderLink>
-			<HeaderLink href="/blog">BLOG</HeaderLink>
-			<HeaderLink href="/tags">TAGS</HeaderLink>
-			<HeaderLink href="/about">ABOUT</HeaderLink>
+<header class="mario-game-header gap-0 p-4 items-start font-primary text-white relative min-h-20">
+	<!-- Column 1: JORGE + Current Date -->
+	<div class="flex flex-col items-center gap-0.5 text-center w-full p-1 justify-self-center">
+		<a 
+			href="/" 
+			class="text-xl font-normal tracking-wider text-white no-underline transition-all block mb-0.5 hover:text-coin-gold hover:scale-105"
+		>
+			JORGE H
+		</a>
+		<div class="text-xl text-white tracking-wide">{currentDate}</div>
+	</div>
+
+	<!-- Column 2: Coin Counter -->
+	<div class="flex flex-col items-center gap-0.5 text-center w-full p-1 justify-self-center">
+		<div class="flex items-center justify-center gap-1.5 text-xl text-white font-normal tracking-wide">
+			<MarioCoin />
+			<span>×40</span>
 		</div>
-	</nav>
+	</div>
+
+	<!-- Column 3: World Info -->
+	<div class="flex flex-col items-center gap-0.5 text-center w-full p-1 justify-self-center">
+		<div class="flex flex-col items-center gap-0.5 text-xl text-white font-normal tracking-wide text-center">
+			<div>WORLD</div>
+			<div>1-1</div>
+		</div>
+	</div>
+
+	<!-- Column 4 & 5: Navigation Menu (grouped) -->
+	<div class="flex items-center justify-end gap-4 pr-6">
+		<a 
+			href="/blog" 
+			class:list={[
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
+				{ "text-lava-red": isActive('/blog') }
+			]}
+		>
+			BLOG
+		</a>
+		<a 
+			href="/tags" 
+			class:list={[
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
+				{ "text-lava-red": isActive('/tags') }
+			]}
+		>
+			TAGS
+		</a>
+		<a 
+			href="/about" 
+			class:list={[
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
+				{ "text-lava-red": isActive('/about') }
+			]}
+		>
+			ABOUT
+		</a>
+	</div>
 </header>

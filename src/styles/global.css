@@ -16,7 +16,7 @@
   --color-dungeon-gray: #2a2a2a;
   --color-fortress-gray: #3a3a3a;
   --color-castle-light: #4a4a4a;
-  --color-sky: #8CA2D3;
+  --color-sky: #549BFF;
   
   /* === ACCENT COLORS (Lava/Fire) === */
   --color-lava-red: #ff4444;
@@ -36,7 +36,7 @@
   --color-star-silver: #cccccc;
   
   /* === MARIO TITLE BLOCK SYSTEM === */
-  --color-mario-container-bg: #CA572E;     /* Main container background */
+  --color-mario-container-bg: #FFA32C;     /* Main container background */
   --color-mario-border-light: #FFDCBE;     /* Top/left highlight borders */
   --color-mario-border-dark: #000005;      /* Bottom/right shadow borders */
   --color-mario-text: #FFDCBE;             /* Title text color */
@@ -252,5 +252,14 @@
 @utility question-rivet-bottom-right {
   bottom: 4px;
   right: 4px;
+}
+
+/* === MARIO GAME UI HEADER === */
+
+@utility mario-game-header {
+  background-color: var(--color-sky);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  text-shadow: none;
 }
 
