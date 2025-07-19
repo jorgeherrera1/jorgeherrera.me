@@ -16,6 +16,7 @@
   --color-dungeon-gray: #2a2a2a;
   --color-fortress-gray: #3a3a3a;
   --color-castle-light: #4a4a4a;
+  --color-sky: #8CA2D3;
   
   /* === ACCENT COLORS (Lava/Fire) === */
   --color-lava-red: #ff4444;
@@ -35,10 +36,10 @@
   --color-star-silver: #cccccc;
   
   /* === MARIO TITLE BLOCK SYSTEM === */
-  --color-mario-container-bg: #cd853f;     /* Main container background */
-  --color-mario-border-light: #f4d03f;     /* Top/left highlight borders */
-  --color-mario-border-dark: #8b4513;      /* Bottom/right shadow borders */
-  --color-mario-text: #f5deb3;             /* Title text color */
+  --color-mario-container-bg: #CA572E;     /* Main container background */
+  --color-mario-border-light: #FFDCBE;     /* Top/left highlight borders */
+  --color-mario-border-dark: #000005;      /* Bottom/right shadow borders */
+  --color-mario-text: #FFDCBE;             /* Title text color */
   --color-mario-rivet: #f4d03f;            /* Corner rivet color */
   --color-mario-rivet-shadow: #2f1b14;     /* Rivet shadow color */
   --spacing-mario-rivet: 6px;              /* Rivet spacing from edges */
@@ -54,7 +55,7 @@
   --color-danger: var(--color-mario-red);
   
   /* === BACKGROUND COLORS === */
-  --color-bg-primary: var(--color-castle-black);
+  --color-bg-primary: var(--color-sky);
   --color-bg-secondary: var(--color-stone-gray);
   --color-bg-tertiary: var(--color-dungeon-gray);
   --color-bg-card: var(--color-fortress-gray);
@@ -140,7 +141,6 @@
   border-left: 4px solid var(--color-mario-border-light);
   border-right: 4px solid var(--color-mario-border-dark);
   border-bottom: 4px solid var(--color-mario-border-dark);
-  box-shadow: 6px 6px 0px rgba(139, 69, 19, 0.8);
   position: relative;
   padding: 16px 32px;
   margin-bottom: 32px;
@@ -154,8 +154,8 @@
   width: var(--size-mario-rivet);
   height: var(--size-mario-rivet);
   background-color: var(--color-mario-rivet);
-  border-radius: 50%;
-  box-shadow: 1px 1px 0px var(--color-mario-rivet-shadow);
+  border-radius: 0px;
+  box-shadow: 2px 2px 0px var(--color-mario-rivet-shadow);
 }
 
 @utility rivet-top-left {
