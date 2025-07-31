@@ -16,29 +16,16 @@ const posts = await getAllArticles();
 	<body class="bg-bg-primary text-text-primary font-primary">
 		<Header />
 		<main class="max-w-6xl mx-auto px-6 py-12">
-			<header class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-8 mb-12">
-				<div class="flex items-center gap-3 mb-4">
-					<span class="text-3xl">🏰</span>
-					<h1 class="text-coin-gold text-3xl font-normal tracking-wide">ALL LEVELS</h1>
-				</div>
-				<p class="text-text-secondary text-lg">
-					Choose your adventure! Navigate through all available levels in chronological order.
-				</p>
-				<div class="flex items-center gap-2 mt-4">
-					<span class="text-pipe-green">●</span>
-					<span class="text-sm font-mono">{posts.length} LEVELS AVAILABLE</span>
-				</div>
-			</header>
-			
-			<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<ul class="space-y-8">
 				{posts.map((post) => (
-					<ArticleCard 
-						article={post} 
-						showExcerpt={true}
-						class="h-full"
-					/>
+					<li>
+						<ArticleCard 
+							article={post} 
+							showExcerpt={true}
+						/>
+					</li>
 				))}
-			</section>
+			</ul>
 		</main>
 	</body>
 </html>
