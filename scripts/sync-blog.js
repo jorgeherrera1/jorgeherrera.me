@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, rmSync } from 'fs';
 import { join, basename, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -31,16 +31,6 @@ function loadEnvLocal() {
   }
 }
 
-// Convert filename to web-friendly format
-function convertFilename(filename) {
-  const nameWithoutExt = basename(filename, extname(filename));
-  return nameWithoutExt
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '') + '.md';
-}
 
 // Sync blog files
 function syncBlogFiles() {
@@ -59,10 +49,11 @@ function syncBlogFiles() {
   
   const targetPath = join(__dirname, '..', 'src', 'content', 'blog');
   
-  // Ensure target directory exists
-  if (!existsSync(targetPath)) {
-    mkdirSync(targetPath, { recursive: true });
+  // Clean target directory and recreate it
+  if (existsSync(targetPath)) {
+    rmSync(targetPath, { recursive: true, force: true });
   }
+  mkdirSync(targetPath, { recursive: true });
   
   console.log('🎮 Starting blog sync...');
   console.log(`📂 Source: ${obsidianPath}`);
@@ -70,7 +61,6 @@ function syncBlogFiles() {
   console.log('');
   
   let syncedCount = 0;
-  let skippedCount = 0;
   
   try {
     const files = readdirSync(obsidianPath);
@@ -83,37 +73,20 @@ function syncBlogFiles() {
     
     for (const file of markdownFiles) {
       const sourcePath = join(obsidianPath, file);
-      const targetFilename = convertFilename(file);
-      const targetFilePath = join(targetPath, targetFilename);
+      const targetFilePath = join(targetPath, file);
       
       try {
-        const sourceStats = statSync(sourcePath);
         const content = readFileSync(sourcePath, 'utf-8');
-        
-        // Check if target file exists and compare modification times
-        let shouldSync = true;
-        if (existsSync(targetFilePath)) {
-          const targetStats = statSync(targetFilePath);
-          if (sourceStats.mtime <= targetStats.mtime) {
-            shouldSync = false;
-          }
-        }
-        
-        if (shouldSync) {
-          writeFileSync(targetFilePath, content, 'utf-8');
-          console.log(`✅ Synced: ${file} → ${targetFilename}`);
-          syncedCount++;
-        } else {
-          console.log(`⏭️  Skipped: ${file} (no changes)`);
-          skippedCount++;
-        }
+        writeFileSync(targetFilePath, content, 'utf-8');
+        console.log(`✅ Copied: ${file}`);
+        syncedCount++;
       } catch (error) {
-        console.error(`❌ Error syncing ${file}:`, error.message);
+        console.error(`❌ Error copying ${file}:`, error.message);
       }
     }
     
     console.log('');
-    console.log(`🎯 Sync complete! Synced: ${syncedCount}, Skipped: ${skippedCount}`);
+    console.log(`🎯 Sync complete! Copied: ${syncedCount} files`);
     
   } catch (error) {
     console.error('❌ Error reading Obsidian blog folder:', error.message);
