@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync-blog": "node scripts/sync-blog.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
