@@ -17,29 +17,29 @@ const allTags = await getAllTags();
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="bg-bg-primary text-text-primary font-primary">
+	<body>
 		<Header />
 		<main class="max-w-6xl mx-auto px-6 py-12">
 			<!-- QuestionBlock Component Testing -->
 			<div class="mb-8 flex items-center gap-4">
 				<QuestionBlock />
-				<span class="text-text-primary">QuestionBlock Component</span>
+				<span>QuestionBlock Component</span>
 			</div>
 			
 			<!-- 🎮 FIRST SECTION: Two Column Grid (50/50) -->
 			<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
 				<!-- Left Column: Character Info Box -->
-				<div class="bg-bg-card border-2 border-border-primary shadow-block p-8 rounded-md">
+				<div class="border-2 p-8 rounded-md">
 					<div class="flex items-center gap-4 mb-6">
-						<div class="w-12 h-12 bg-coin-gold border-2 border-molten-yellow rounded-md flex items-center justify-center text-castle-black font-bold text-xl">
+						<div class="w-12 h-12 border-2 rounded-md flex items-center justify-center font-bold text-xl">
 							J
 						</div>
 						<div>
-							<h2 class="text-coin-gold text-lg font-normal tracking-wide">PLAYER</h2>
-							<p class="text-text-secondary text-sm">JORGE HERRERA</p>
+							<h2 class="text-lg font-normal tracking-wide">PLAYER</h2>
+							<p class="text-sm">JORGE HERRERA</p>
 						</div>
 					</div>
-					<div class="space-y-4 text-text-secondary leading-relaxed">
+					<div class="space-y-4 leading-relaxed">
 						<p>
 							Welcome to my corner of the web! I'm a developer passionate about creating 
 							digital experiences that push boundaries.
@@ -49,25 +49,25 @@ const allTags = await getAllTags();
 							and the ever-evolving landscape of software engineering.
 						</p>
 						<div class="flex items-center gap-2 mt-6">
-							<span class="text-pipe-green">●</span>
+							<span>●</span>
 							<span class="text-sm">STATUS: ONLINE</span>
 						</div>
 					</div>
 				</div>
 
 				<!-- Right Column: Power-up Tag Cloud -->
-				<div class="bg-bg-card border-2 border-border-primary shadow-block p-8 rounded-md">
-					<h2 class="text-coin-gold text-lg font-normal tracking-wide mb-6 flex items-center gap-2">
-						<span class="text-fire-orange">⚡</span>
+				<div class="border-2 p-8 rounded-md">
+					<h2 class="text-lg font-normal tracking-wide mb-6 flex items-center gap-2">
+						<span>⚡</span>
 						POWER-UPS
 					</h2>
 					<div class="flex flex-wrap gap-3">
 						{allTags.map(tag => (
 							<a 
 								href={`/tags/${typeof tag === 'string' ? tag : tag.name}`}
-								class="inline-flex items-center gap-2 px-3 py-2 bg-mario-red border-2 border-lava-red text-text-primary text-sm rounded-md shadow-pixel hover:bg-lava-red hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200"
+								class="inline-flex items-center gap-2 px-3 py-2 border-2 text-sm rounded-md hover:translate-x-1 hover:translate-y-1 transition-all duration-200"
 							>
-								<span class="text-molten-yellow">⭐</span>
+								<span>⭐</span>
 								{(typeof tag === 'string' ? tag : tag.name).toUpperCase()}
 							</a>
 						))}
@@ -78,13 +78,13 @@ const allTags = await getAllTags();
 			<!-- 🎮 SECOND SECTION: Level Selection (Three Column Grid) -->
 			<section>
 				<div class="flex justify-between items-center mb-8">
-					<h2 class="text-coin-gold text-2xl font-normal tracking-wide flex items-center gap-3">
-						<span class="text-fire-orange">🏰</span>
+					<h2 class="text-2xl font-normal tracking-wide flex items-center gap-3">
+						<span>🏰</span>
 						LATEST ARTICLES
 					</h2>
 					<a 
 						href="/blog" 
-						class="px-4 py-2 bg-bg-card border-2 border-border-primary text-text-secondary hover:text-coin-gold hover:border-fire-orange shadow-pixel hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm tracking-wide"
+						class="px-4 py-2 border-2 hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm tracking-wide"
 					>
 						VIEW ALL →
 					</a>

@@ -12,12 +12,12 @@ function isActive(href: string): boolean {
 const currentDate = getCurrentDateMario();
 ---
 
-<header class="mario-game-header gap-0 p-4 items-start font-primary text-white relative min-h-20">
+<header class="gap-0 p-4 items-start text-white relative min-h-20">
 	<!-- Column 1: JORGE + Current Date -->
 	<div class="flex flex-col items-center gap-0.5 text-center w-full p-1 justify-self-center">
 		<a 
 			href="/" 
-			class="text-xl font-normal tracking-wider text-white no-underline transition-all block mb-0.5 hover:text-coin-gold hover:scale-105"
+			class="text-xl font-normal tracking-wider text-white no-underline transition-all block mb-0.5 hover:scale-105"
 		>
 			JORGE H
 		</a>
@@ -45,8 +45,8 @@ const currentDate = getCurrentDateMario();
 		<a 
 			href="/blog" 
 			class:list={[
-				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
-				{ "text-lava-red": isActive('/blog') }
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:scale-105",
+				{ "": isActive('/blog') }
 			]}
 		>
 			BLOG
@@ -54,8 +54,8 @@ const currentDate = getCurrentDateMario();
 		<a 
 			href="/tags" 
 			class:list={[
-				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
-				{ "text-lava-red": isActive('/tags') }
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:scale-105",
+				{ "": isActive('/tags') }
 			]}
 		>
 			TAGS
@@ -63,8 +63,8 @@ const currentDate = getCurrentDateMario();
 		<a 
 			href="/about" 
 			class:list={[
-				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:text-coin-gold hover:scale-105",
-				{ "text-lava-red": isActive('/about') }
+				"text-xl text-white no-underline px-2 py-1 transition-all tracking-wide font-normal text-center hover:scale-105",
+				{ "": isActive('/about') }
 			]}
 		>
 			ABOUT

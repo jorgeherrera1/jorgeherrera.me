@@ -5,26 +5,26 @@ import Header from '../../components/Header.astro';
 
 const tags = await getAllTags();
 
-// Power-up styling function (same as TagList)
+// Power-up styling function (structural only)
 const getPowerUpStyle = (tagName: string) => {
   const lowerTag = tagName.toLowerCase();
   
   if (lowerTag.includes('javascript') || lowerTag.includes('typescript') || lowerTag.includes('react') || lowerTag.includes('code')) {
-    return { icon: '🔥', bgClass: 'bg-lava-red', borderClass: 'border-mario-red', hoverClass: 'hover:bg-mario-red' };
+    return { icon: '🔥' };
   }
   if (lowerTag.includes('css') || lowerTag.includes('design') || lowerTag.includes('ui') || lowerTag.includes('frontend')) {
-    return { icon: '❄️', bgClass: 'bg-ice-blue', borderClass: 'border-sky-blue', hoverClass: 'hover:bg-sky-blue' };
+    return { icon: '❄️' };
   }
   if (lowerTag.includes('backend') || lowerTag.includes('server') || lowerTag.includes('api') || lowerTag.includes('database')) {
-    return { icon: '🍄', bgClass: 'bg-pipe-green', borderClass: 'border-pipe-green', hoverClass: 'hover:bg-pipe-green hover:brightness-110' };
+    return { icon: '🍄' };
   }
   if (lowerTag.includes('tutorial') || lowerTag.includes('guide') || lowerTag.includes('learn') || lowerTag.includes('tips')) {
-    return { icon: '⭐', bgClass: 'bg-coin-gold', borderClass: 'border-molten-yellow', hoverClass: 'hover:bg-molten-yellow' };
+    return { icon: '⭐' };
   }
   if (lowerTag.includes('tools') || lowerTag.includes('devops') || lowerTag.includes('deployment') || lowerTag.includes('workflow')) {
-    return { icon: '⚡', bgClass: 'bg-power-purple', borderClass: 'border-power-purple', hoverClass: 'hover:bg-power-purple hover:brightness-110' };
+    return { icon: '⚡' };
   }
-  return { icon: '🪙', bgClass: 'bg-fire-orange', borderClass: 'border-ember-orange', hoverClass: 'hover:bg-ember-orange' };
+  return { icon: '🪙' };
 };
 ---
 
@@ -33,20 +33,20 @@ const getPowerUpStyle = (tagName: string) => {
     <BaseHead title="Power-up Collection" description="Browse articles by power-up type" />
   </head>
 
-  <body class="bg-bg-primary text-text-primary font-primary">
+  <body>
     <Header />
     <main class="max-w-6xl mx-auto px-6 py-12">
-      <header class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-8 mb-12">
+      <header class="border-2 rounded-md p-8 mb-12">
         <div class="flex items-center gap-3 mb-4">
           <span class="text-3xl">⚡</span>
-          <h1 class="text-coin-gold text-3xl font-normal tracking-wide">POWER-UP COLLECTION</h1>
+          <h1 class="text-3xl tracking-wide">POWER-UP COLLECTION</h1>
         </div>
-        <p class="text-text-secondary text-lg">
+        <p class="text-lg">
           Discover levels by power-up type! Each power-up represents a different topic area.
         </p>
         <div class="flex items-center gap-2 mt-4">
-          <span class="text-pipe-green">●</span>
-          <span class="text-sm font-mono">{tags.length} POWER-UP TYPES DISCOVERED</span>
+          <span>●</span>
+          <span class="text-sm">{tags.length} POWER-UP TYPES DISCOVERED</span>
         </div>
       </header>
       
@@ -59,12 +59,12 @@ const getPowerUpStyle = (tagName: string) => {
                 return (
                   <a 
                     href={`/tags/${normalizeTag(tag.name)}`}
-                    class={`flex flex-col items-center p-6 border-2 rounded-md shadow-block transition-all duration-200 text-castle-black font-bold ${powerUp.bgClass} ${powerUp.borderClass} ${powerUp.hoverClass} hover:shadow-none hover:translate-x-1 hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-coin-gold focus:ring-offset-2 focus:ring-offset-bg-primary`}
+                    class="flex flex-col items-center p-6 border-2 rounded-md transition-all duration-200 hover:translate-x-1 hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
                   >
                     <span class="text-4xl mb-3">{powerUp.icon}</span>
-                    <span class="font-mono text-sm tracking-wide text-center mb-2">{tag.name.toUpperCase()}</span>
-                    <div class="bg-castle-black text-text-primary px-3 py-1 rounded-sm text-xs font-mono">
+                    <span class="text-sm tracking-wide text-center mb-2">{tag.name.toUpperCase()}</span>
+                    <div class="px-3 py-1 rounded-sm text-xs">
                       {tag.count} LEVEL{tag.count === 1 ? '' : 'S'}
                     </div>
                   </a>
@@ -73,9 +73,9 @@ const getPowerUpStyle = (tagName: string) => {
             </div>
           </div>
         ) : (
-          <div class="bg-bg-card border-2 border-border-primary shadow-block rounded-md p-8 text-center">
+          <div class="border-2 rounded-md p-8 text-center">
             <span class="text-4xl mb-4 block">❌</span>
-            <p class="text-text-secondary">No power-ups discovered yet.</p>
+            <p>No power-ups discovered yet.</p>
           </div>
         )}
       </div>

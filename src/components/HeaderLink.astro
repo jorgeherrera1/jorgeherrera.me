@@ -12,12 +12,12 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 <a 
 	href={href} 
 	class:list={[
-		"font-primary text-sm px-4 py-2 border-2 transition-all duration-200 tracking-wide",
-		"hover:translate-x-1 hover:translate-y-1 hover:shadow-none",
-		"focus:outline-none focus:ring-2 focus:ring-coin-gold focus:ring-offset-2 focus:ring-offset-bg-primary",
+		"text-sm px-4 py-2 border-2 transition-all duration-200 tracking-wide",
+		"hover:translate-x-1 hover:translate-y-1",
+		"focus:outline-none focus:ring-2",
 		isActive 
-			? "bg-lava-red text-text-primary border-mario-red shadow-pixel" 
-			: "bg-bg-card text-text-secondary border-border-primary shadow-pixel hover:bg-fortress-gray hover:text-coin-gold hover:border-fire-orange",
+			? "" 
+			: "",
 		className
 	]} 
 	{...props}

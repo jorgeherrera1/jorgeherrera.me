@@ -17,9 +17,9 @@ const getPowerUpStyle = (tag: string) => {
   if (lowerTag.includes('javascript') || lowerTag.includes('typescript') || lowerTag.includes('react') || lowerTag.includes('code')) {
     return {
       icon: '🔥',
-      bgClass: 'bg-lava-red',
-      borderClass: 'border-mario-red',
-      hoverClass: 'hover:bg-mario-red'
+      bgClass: '',
+      borderClass: '',
+      hoverClass: ''
     };
   }
   
@@ -27,9 +27,9 @@ const getPowerUpStyle = (tag: string) => {
   if (lowerTag.includes('css') || lowerTag.includes('design') || lowerTag.includes('ui') || lowerTag.includes('frontend')) {
     return {
       icon: '❄️',
-      bgClass: 'bg-ice-blue',
-      borderClass: 'border-sky-blue',
-      hoverClass: 'hover:bg-sky-blue'
+      bgClass: '',
+      borderClass: '',
+      hoverClass: ''
     };
   }
   
@@ -37,9 +37,9 @@ const getPowerUpStyle = (tag: string) => {
   if (lowerTag.includes('backend') || lowerTag.includes('server') || lowerTag.includes('api') || lowerTag.includes('database')) {
     return {
       icon: '🍄',
-      bgClass: 'bg-pipe-green',
-      borderClass: 'border-pipe-green',
-      hoverClass: 'hover:bg-pipe-green hover:brightness-110'
+      bgClass: '',
+      borderClass: '',
+      hoverClass: 'hover:brightness-110'
     };
   }
   
@@ -47,9 +47,9 @@ const getPowerUpStyle = (tag: string) => {
   if (lowerTag.includes('tutorial') || lowerTag.includes('guide') || lowerTag.includes('learn') || lowerTag.includes('tips')) {
     return {
       icon: '⭐',
-      bgClass: 'bg-coin-gold',
-      borderClass: 'border-molten-yellow',
-      hoverClass: 'hover:bg-molten-yellow'
+      bgClass: '',
+      borderClass: '',
+      hoverClass: ''
     };
   }
   
@@ -57,18 +57,18 @@ const getPowerUpStyle = (tag: string) => {
   if (lowerTag.includes('tools') || lowerTag.includes('devops') || lowerTag.includes('deployment') || lowerTag.includes('workflow')) {
     return {
       icon: '⚡',
-      bgClass: 'bg-power-purple',
-      borderClass: 'border-power-purple',
-      hoverClass: 'hover:bg-power-purple hover:brightness-110'
+      bgClass: '',
+      borderClass: '',
+      hoverClass: 'hover:brightness-110'
     };
   }
   
   // Default coin style
   return {
     icon: '🪙',
-    bgClass: 'bg-fire-orange',
-    borderClass: 'border-ember-orange',
-    hoverClass: 'hover:bg-ember-orange'
+    bgClass: '',
+    borderClass: '',
+    hoverClass: ''
   };
 };
 ---
@@ -77,7 +77,7 @@ const getPowerUpStyle = (tag: string) => {
   <div class={`flex flex-wrap gap-2 ${className}`}>
     {tags.map(tag => {
       const powerUp = getPowerUpStyle(tag);
-      const baseClasses = `inline-flex items-center gap-1 px-2 py-1 text-xs font-mono tracking-wide border-2 rounded-sm shadow-pixel transition-all duration-200 text-castle-black font-bold ${powerUp.bgClass} ${powerUp.borderClass} ${powerUp.hoverClass} hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5`;
+      const baseClasses = `inline-flex items-center gap-1 px-2 py-1 text-xs tracking-wide border-2 rounded-sm transition-all duration-200 font-bold ${powerUp.bgClass} ${powerUp.borderClass} ${powerUp.hoverClass} hover:translate-x-0.5 hover:translate-y-0.5`;
       
       return showLinks ? (
         <a 
