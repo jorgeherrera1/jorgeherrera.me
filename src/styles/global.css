@@ -8,5 +8,12 @@
 }
 
 @theme {
+  --color-*: initial;
+  --color-mario-bros-red: #CB572E;
+  --color-mario-bros-sky: #549BFF;
+  --color-mario-bros-lava: #FC2D00;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
   --font-pixelated: "Press Start 2P", monospace;
 }
