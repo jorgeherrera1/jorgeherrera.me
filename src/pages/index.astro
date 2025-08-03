@@ -57,9 +57,8 @@ const allTags = await getAllTags();
 
 				<!-- Right Column: Power-up Tag Cloud -->
 				<div class="border-2 p-8 rounded-md">
-					<h2 class="text-lg font-normal tracking-wide mb-6 flex items-center gap-2">
-						<span>⚡</span>
-						POWER-UPS
+					<h2 class="font-normal tracking-wide mb-6 flex items-center gap-2">
+						TAGS
 					</h2>
 					<div class="flex flex-wrap gap-3">
 						{allTags.map(tag => (
@@ -67,7 +66,6 @@ const allTags = await getAllTags();
 								href={`/tags/${typeof tag === 'string' ? tag : tag.name}`}
 								class="inline-flex items-center gap-2 px-3 py-2 border-2 text-sm rounded-md hover:translate-x-1 hover:translate-y-1 transition-all duration-200"
 							>
-								<span>⭐</span>
 								{(typeof tag === 'string' ? tag : tag.name).toUpperCase()}
 							</a>
 						))}
