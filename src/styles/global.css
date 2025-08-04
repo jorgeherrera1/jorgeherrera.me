@@ -9,11 +9,10 @@
 
 @theme {
   --color-*: initial;
-  --color-mario-bros-red: #CB572E;
   --color-mario-bros-sky: #549BFF;
-  --color-mario-bros-lava: #FC2D00;
+  --color-mario-bros-lava: oklch(0.6373 0.241651 31.9773);
   --color-mario-bros-question-block: #FDA22B;
-  
+
   --color-white: #FFFFFF;
   --color-black: #000000;
 
