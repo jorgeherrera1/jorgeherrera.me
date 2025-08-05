@@ -22,16 +22,6 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 <article class={`h-full flex flex-col border-2 hover:translate-x-1 hover:translate-y-1 transition-all duration-200 group focus-within:ring-2 focus-within:ring-offset-2 rounded-md overflow-hidden ${className}`}>
   <!-- Level Header with Game UI -->
   <header class="border-b-2 p-4">
-    <div class="flex items-center justify-between mb-3">
-      <div class="flex items-center gap-2">
-        <span class="text-lg">{levelIcon}</span>
-        <span class="text-xs tracking-wide">LV</span>
-      </div>
-      <div class="text-xs">
-        <span>{difficulty}</span>
-      </div>
-    </div>
-    
     <h2 class="text-lg font-normal leading-tight mb-3">
       <a 
         href={`/blog/${article.id}`}
