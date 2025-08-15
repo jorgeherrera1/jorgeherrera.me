@@ -254,6 +254,88 @@
   right: 4px;
 }
 
+/* === MARIO CARD BLOCK VARIANTS === */
+
+@utility mario-card-block {
+  position: relative;
+  border-radius: 0;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s var(--ease-retro);
+  overflow: hidden;
+}
+
+/* Easy Level - Classic Question Block */
+@utility mario-card-easy {
+  background-color: var(--color-mario-container-bg);
+  border-top: 4px solid #FFB347;
+  border-left: 4px solid #FFB347;
+  border-right: 4px solid #CC7722;
+  border-bottom: 4px solid #CC7722;
+}
+
+/* Medium Level - Fire Flower Block */
+@utility mario-card-medium {
+  background-color: var(--color-mario-red);
+  border-top: 4px solid #FF6666;
+  border-left: 4px solid #FF6666;
+  border-right: 4px solid #AA1111;
+  border-bottom: 4px solid #AA1111;
+}
+
+/* Hard Level - Star Power Block */
+@utility mario-card-hard {
+  background-color: var(--color-power-purple);
+  border-top: 4px solid #AA66FF;
+  border-left: 4px solid #AA66FF;
+  border-right: 4px solid #662299;
+  border-bottom: 4px solid #662299;
+}
+
+/* Card Block Rivets */
+@utility mario-card-rivet {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #000000;
+  border-radius: 0;
+  z-index: 10;
+}
+
+@utility mario-card-rivet-tl {
+  top: 6px;
+  left: 6px;
+}
+
+@utility mario-card-rivet-tr {
+  top: 6px;
+  right: 6px;
+}
+
+@utility mario-card-rivet-bl {
+  bottom: 6px;
+  left: 6px;
+}
+
+@utility mario-card-rivet-br {
+  bottom: 6px;
+  right: 6px;
+}
+
+/* Card Level Icon */
+@utility mario-level-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 20px;
+  z-index: 15;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.7);
+}
+
+/* Text Shadow Utilities */
+@utility text-shadow-pixel {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+}
+
 /* === MARIO GAME UI HEADER === */
 
 @utility mario-game-header {
@@ -261,5 +343,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   text-shadow: none;
+}
+
+/* === MARIO CARD HOVER EFFECTS === */
+
+.mario-card-block:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.4);
 }
 

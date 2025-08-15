@@ -14,34 +14,65 @@ const { article, variant = 'grid', showExcerpt = true, class: className = '' } =
 const readingTime = calculateReadingTime(article.body);
 const excerpt = showExcerpt ? generateExcerpt(article.body, 150) : '';
 
-// Game level indicators based on reading time
-const levelIcon = readingTime <= 3 ? "🟢" : readingTime <= 7 ? "🟡" : "🔴";
-const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HARD";
+// Mario block styling based on reading time
+const blockData = readingTime <= 3 
+  ? { 
+      style: "mario-card-easy", 
+      icon: "❓", 
+      difficulty: "EASY", 
+      powerUp: "🟢",
+      bgClass: "bg-yellow-100"
+    }
+  : readingTime <= 7 
+  ? { 
+      style: "mario-card-medium", 
+      icon: "🔥", 
+      difficulty: "MEDIUM", 
+      powerUp: "🟡",
+      bgClass: "bg-red-100"
+    }
+  : { 
+      style: "mario-card-hard", 
+      icon: "⭐", 
+      difficulty: "HARD", 
+      powerUp: "🔴",
+      bgClass: "bg-purple-100"
+    };
 ---
 
-<article class={`h-full flex flex-col bg-bg-card border-2 border-border-primary shadow-block hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 group focus-within:ring-2 focus-within:ring-coin-gold focus-within:ring-offset-2 focus-within:ring-offset-bg-primary rounded-md overflow-hidden ${className}`}>
-  <!-- Level Header with Game UI -->
-  <header class="bg-bg-tertiary border-b-2 border-border-primary p-4">
-    <div class="flex items-center justify-between mb-3">
+<!-- Mario Question Block Card -->
+<article class={`h-full flex flex-col mario-card-block ${blockData.style} group focus-within:ring-2 focus-within:ring-coin-gold focus-within:ring-offset-2 focus-within:ring-offset-bg-primary ${className}`}>
+  <!-- Corner Rivets -->
+  <div class="mario-card-rivet mario-card-rivet-tl"></div>
+  <div class="mario-card-rivet mario-card-rivet-tr"></div>
+  <div class="mario-card-rivet mario-card-rivet-bl"></div>
+  <div class="mario-card-rivet mario-card-rivet-br"></div>
+  
+  <!-- Level Icon -->
+  <div class="mario-level-icon">{blockData.icon}</div>
+  
+  <!-- Block Header with Game UI -->
+  <header class="relative p-6 pt-12">
+    <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-2">
-        <span class="text-lg">{levelIcon}</span>
-        <span class="text-xs text-text-muted font-mono tracking-wide">LV</span>
+        <span class="text-lg">{blockData.powerUp}</span>
+        <span class="text-xs text-castle-black font-mono tracking-wide font-bold">LV</span>
       </div>
-      <div class="text-xs text-text-muted font-mono">
-        <span class="text-fire-orange">{difficulty}</span>
+      <div class="text-xs text-castle-black font-mono font-bold">
+        <span>{blockData.difficulty}</span>
       </div>
     </div>
     
-    <h2 class="text-lg font-normal leading-tight mb-3">
+    <h2 class="text-lg font-normal leading-tight mb-4">
       <a 
         href={`/blog/${article.id}`}
-        class="text-coin-gold hover:text-molten-yellow no-underline transition-colors focus:outline-none group-hover:text-molten-yellow"
+        class="text-castle-black hover:text-molten-yellow no-underline transition-colors focus:outline-none group-hover:text-molten-yellow text-shadow-pixel font-bold"
       >
         {article.data.title.toUpperCase()}
       </a>
     </h2>
     
-    <div class="flex items-center justify-between text-xs text-text-muted font-mono">
+    <div class="flex items-center justify-between text-xs text-castle-black font-mono font-bold">
       <time datetime={formatDateForAttribute(article.data.date)}>
         {formatDate(article.data.date)}
       </time>
@@ -52,10 +83,10 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
     </div>
   </header>
 
-  <!-- Level Preview -->
-  <div class="p-4 flex-grow flex flex-col">
+  <!-- Level Preview Content -->
+  <div class="p-6 pt-0 flex-grow flex flex-col">
     {showExcerpt && excerpt && (
-      <div class="text-text-secondary text-sm leading-relaxed mb-4 flex-grow">
+      <div class={`text-castle-black text-sm leading-relaxed mb-4 flex-grow p-3 rounded-sm ${blockData.bgClass}`}>
         {excerpt}...
       </div>
     )}
@@ -64,7 +95,7 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
     <div class="mt-auto">
       <a 
         href={`/blog/${article.id}`}
-        class="inline-flex items-center gap-2 px-4 py-2 bg-lava-red border-2 border-mario-red text-text-primary text-sm font-mono tracking-wide shadow-pixel hover:bg-mario-red hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 w-full justify-center rounded-sm"
+        class="inline-flex items-center gap-2 px-4 py-3 bg-castle-black border-2 border-dungeon-gray text-text-primary text-sm font-mono tracking-wide font-bold shadow-pixel hover:bg-dungeon-gray hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 w-full justify-center rounded-sm"
       >
         <span>▶️</span>
         START LEVEL
@@ -73,7 +104,7 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
   </div>
 
   <!-- Power-ups Footer -->
-  <footer class="p-4 bg-bg-tertiary border-t-2 border-border-primary">
+  <footer class="p-4 bg-castle-black border-t-2 border-dungeon-gray">
     <TagList tags={article.data.tags || []} className="" />
   </footer>
 </article>
