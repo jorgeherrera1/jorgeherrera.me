@@ -8,8 +8,8 @@
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -45,7 +45,7 @@
   --color-black: #000000;
 
   --font-pixelated: "Press Start 2P", monospace;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-mono: "Source Code Pro", monospace;
 
   --text-shadow-2xs: 1px 1px 0px var(--color-black);
   --text-shadow-xs: 1px 1px 0px var(--color-black), 1px 2px 0px var(--color-black);
@@ -89,7 +89,7 @@
 @layer components {
   /* Default monospace font for everything */
   body {
-    @apply font-mono bg-mario-bros-blue-600;
+    @apply font-mono bg-mario-bros-blue-700;
   }
 
   /* Headings use pixelated font */
