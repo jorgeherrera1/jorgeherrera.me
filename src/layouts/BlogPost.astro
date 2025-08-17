@@ -25,15 +25,15 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 		<BaseHead title={title} description={description} />
 	</head>
 
-	<body class="bg-bg-primary text-text-primary font-primary">
+	<body>
 		<Header />
 		
 		<!-- 🗺️ FLOATING GAME MAP (Table of Contents) -->
 		<aside class="fixed top-1/2 right-8 -translate-y-1/2 max-h-[60vh] overflow-y-auto z-30 hidden xl:block">
-			<div class="bg-bg-card border-2 border-border-accent shadow-block rounded-md p-4 min-w-64">
-				<div class="flex items-center gap-2 mb-4 pb-2 border-b-2 border-border-primary">
-					<span class="text-fire-orange">🗺️</span>
-					<h3 class="text-coin-gold text-sm font-mono tracking-wide">LEVEL MAP</h3>
+			<div class="border-2 rounded-md p-4 min-w-64">
+				<div class="flex items-center gap-2 mb-4 pb-2 border-b-2">
+					<span>🗺️</span>
+					<h3 class="text-sm tracking-wide">LEVEL MAP</h3>
 				</div>
 				<nav class="toc-nav text-xs space-y-1">
 					<!-- TOC will be populated by JavaScript -->
@@ -47,7 +47,7 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 				<nav class="mb-8">
 					<a 
 						href="/blog" 
-						class="inline-flex items-center gap-2 px-4 py-2 bg-bg-card border-2 border-border-primary text-text-secondary hover:text-coin-gold hover:border-fire-orange shadow-pixel hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm font-mono tracking-wide"
+						class="inline-flex items-center gap-2 px-4 py-2 border-2 hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm tracking-wide"
 						aria-label="Back to level selection"
 					>
 						<span>◀️</span>
@@ -59,18 +59,18 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 				<MarioTitleBlock title={title} />
 
 				<!-- 📖 LEVEL CONTENT -->
-				<article class="bg-bg-secondary border-2 border-border-primary shadow-block rounded-md p-8 mb-8">
-					<div class="prose prose-xl prose-invert max-w-none font-mono leading-8 
-						[&>p]:mb-8 [&>p]:leading-8 [&>p]:text-text-secondary 
-						[&>h1]:text-coin-gold [&>h1]:font-primary [&>h1]:text-2xl [&>h1]:font-normal [&>h1]:tracking-wide [&>h1]:border-b-2 [&>h1]:border-border-primary [&>h1]:pb-2 [&>h1]:mb-6 [&>h1]:mt-8
-						[&>h2]:text-coin-gold [&>h2]:font-primary [&>h2]:text-xl [&>h2]:font-normal [&>h2]:tracking-wide [&>h2]:border-b-2 [&>h2]:border-border-primary [&>h2]:pb-2 [&>h2]:mb-6 [&>h2]:mt-8
-						[&>h3]:text-coin-gold [&>h3]:font-primary [&>h3]:text-lg [&>h3]:font-normal [&>h3]:tracking-wide [&>h3]:border-b-2 [&>h3]:border-border-primary [&>h3]:pb-2 [&>h3]:mb-6 [&>h3]:mt-8
-						[&>a]:text-ice-blue [&>a]:no-underline hover:[&>a]:text-sky-blue hover:[&>a]:underline
-						[&>strong]:text-text-primary [&>strong]:font-bold
-						[&>code]:bg-bg-tertiary [&>code]:text-molten-yellow [&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:text-sm
-						[&>pre]:bg-bg-tertiary [&>pre]:border-2 [&>pre]:border-border-primary [&>pre]:shadow-pixel [&>pre]:p-4 [&>pre]:rounded-md [&>pre]:mb-8
-						[&_.astro-code]:bg-bg-tertiary [&_.astro-code]:border-2 [&_.astro-code]:border-border-primary [&_.astro-code]:shadow-pixel [&_.astro-code]:rounded-md [&_.astro-code]:p-4
-						[&>blockquote]:border-l-4 [&>blockquote]:border-fire-orange [&>blockquote]:bg-bg-tertiary [&>blockquote]:p-4 [&>blockquote]:rounded-r-md [&>blockquote]:mb-8
+				<article class="border-2 rounded-md p-8 mb-8">
+					<div class="prose prose-xl max-w-none leading-8 
+						[&>p]:mb-8 [&>p]:leading-8 
+						[&>h1]:text-2xl [&>h1]:font-normal [&>h1]:tracking-wide [&>h1]:border-b-2 [&>h1]:pb-2 [&>h1]:mb-6 [&>h1]:mt-8
+						[&>h2]:text-xl [&>h2]:font-normal [&>h2]:tracking-wide [&>h2]:border-b-2 [&>h2]:pb-2 [&>h2]:mb-6 [&>h2]:mt-8
+						[&>h3]:text-lg [&>h3]:font-normal [&>h3]:tracking-wide [&>h3]:border-b-2 [&>h3]:pb-2 [&>h3]:mb-6 [&>h3]:mt-8
+						[&>a]:no-underline hover:[&>a]:underline
+						[&>strong]:font-bold
+						[&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:text-sm
+						[&>pre]:border-2 [&>pre]:p-4 [&>pre]:rounded-md [&>pre]:mb-8
+						[&_.astro-code]:border-2 [&_.astro-code]:rounded-md [&_.astro-code]:p-4
+						[&>blockquote]:border-l-4 [&>blockquote]:p-4 [&>blockquote]:rounded-r-md [&>blockquote]:mb-8
 						[&>ul]:mb-8 [&>ul]:pl-8 [&>li]:mb-2 [&>li]:leading-7
 						[&>ol]:mb-8 [&>ol]:pl-8">
 						<slot />
@@ -79,10 +79,10 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 
 				<!-- 🎯 RELATED LEVELS -->
 				{relatedArticles && relatedArticles.length > 0 && (
-					<section class="bg-bg-card border-2 border-border-primary shadow-block rounded-md p-8">
+					<section class="border-2 rounded-md p-8">
 						<div class="flex items-center gap-2 mb-6">
-							<span class="text-fire-orange">🎯</span>
-							<h2 class="text-coin-gold text-xl font-normal tracking-wide">RELATED LEVELS</h2>
+							<span>🎯</span>
+							<h2 class="text-xl font-normal tracking-wide">RELATED LEVELS</h2>
 						</div>
 						<RelatedArticles articles={relatedArticles} />
 					</section>
@@ -107,7 +107,7 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 					const link = document.createElement('a');
 					link.href = `#${id}`;
 					link.textContent = heading.textContent;
-					link.className = `block py-1 px-2 text-text-secondary hover:text-coin-gold hover:bg-bg-tertiary rounded-sm transition-colors duration-200 font-mono tracking-wide border-l-2 border-transparent hover:border-fire-orange ${level > 2 ? 'ml-4 text-xs' : 'text-sm'}`;
+					link.className = `block py-1 px-2 rounded-sm transition-colors duration-200 tracking-wide border-l-2 border-transparent ${level > 2 ? 'ml-4 text-xs' : 'text-sm'}`;
 					
 					tocNav.appendChild(link);
 				});
@@ -126,15 +126,13 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 					
 					// Update active link
 					document.querySelectorAll('.toc-nav a').forEach(link => {
-						link.classList.remove('text-coin-gold', 'bg-bg-tertiary', 'border-fire-orange');
-						link.classList.add('text-text-secondary', 'border-transparent');
+						link.classList.add('border-transparent');
 					});
 					
 					if (current) {
 						const activeLink = document.querySelector(`.toc-nav a[href="#${current}"]`);
 						if (activeLink) {
-							activeLink.classList.remove('text-text-secondary', 'border-transparent');
-							activeLink.classList.add('text-coin-gold', 'bg-bg-tertiary', 'border-fire-orange');
+							activeLink.classList.remove('border-transparent');
 						}
 					}
 				}

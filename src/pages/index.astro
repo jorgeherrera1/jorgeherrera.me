@@ -2,14 +2,15 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import ArticleCardGrid from '../components/content/ArticleCardGrid.astro';
-import TagList from '../components/TagList.astro';
-import QuestionBlock from '../components/QuestionBlock.astro';
+import ArcadeButton from '../components/ArcadeButton.astro';
+// removed MarioCoin; no longer used in title background
+import CloudWide from '../components/clouds/CloudWide.astro';
+import CloudTall from '../components/clouds/CloudTall.astro';
+import CloudSmall from '../components/clouds/CloudSmall.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getAllArticles } from '../utils/blog';
-import { getAllTags } from '../utils/tags';
 
 const articles = await getAllArticles();
-const allTags = await getAllTags();
 ---
 
 <!doctype html>
@@ -17,60 +18,59 @@ const allTags = await getAllTags();
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="bg-bg-primary text-text-primary font-primary">
+	<body>
 		<Header />
 		<main class="max-w-6xl mx-auto px-6 py-12">
-			<!-- QuestionBlock Component Testing -->
-			<div class="mb-8 flex items-center gap-4">
-				<QuestionBlock />
-				<span class="text-text-primary">QuestionBlock Component</span>
-			</div>
-			
-			<!-- 🎮 FIRST SECTION: Two Column Grid (50/50) -->
-			<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-				<!-- Left Column: Character Info Box -->
-				<div class="bg-bg-card border-2 border-border-primary shadow-block p-8 rounded-md">
-					<div class="flex items-center gap-4 mb-6">
-						<div class="w-12 h-12 bg-coin-gold border-2 border-molten-yellow rounded-md flex items-center justify-center text-castle-black font-bold text-xl">
-							J
+			<!-- 🎮 TITLE SCREEN: Unique intro panel -->
+			<section class="mb-16">
+				<div class="relative overflow-hidden">
+					<!-- vignette sky backdrop -->
+					<div class="relative rounded-sm border-4 border-black bg-mario-bros-blue-400 overflow-hidden">
+						<!-- animated background elements: pixel-art clouds -->
+						<div class="absolute inset-0 z-10 pointer-events-none">
+							<!-- Cloud 1 (wide) -->
+							<div class="cloud cloud-1" aria-hidden="true">
+								<CloudWide class="cloud-svg" />
+							</div>
+							<!-- Cloud 2 (tall) -->
+							<div class="cloud cloud-2" aria-hidden="true">
+								<CloudTall class="cloud-svg" />
+							</div>
+							<!-- Cloud 3 (small) -->
+							<div class="cloud cloud-3" aria-hidden="true">
+								<CloudSmall class="cloud-svg" />
+							</div>
 						</div>
-						<div>
-							<h2 class="text-coin-gold text-lg font-normal tracking-wide">PLAYER</h2>
-							<p class="text-text-secondary text-sm">JORGE HERRERA</p>
-						</div>
-					</div>
-					<div class="space-y-4 text-text-secondary leading-relaxed">
-						<p>
-							Welcome to my corner of the web! I'm a developer passionate about creating 
-							digital experiences that push boundaries.
-						</p>
-						<p>
-							Here you'll find my thoughts on technology, web development, design patterns, 
-							and the ever-evolving landscape of software engineering.
-						</p>
-						<div class="flex items-center gap-2 mt-6">
-							<span class="text-pipe-green">●</span>
-							<span class="text-sm">STATUS: ONLINE</span>
-						</div>
-					</div>
-				</div>
 
-				<!-- Right Column: Power-up Tag Cloud -->
-				<div class="bg-bg-card border-2 border-border-primary shadow-block p-8 rounded-md">
-					<h2 class="text-coin-gold text-lg font-normal tracking-wide mb-6 flex items-center gap-2">
-						<span class="text-fire-orange">⚡</span>
-						POWER-UPS
-					</h2>
-					<div class="flex flex-wrap gap-3">
-						{allTags.map(tag => (
-							<a 
-								href={`/tags/${typeof tag === 'string' ? tag : tag.name}`}
-								class="inline-flex items-center gap-2 px-3 py-2 bg-mario-red border-2 border-lava-red text-text-primary text-sm rounded-md shadow-pixel hover:bg-lava-red hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200"
+						<div
+							class="absolute inset-0 z-0 opacity-15 pointer-events-none"
+							style="background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);"
+						></div>
+
+						<!-- title -->
+						<div class="relative z-20 px-6 md:px-8 pt-8 pb-2 text-center">
+							<h1 class="font-pixelated text-white text-3xl md:text-4xl tracking-widest text-shadow-lg">JORGE HERRERA</h1>
+							<p class="mt-2 text-white/90 text-xs md:text-sm tracking-wider">Created this blog for me; don't care if you don't like it</p>
+						</div>
+
+						<!-- menu options -->
+						<div class="relative z-20 px-6 md:px-8 py-6 grid place-items-center">
+							<div class="w-full max-w-md space-y-3">
+								<ArcadeButton href="/about" label="START" />
+								<ArcadeButton href="/blog" label="VIEW BLOG" variant="secondary" heightClass="h-10" labelClass="text-xs" />
+								<ArcadeButton href="/tags" label="EXPLORE TAGS" variant="secondary" heightClass="h-10" labelClass="text-xs" />
+							</div>
+						</div>
+
+						<!-- footer like copyright line -->
+						<div class="relative z-20 px-6 md:px-8 pb-4">
+							<div
+								class="h-10 border-t-4 border-black bg-mario-bros-lava-700 grid place-items-center"
+								style="background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0 2px, transparent 2px 8px), repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0 2px, transparent 2px 8px);"
 							>
-								<span class="text-molten-yellow">⭐</span>
-								{(typeof tag === 'string' ? tag : tag.name).toUpperCase()}
-							</a>
-						))}
+								<span class="font-pixelated text-white text-xs tracking-widest">© {new Date().getFullYear()} JORGE H</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -78,19 +78,40 @@ const allTags = await getAllTags();
 			<!-- 🎮 SECOND SECTION: Level Selection (Three Column Grid) -->
 			<section>
 				<div class="flex justify-between items-center mb-8">
-					<h2 class="text-coin-gold text-2xl font-normal tracking-wide flex items-center gap-3">
-						<span class="text-fire-orange">🏰</span>
+					<h2 class="text-2xl font-normal tracking-wide flex items-center gap-3 text-white text-shadow-black shadow-2xl">
 						LATEST ARTICLES
 					</h2>
-					<a 
-						href="/blog" 
-						class="px-4 py-2 bg-bg-card border-2 border-border-primary text-text-secondary hover:text-coin-gold hover:border-fire-orange shadow-pixel hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm tracking-wide"
-					>
-						VIEW ALL →
-					</a>
+					<ArcadeButton href="/blog" label="VIEW ALL" full={false} variant="secondary" heightClass="h-10" labelClass="text-xs" />
 				</div>
 				<ArticleCardGrid articles={articles} maxCards={3} showViewAllLink={false} />
 			</section>
 		</main>
 	</body>
 </html>
+
+<style is:global>
+	.cloud { position: absolute; opacity: 0.85; animation-timing-function: linear; }
+	.cloud-svg { display: block; image-rendering: pixelated; shape-rendering: crispEdges; }
+	.cloud-1 { top: 22px; left: -40px; animation: drift-right 65s infinite; }
+	.cloud-2 { top: 78px; left: calc(100% - 40px); animation: drift-left 85s infinite; opacity: 0.7; }
+	.cloud-3 { top: 128px; left: -20px; animation: drift-right 55s infinite; opacity: 0.8; }
+	.cloud-1 .cloud-svg { width: 168px; height: auto; }
+	.cloud-2 .cloud-svg { width: 120px; height: auto; }
+	.cloud-3 .cloud-svg { width: 96px; height: auto; }
+
+	@keyframes drift-right {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(140vw); }
+	}
+	@keyframes drift-left {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-140vw); }
+	}
+
+	/* removed coin bob animation */
+
+	/* Respect users who prefer reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.cloud { animation: none; }
+	}
+</style>

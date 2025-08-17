@@ -6,13 +6,17 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class="mario-container">
+<div class="relative bg-mario-bros-lava-600 border-4 p-8 mx-auto max-w-fit">
   <!-- 4 Corner Rivets -->
-  <div class="mario-rivet rivet-top-left"></div>
-  <div class="mario-rivet rivet-top-right"></div>
-  <div class="mario-rivet rivet-bottom-left"></div>
-  <div class="mario-rivet rivet-bottom-right"></div>
+  <div class="absolute top-2 left-2 w-3 h-3 bg-white"></div>
+  <div class="absolute top-2 right-2 w-3 h-3 bg-white"></div>
+  <div class="absolute bottom-2 left-2 w-3 h-3 bg-white"></div>
+  <div class="absolute bottom-2 right-2 w-3 h-3 bg-white"></div>
   
   <!-- Title Text -->
-  <h1 class="mario-title">{title.toUpperCase()}</h1>
+  <h1 
+    class="font-pixelated text-white text-4xl text-shadow-lg text-shadow-mario-bros-blue-950 text-center tracking-wider leading-tight"
+  >
+    {title.toUpperCase()}
+  </h1>
 </div>

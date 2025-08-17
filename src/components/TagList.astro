@@ -5,92 +5,27 @@ export interface Props {
   tags: string[];
   showLinks?: boolean;
   className?: string;
+  tagClass?: string;
 }
 
-const { tags, showLinks = true, className = '' } = Astro.props;
-
-// Mario power-up styling based on tag content
-const getPowerUpStyle = (tag: string) => {
-  const lowerTag = tag.toLowerCase();
-  
-  // Tech/Programming tags (Fire Flower - Red)
-  if (lowerTag.includes('javascript') || lowerTag.includes('typescript') || lowerTag.includes('react') || lowerTag.includes('code')) {
-    return {
-      icon: '🔥',
-      bgClass: 'bg-lava-red',
-      borderClass: 'border-mario-red',
-      hoverClass: 'hover:bg-mario-red'
-    };
-  }
-  
-  // Design/CSS tags (Ice Flower - Blue)
-  if (lowerTag.includes('css') || lowerTag.includes('design') || lowerTag.includes('ui') || lowerTag.includes('frontend')) {
-    return {
-      icon: '❄️',
-      bgClass: 'bg-ice-blue',
-      borderClass: 'border-sky-blue',
-      hoverClass: 'hover:bg-sky-blue'
-    };
-  }
-  
-  // Backend/Server tags (Mushroom - Green)
-  if (lowerTag.includes('backend') || lowerTag.includes('server') || lowerTag.includes('api') || lowerTag.includes('database')) {
-    return {
-      icon: '🍄',
-      bgClass: 'bg-pipe-green',
-      borderClass: 'border-pipe-green',
-      hoverClass: 'hover:bg-pipe-green hover:brightness-110'
-    };
-  }
-  
-  // Tutorial/Learning tags (Star - Gold)
-  if (lowerTag.includes('tutorial') || lowerTag.includes('guide') || lowerTag.includes('learn') || lowerTag.includes('tips')) {
-    return {
-      icon: '⭐',
-      bgClass: 'bg-coin-gold',
-      borderClass: 'border-molten-yellow',
-      hoverClass: 'hover:bg-molten-yellow'
-    };
-  }
-  
-  // Tools/DevOps tags (Power-up - Purple)
-  if (lowerTag.includes('tools') || lowerTag.includes('devops') || lowerTag.includes('deployment') || lowerTag.includes('workflow')) {
-    return {
-      icon: '⚡',
-      bgClass: 'bg-power-purple',
-      borderClass: 'border-power-purple',
-      hoverClass: 'hover:bg-power-purple hover:brightness-110'
-    };
-  }
-  
-  // Default coin style
-  return {
-    icon: '🪙',
-    bgClass: 'bg-fire-orange',
-    borderClass: 'border-ember-orange',
-    hoverClass: 'hover:bg-ember-orange'
-  };
-};
+const { tags, showLinks = true, className = '', tagClass = '' } = Astro.props;
 ---
 
 {tags && tags.length > 0 && (
   <div class={`flex flex-wrap gap-2 ${className}`}>
     {tags.map(tag => {
-      const powerUp = getPowerUpStyle(tag);
-      const baseClasses = `inline-flex items-center gap-1 px-2 py-1 text-xs font-mono tracking-wide border-2 rounded-sm shadow-pixel transition-all duration-200 text-castle-black font-bold ${powerUp.bgClass} ${powerUp.borderClass} ${powerUp.hoverClass} hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5`;
+      const baseClasses = `inline-flex items-center px-2 py-1 text-xs tracking-wide border-2 rounded-sm transition-all duration-200 font-bold hover:translate-x-0.5 hover:translate-y-0.5`;
       
       return showLinks ? (
         <a 
           href={`/tags/${normalizeTag(tag)}`} 
           aria-label={`View all articles tagged with ${tag}`}
-          class={baseClasses}
+          class={`${baseClasses} ${tagClass}`}
         >
-          <span>{powerUp.icon}</span>
           <span>{tag.toUpperCase()}</span>
         </a>
       ) : (
-        <span class={baseClasses}>
-          <span>{powerUp.icon}</span>
+        <span class={`${baseClasses} ${tagClass}`}>
           <span>{tag.toUpperCase()}</span>
         </span>
       );

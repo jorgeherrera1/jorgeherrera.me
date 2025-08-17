@@ -1,0 +1,42 @@
+---
+const { class: klass = 'cloud-svg' } = Astro.props;
+---
+
+<svg viewBox="0 0 96 48" class={klass}>
+  <g fill="white" shape-rendering="crispEdges">
+    <!-- Wide cloud silhouette: rows 4-6-8-6-4 (6px grid) -->
+    <!-- row 0: 4 -->
+    <rect x="36" y="0" width="6" height="6"/>
+    <rect x="42" y="0" width="6" height="6"/>
+    <rect x="48" y="0" width="6" height="6"/>
+    <rect x="54" y="0" width="6" height="6"/>
+    <!-- row 1: 6 -->
+    <rect x="30" y="6" width="6" height="6"/>
+    <rect x="36" y="6" width="6" height="6"/>
+    <rect x="42" y="6" width="6" height="6"/>
+    <rect x="48" y="6" width="6" height="6"/>
+    <rect x="54" y="6" width="6" height="6"/>
+    <rect x="60" y="6" width="6" height="6"/>
+    <!-- row 2: 8 -->
+    <rect x="24" y="12" width="6" height="6"/>
+    <rect x="30" y="12" width="6" height="6"/>
+    <rect x="36" y="12" width="6" height="6"/>
+    <rect x="42" y="12" width="6" height="6"/>
+    <rect x="48" y="12" width="6" height="6"/>
+    <rect x="54" y="12" width="6" height="6"/>
+    <rect x="60" y="12" width="6" height="6"/>
+    <rect x="66" y="12" width="6" height="6"/>
+    <!-- row 3: 6 -->
+    <rect x="30" y="18" width="6" height="6"/>
+    <rect x="36" y="18" width="6" height="6"/>
+    <rect x="42" y="18" width="6" height="6"/>
+    <rect x="48" y="18" width="6" height="6"/>
+    <rect x="54" y="18" width="6" height="6"/>
+    <rect x="60" y="18" width="6" height="6"/>
+    <!-- row 4: 4 -->
+    <rect x="36" y="24" width="6" height="6"/>
+    <rect x="42" y="24" width="6" height="6"/>
+    <rect x="48" y="24" width="6" height="6"/>
+    <rect x="54" y="24" width="6" height="6"/>
+  </g>
+</svg>
