@@ -5,80 +5,88 @@ import Header from '../../components/Header.astro';
 
 const tags = await getAllTags();
 
-// Power-up styling function (structural only)
-const getPowerUpStyle = (tagName: string) => {
-  const lowerTag = tagName.toLowerCase();
-  
-  if (lowerTag.includes('javascript') || lowerTag.includes('typescript') || lowerTag.includes('react') || lowerTag.includes('code')) {
-    return { icon: '🔥' };
-  }
-  if (lowerTag.includes('css') || lowerTag.includes('design') || lowerTag.includes('ui') || lowerTag.includes('frontend')) {
-    return { icon: '❄️' };
-  }
-  if (lowerTag.includes('backend') || lowerTag.includes('server') || lowerTag.includes('api') || lowerTag.includes('database')) {
-    return { icon: '🍄' };
-  }
-  if (lowerTag.includes('tutorial') || lowerTag.includes('guide') || lowerTag.includes('learn') || lowerTag.includes('tips')) {
-    return { icon: '⭐' };
-  }
-  if (lowerTag.includes('tools') || lowerTag.includes('devops') || lowerTag.includes('deployment') || lowerTag.includes('workflow')) {
-    return { icon: '⚡' };
-  }
-  return { icon: '🪙' };
-};
+const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
+
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="Power-up Collection" description="Browse articles by power-up type" />
+    <BaseHead title="Tags" description="Browse articles by tag" />
   </head>
 
   <body>
     <Header />
-    <main class="max-w-6xl mx-auto px-6 py-12">
-      <header class="border-2 rounded-md p-8 mb-12">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-3xl">⚡</span>
-          <h1 class="text-3xl tracking-wide">POWER-UP COLLECTION</h1>
-        </div>
-        <p class="text-lg">
-          Discover levels by power-up type! Each power-up represents a different topic area.
-        </p>
-        <div class="flex items-center gap-2 mt-4">
-          <span>●</span>
-          <span class="text-sm">{tags.length} POWER-UP TYPES DISCOVERED</span>
-        </div>
-      </header>
-      
-      <div class="space-y-8">
+    <main class="relative max-w-6xl mx-auto px-6 py-12">
+      <div class="relative z-10">
         {tags.length > 0 ? (
-          <div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div class="px-2 sm:px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
               {tags.map(tag => {
-                const powerUp = getPowerUpStyle(tag.name);
                 return (
-                  <a 
+                  <a
                     href={`/tags/${normalizeTag(tag.name)}`}
-                    class="flex flex-col items-center p-6 border-2 rounded-md transition-all duration-200 hover:translate-x-1 hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${tag.name}`}
+                    class="group block focus:outline-none"
+                    aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${displayName(tag.name)}`}
                   >
-                    <span class="text-4xl mb-3">{powerUp.icon}</span>
-                    <span class="text-sm tracking-wide text-center mb-2">{tag.name.toUpperCase()}</span>
-                    <div class="px-3 py-1 rounded-sm text-xs">
-                      {tag.count} LEVEL{tag.count === 1 ? '' : 'S'}
+                    <div class="pipe mx-auto mb-3 transform transition-transform duration-150 group-active:translate-y-1">
+                      <div class="pipe-top" aria-hidden="true"></div>
+                      <div class="pipe-body" aria-hidden="true"></div>
                     </div>
+                    <div class={`mt-3 text-center font-pixelated text-white text-xs tracking-widest`}>{displayName(tag.name)}</div>
+                    <div class="mt-1 text-center text-white/80 text-[10px] font-pixelated tracking-widest">x{tag.count}</div>
                   </a>
                 );
               })}
             </div>
           </div>
         ) : (
-          <div class="border-2 rounded-md p-8 text-center">
-            <span class="text-4xl mb-4 block">❌</span>
-            <p>No power-ups discovered yet.</p>
+          <div class="border-4 border-black bg-mario-bros-blue-600 text-white p-10 text-center font-pixelated">
+            NO TAGS YET
           </div>
         )}
       </div>
     </main>
+
+    <style>
+      .brick {
+        background-color: var(--color-mario-bros-lava-600);
+        background-image:
+          linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px),
+          repeating-linear-gradient(0deg, transparent 0, transparent 18px, rgba(0,0,0,0.25) 18px, rgba(0,0,0,0.25) 22px),
+          repeating-linear-gradient(90deg, transparent 0, transparent 18px, rgba(0,0,0,0.25) 18px, rgba(0,0,0,0.25) 22px);
+        image-rendering: pixelated;
+      }
+      .ground {
+        background-color: var(--color-mario-bros-lava-700);
+        background-image:
+          repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px),
+          repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px);
+        image-rendering: pixelated;
+      }
+
+      /* Warp Zone pipes */
+      .pipe { width: 140px; position: relative; }
+      .pipe-top {
+        position: relative;
+        z-index: 3;
+        height: 28px;
+        border: 4px solid #000;
+        background:
+          linear-gradient(0deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 50%),
+          linear-gradient(180deg, #28a745, #127a2f);
+      }
+      .pipe-body {
+        height: 150px;
+        border: 4px solid #000;
+        border-top: 0;
+        position: relative;
+  overflow: hidden;
+        z-index: 1;
+        background:
+          linear-gradient(90deg, rgba(255,255,255,0.2) 0 10px, rgba(255,255,255,0) 10px 100%),
+          linear-gradient(180deg, #2ecc71, #0f5e25);
+      }
+
+    </style>
   </body>
 </html>
