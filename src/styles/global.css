@@ -89,7 +89,7 @@
 @layer components {
   /* Default monospace font for everything */
   body {
-    @apply font-mono bg-mario-bros-blue-500;
+    @apply font-mono bg-mario-bros-blue-600;
   }
 
   /* Headings use pixelated font */
