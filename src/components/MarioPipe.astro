@@ -1,0 +1,100 @@
+---
+// Super Mario Bros authentic pipe component using SVG for pixel-perfect rendering
+export interface Props {
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const { 
+  class: className = '',
+  width = 140,
+  height = 178
+} = Astro.props;
+
+// Calculate dimensions based on the 16x22 pixel grid (scaled 8x for visibility)
+const scale = width / 128; // Base width of 128 for 16 pixels * 8 scale
+const pixelSize = 8 * scale;
+---
+
+<svg 
+  viewBox="0 0 128 176" 
+  class={`mario-pipe ${className}`}
+  width={width}
+  height={height}
+  xmlns="http://www.w3.org/2000/svg"
+  style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
+>
+  <!-- Pipe colors based on authentic Mario palette -->
+  <defs>
+    <!-- Authentic Super Mario Bros green palette -->
+    <style>
+      .pipe-light { fill: #00AA00; }
+      .pipe-medium { fill: #009900; }
+      .pipe-dark { fill: #007700; }
+      .pipe-highlight { fill: #55FF55; }
+      .pipe-border { fill: #000000; }
+    </style>
+  </defs>
+  
+  <!-- Pipe top (entrance/lip) - wider section -->
+  <g class="pipe-top">
+    <!-- Black border outline for top -->
+    <rect x="0" y="0" width="128" height="32" class="pipe-border"/>
+    
+    <!-- Main top fill -->
+    <rect x="8" y="8" width="112" height="16" class="pipe-light"/>
+    
+    <!-- Top highlights (left side) -->
+    <rect x="8" y="8" width="8" height="16" class="pipe-highlight"/>
+    <rect x="24" y="8" width="8" height="16" class="pipe-highlight"/>
+    
+    <!-- Top shading (right side) -->
+    <rect x="96" y="8" width="24" height="16" class="pipe-medium"/>
+    <rect x="104" y="8" width="16" height="16" class="pipe-dark"/>
+    
+    <!-- Checkerboard pattern on right edge -->
+    <rect x="112" y="8" width="8" height="8" class="pipe-highlight"/>
+    <rect x="112" y="16" width="8" height="8" class="pipe-dark"/>
+  </g>
+  
+  <!-- Pipe body (main shaft) -->
+  <g class="pipe-body">
+    <!-- Black border outline for body -->
+    <rect x="16" y="24" width="96" height="152" class="pipe-border"/>
+    
+    <!-- Main body fill -->
+    <rect x="24" y="32" width="80" height="136" class="pipe-light"/>
+    
+    <!-- Body highlights (left side) -->
+    <rect x="24" y="32" width="8" height="136" class="pipe-highlight"/>
+    <rect x="40" y="32" width="8" height="136" class="pipe-highlight"/>
+    
+    <!-- Body shading (right side) -->
+    <rect x="80" y="32" width="24" height="136" class="pipe-medium"/>
+    <rect x="88" y="32" width="16" height="136" class="pipe-dark"/>
+    
+    <!-- Checkerboard pattern on right edge -->
+    <g class="checkerboard">
+      <!-- Alternating squares for checkerboard effect -->
+      <rect x="96" y="32" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="48" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="64" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="80" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="96" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="112" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="128" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="144" width="8" height="8" class="pipe-highlight"/>
+      <rect x="96" y="160" width="8" height="8" class="pipe-highlight"/>
+      
+      <rect x="96" y="40" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="56" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="72" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="88" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="104" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="120" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="136" width="8" height="8" class="pipe-dark"/>
+      <rect x="96" y="152" width="8" height="8" class="pipe-dark"/>
+    </g>
+  </g>
+</svg>
