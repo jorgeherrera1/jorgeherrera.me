@@ -13,6 +13,7 @@
   src: url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @theme {
