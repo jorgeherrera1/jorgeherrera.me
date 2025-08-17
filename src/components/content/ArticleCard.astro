@@ -11,59 +11,81 @@ export interface Props {
 }
 
 const { article, variant = 'grid', showExcerpt = true, class: className = '' } = Astro.props;
-const readingTime = calculateReadingTime(article.body);
-const excerpt = showExcerpt ? generateExcerpt(article.body, 150) : '';
+const readingTime = calculateReadingTime(article.body ?? '');
+const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
 
-// Game level indicators based on reading time
-const levelIcon = readingTime <= 3 ? "🟢" : readingTime <= 7 ? "🟡" : "🔴";
-const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HARD";
+// Visual frame config
+const frameBorder = 'border-4';
 ---
 
-<article class={`h-full flex flex-col border-2 hover:translate-x-1 hover:translate-y-1 transition-all duration-200 group focus-within:ring-2 focus-within:ring-offset-2 rounded-md overflow-hidden ${className}`}>
-  <!-- Level Header with Game UI -->
-  <header class="border-b-2 p-4">
-    <h2 class="text-lg font-normal leading-tight mb-3">
-      <a 
-        href={`/blog/${article.id}`}
-        class="no-underline transition-colors focus:outline-none"
-      >
-        {article.data.title.toUpperCase()}
-      </a>
-    </h2>
-    
-    <div class="flex items-center justify-between text-xs">
-      <time datetime={formatDateForAttribute(article.data.date)}>
-        {formatDate(article.data.date)}
-      </time>
-      <div class="flex items-center gap-1">
-        <span>⏱️</span>
-        <span>{readingTime}MIN</span>
+<!-- Arcade-styled Mario card -->
+<div class={`relative group ${className}`}>
+  <!-- Pixel drop shadow -->
+  <div class="absolute inset-0 translate-x-2 translate-y-2 bg-mario-bros-blue-950 rounded-sm opacity-90"></div>
+
+  <article class={`relative h-full flex flex-col ${frameBorder} border-black rounded-sm overflow-hidden bg-mario-bros-blue-400`}>
+    <!-- Bezels / inner frame -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute inset-1 border-4 border-white/60"></div>
+      <div class="absolute inset-2 border-4 border-mario-bros-blue-700"></div>
+    </div>
+
+  <!-- Compact lava label band with more side spacing (vertically centered) -->
+    <div class="relative px-6 md:px-8 h-10 border-b-4 border-black bg-mario-bros-lava-600 flex items-center justify-between">
+      <!-- small rivets -->
+      <div class="absolute top-1 left-1 w-2 h-2 bg-white border-2 border-black"></div>
+      <div class="absolute top-1 right-1 w-2 h-2 bg-white border-2 border-black"></div>
+      <span class="font-pixelated text-white text-xs tracking-widest">LEVEL</span>
+      <span class="px-2 py-0.5 border-2 border-black bg-white text-black rounded-sm text-[10px] md:text-xs tracking-widest">{readingTime} MIN</span>
+    </div>
+
+    <!-- Title block -->
+    <div class="px-6 md:px-8 pt-3">
+      <h2 class="text-lg md:text-xl leading-snug text-white text-shadow-xs tracking-wider">
+        <a
+          href={`/blog/${article.id}`}
+          class="no-underline focus:outline-none hover:underline underline-offset-4"
+        >
+          {article.data.title.toUpperCase()}
+        </a>
+      </h2>
+
+      <div class="mt-2 text-xs opacity-90 flex items-center">
+        <time datetime={formatDateForAttribute(article.data.date)}>{formatDate(article.data.date)}</time>
       </div>
     </div>
-  </header>
 
-  <!-- Level Preview -->
-  <div class="p-4 flex-grow flex flex-col">
-    {showExcerpt && excerpt && (
-      <div class="text-sm leading-relaxed mb-4 flex-grow">
-        {excerpt}...
+    <!-- Content / preview area with subtle tile background -->
+  <div class="px-6 md:px-8 py-4 flex-grow flex flex-col relative">
+      <div class="absolute inset-0 opacity-20 pointer-events-none"
+           style="background-image: linear-gradient(90deg, rgba(0,0,0,0.12) 1px, transparent 1px), linear-gradient(0deg, rgba(0,0,0,0.12) 1px, transparent 1px); background-size: 12px 12px;">
       </div>
-    )}
-    
-    <!-- Start Button -->
-    <div class="mt-auto">
-      <a 
-        href={`/blog/${article.id}`}
-        class="inline-flex items-center gap-2 px-4 py-2 border-2 text-sm tracking-wide hover:translate-x-1 hover:translate-y-1 transition-all duration-200 w-full justify-center rounded-sm"
-      >
-        <span>▶️</span>
-        START LEVEL
-      </a>
-    </div>
-  </div>
 
-  <!-- Power-ups Footer -->
-  <footer class="p-4 border-t-2">
-    <TagList tags={article.data.tags || []} className="" />
-  </footer>
-</article>
+      {showExcerpt && excerpt && (
+        <div class="relative text-sm leading-relaxed mb-4 flex-grow">
+          {excerpt}...
+        </div>
+      )}
+
+      <!-- CTA: Castle door style button -->
+      <div class="mt-auto relative">
+        <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>
+        <a href={`/blog/${article.id}`} aria-label={`Open article ${article.data.title}`}
+           class="relative block border-4 border-black bg-mario-bros-lava-500 hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-transform">
+          <div class="h-12 grid place-items-center">
+            <span class="font-pixelated text-white tracking-widest">START</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer / tags like power-ups -->
+  <footer class={`px-6 md:px-8 py-4 border-t-4 border-black bg-mario-bros-lava-700`} style="background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0 2px, transparent 2px 8px), repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0 2px, transparent 2px 8px);">
+      <TagList 
+        tags={article.data.tags || []}
+        className=""
+  tagClass="bg-white text-black border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:shadow-[3px_3px_0_0_rgba(0,0,0,1)] grid place-items-center leading-none"
+      />
+    </footer>
+  </article>
+</div>

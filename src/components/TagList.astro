@@ -5,9 +5,10 @@ export interface Props {
   tags: string[];
   showLinks?: boolean;
   className?: string;
+  tagClass?: string;
 }
 
-const { tags, showLinks = true, className = '' } = Astro.props;
+const { tags, showLinks = true, className = '', tagClass = '' } = Astro.props;
 ---
 
 {tags && tags.length > 0 && (
@@ -19,12 +20,12 @@ const { tags, showLinks = true, className = '' } = Astro.props;
         <a 
           href={`/tags/${normalizeTag(tag)}`} 
           aria-label={`View all articles tagged with ${tag}`}
-          class={baseClasses}
+          class={`${baseClasses} ${tagClass}`}
         >
           <span>{tag.toUpperCase()}</span>
         </a>
       ) : (
-        <span class={baseClasses}>
+        <span class={`${baseClasses} ${tagClass}`}>
           <span>{tag.toUpperCase()}</span>
         </span>
       );
