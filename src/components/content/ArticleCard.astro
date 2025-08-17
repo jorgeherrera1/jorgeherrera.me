@@ -2,6 +2,7 @@
 import type { Article } from '../../utils/blog.ts';
 import { formatDate, formatDateForAttribute, calculateReadingTime, generateExcerpt } from '../../utils/blog.ts';
 import TagList from '../TagList.astro';
+import ArcadeButton from '../ArcadeButton.astro';
 
 export interface Props {
   article: Article;
@@ -64,15 +65,9 @@ const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
         </div>
       )}
 
-      <!-- CTA: Castle door style button -->
-      <div class="mt-auto relative">
-        <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>
-        <a href={`/blog/${article.id}`} aria-label={`Open article ${article.data.title}`}
-           class="relative block border-4 border-black bg-mario-bros-lava-500 hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-transform">
-          <div class="h-12 grid place-items-center">
-            <span class="font-pixelated text-white tracking-widest">START</span>
-          </div>
-        </a>
+      <!-- CTA: Reusable arcade button -->
+      <div class="mt-auto">
+        <ArcadeButton href={`/blog/${article.id}`} ariaLabel={`Open article ${article.data.title}`} label="START" />
       </div>
     </div>
 

@@ -1,0 +1,54 @@
+---
+export interface Props {
+  href?: string;
+  label?: string;
+  class?: string;
+  full?: boolean;
+  heightClass?: string; // Tailwind height class: e.g., 'h-12'
+  ariaLabel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary';
+  labelClass?: string;
+}
+
+const {
+  href,
+  label = 'START',
+  class: className = '',
+  full = true,
+  heightClass = 'h-12',
+  ariaLabel,
+  type = 'button',
+  variant = 'primary',
+  labelClass = '',
+} = Astro.props as Props;
+
+const bgClass = variant === 'secondary'
+  ? 'bg-mario-bros-lava-500 hover:bg-mario-bros-lava-600'
+  : 'bg-mario-bros-lava-600 hover:bg-mario-bros-lava-700';
+---
+
+<div class={`relative ${full ? 'w-full' : ''} shrink-0`}>
+  <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>
+  {href ? (
+    <a
+      href={href}
+      aria-label={ariaLabel ?? label}
+      class={`relative block border-4 border-black ${bgClass} hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-transform shrink-0 ${className}`}
+    >
+      <div class={`${heightClass} grid place-items-center px-4`}>
+        <span class={`font-pixelated text-white tracking-widest whitespace-nowrap leading-none ${labelClass}`}><slot>{label}</slot></span>
+      </div>
+    </a>
+  ) : (
+    <button
+      type={type}
+      aria-label={ariaLabel ?? label}
+      class={`relative ${full ? 'w-full' : ''} border-4 border-black ${bgClass} hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-transform shrink-0 ${className}`}
+    >
+      <div class={`${heightClass} grid place-items-center px-4`}>
+        <span class={`font-pixelated text-white tracking-widest whitespace-nowrap leading-none ${labelClass}`}><slot>{label}</slot></span>
+      </div>
+    </button>
+  )}
+</div>

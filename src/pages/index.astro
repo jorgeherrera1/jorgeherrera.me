@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import ArticleCardGrid from '../components/content/ArticleCardGrid.astro';
 import TagList from '../components/TagList.astro';
 import QuestionBlock from '../components/QuestionBlock.astro';
+import ArcadeButton from '../components/ArcadeButton.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getAllArticles } from '../utils/blog';
 import { getAllTags } from '../utils/tags';
@@ -80,12 +81,7 @@ const allTags = await getAllTags();
 						<span>🏰</span>
 						LATEST ARTICLES
 					</h2>
-					<a 
-						href="/blog" 
-						class="px-4 py-2 border-2 hover:translate-x-1 hover:translate-y-1 transition-all duration-200 text-sm tracking-wide"
-					>
-						VIEW ALL →
-					</a>
+					  <ArcadeButton href="/blog" label="VIEW ALL" full={false} variant="secondary" heightClass="h-10" labelClass="text-xs" />
 				</div>
 				<ArticleCardGrid articles={articles} maxCards={3} showViewAllLink={false} />
 			</section>
