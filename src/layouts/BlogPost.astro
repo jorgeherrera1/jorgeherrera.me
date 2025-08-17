@@ -25,7 +25,7 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 		<BaseHead title={title} description={description} />
 	</head>
 
-	<body class="bg-mario-bros-sky">
+	<body>
 		<Header />
 		
 		<!-- 🗺️ FLOATING GAME MAP (Table of Contents) -->
@@ -126,7 +126,6 @@ const difficulty = readingTime <= 3 ? "EASY" : readingTime <= 7 ? "MEDIUM" : "HA
 					
 					// Update active link
 					document.querySelectorAll('.toc-nav a').forEach(link => {
-						link.classList.remove('border-transparent');
 						link.classList.add('border-transparent');
 					});
 					
