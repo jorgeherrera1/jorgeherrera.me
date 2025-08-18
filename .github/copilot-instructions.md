@@ -1,6 +1,6 @@
 # Jorge Herrera's Mario-Themed Personal Blog
 
-A static-first personal blog built with Astro 5.12.0 and styled with a Super Mario Bros theme using Tailwind CSS v4. The site is 100% static generation with no server-side rendering or client-side frameworks.
+A static-first personal blog built with Astro 5.13.2 and styled with a Super Mario Bros theme using Tailwind CSS 4.1.10. The site is 100% static generation with no server-side rendering or client-side frameworks.
 
 Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
@@ -9,12 +9,11 @@ Always reference these instructions first and fallback to search or bash command
 Bootstrap, build, and run the repository:
 - `npm install` -- takes 2-4 minutes. NEVER CANCEL. Set timeout to 5+ minutes.
 - `npm run build` -- takes 4-6 seconds. Fast build process with Astro static generation.
-- Run development server: `npm run dev` -- starts in 1.4 seconds at http://localhost:4321
-- Run production preview: `npm run preview` -- starts in 15-30ms at http://localhost:4321
+- Run development server: `npm run dev` -- starts in less than 2 seconds seconds at http://localhost:4321
+- Run production preview: `npm run preview` -- starts in less than 1 second at http://localhost:4321 (this requires a built project)
 
 **CRITICAL BUILD NOTES:**
 - This is a STATIC-ONLY Astro site - never add React, Vue, or other frameworks
-- Build is extremely fast (~6 seconds) - no need for long timeouts on build commands
 - No testing framework exists - do not attempt to run tests
 - No linting tools configured - do not attempt to run ESLint, Prettier, etc.
 
@@ -23,8 +22,7 @@ Bootstrap, build, and run the repository:
 **ALWAYS manually validate any changes via these scenarios:**
 - Homepage loads: `curl -s -I http://localhost:4321/` should return HTTP 200
 - Blog page loads: `curl -s http://localhost:4321/blog/` should return proper HTML with title
-- RSS feed works: `curl -s -I http://localhost:4321/rss.xml` should return HTTP 200
-- Build generates all pages: Check build output shows 17+ static pages generated
+- Build generates all pages: Check build output shows all the different static pages generated
 - **NEW CONTENT VALIDATION**: After adding blog posts, verify:
   - Build page count increases appropriately  
   - New post accessible at `/blog/post-slug/` URL
@@ -40,9 +38,9 @@ Bootstrap, build, and run the repository:
 ## Architecture & Tech Stack
 
 **Core Technologies:**
-- **Astro 5.12.0** - Static site generator, islands architecture
+- **Astro 5.13.2** - Static site generator
 - **TypeScript** - Strict null checks enabled, extends "astro/tsconfigs/strict"
-- **Tailwind CSS v4** - Utility-first CSS with @theme directives
+- **Tailwind CSS 4.1.10** - Utility-first CSS with @theme directives
 - **MDX Support** - Enhanced markdown with @astrojs/mdx
 - **Sharp** - Image optimization
 - **Static Generation** - No SSR, no client-side hydration
@@ -50,6 +48,7 @@ Bootstrap, build, and run the repository:
 **Key Constraints:**
 - Never add client-side frameworks (React, Vue, Svelte)
 - Use only Tailwind utilities, never custom CSS classes
+- Use ONLY colors defined in the @theme section of `global.css`
 - Modern CSS only - no browser fallbacks or polyfills needed
 - Mario gaming theme - use retro/gaming terminology throughout
 
@@ -79,7 +78,7 @@ Bootstrap, build, and run the repository:
 │       ├── dateUtils.ts    # Date formatting
 │       └── tags.ts         # Tag processing
 ├── public/                 # Static assets
-│   ├── fonts/             # JetBrains Mono font files
+│   ├── fonts/             # font files
 │   └── favicon.svg        # Site favicon
 └── scripts/
     └── sync-blog.js       # Obsidian blog sync (requires .env.local)
@@ -118,23 +117,20 @@ tags:                          # array of strings, required
 
 **Tailwind CSS v4 Approach:**
 - Use `@theme` directive for custom design tokens
-- Use `@utility` directive for complex reusable patterns (like `mario-container`)
+- Use `@utility` directive for complex reusable patterns only when strictly necessary
 - Prefer utility classes over custom CSS in ALL cases
 - Never create custom CSS classes if achievable with Tailwind
+- Use color palette and typography defined in `global.css`
+- Add subtle animations for interactive elements (e.g., button hover effects)
 
 **Mario Theme Elements:**
-- Color system: Castle/stone grays, Mario red, coin gold
-- Typography: "Press Start 2P" for authentic 8-bit feel, "JetBrains Mono" for code
-- Spacing: 8-bit inspired using 4px base units
-- Gaming terminology: "LEVELS" for blog posts, "LEVEL MAP" for navigation
+- Use Mario-themed colors for backgrounds, borders, and accents
+- Apply pixelated font styles to headings and important text
+- Incorporate retro gaming UI elements (e.g., buttons, cards)
+- Use background patterns inspired by classic Mario levels
+- Use 8-bit inspired icons and imagery throughout the site
 
 ## Common Development Tasks
-
-**Adding New Blog Posts:**
-1. Create `.md` file in `src/content/blog/` with proper frontmatter
-2. Use kebab-case naming convention
-3. Include required title, date, tags fields
-4. Content automatically appears on blog index and RSS feed
 
 **Component Development:**
 - Create `.astro` files in `src/components/`
@@ -145,47 +141,7 @@ tags:                          # array of strings, required
 **Styling Changes:**
 - Edit `src/styles/global.css` for @theme definitions
 - Use only Tailwind utilities in component files
-- Reference Mario color variables: `--color-mario-red`, `--color-castle-black`
-
-## Environment & Dependencies
-
-**Blog Sync (Optional):**
-- Script: `npm run sync-blog` 
-- Requires: `.env.local` file with `OBSIDIAN_BLOG_PATH` variable
-- Purpose: Sync blog posts from Obsidian vault
-- Fails gracefully if .env.local doesn't exist
-
-**Dependencies Management:**
-- Package manager: npm (package-lock.json committed)
-- Main dependencies: Astro, Tailwind CSS v4, Sharp, MDX
-- No dev dependencies for testing or linting
-
-## Troubleshooting
-
-**Common Issues:**
-- `astro check` command requires `@astrojs/check` and `typescript` packages (not installed)
-- Sync blog fails without `.env.local` - expected behavior for external contributors  
-- Build failures usually indicate TypeScript errors or invalid frontmatter
-
-**Build Validation:**
-- Successful build shows "17 page(s) built" or similar
-- Check for static route generation in build output
-- Verify dist/ directory contains index.html and other static files
-
-## Performance & Optimization
-
-**Site Characteristics:**
-- Static-first: Zero JavaScript by default
-- Fast builds: ~6 seconds total build time
-- Quick dev server: 1.7 second startup
-- Optimized images: Sharp integration for automatic optimization
-- SEO ready: Automatic sitemap and RSS feed generation
-
-**When Making Changes:**
-- Build times are fast - no need to skip builds
-- Always test dev server functionality after changes
-- Verify RSS feed updates with new content
-- Check that static generation includes new routes
+- Reference color variables defined in `src/styles/global.css`
 
 ## CI/CD Integration
 
