@@ -1,8 +1,11 @@
 ---
-import { getAllTags, getArticlesByTag } from '../../utils/tags.ts';
+import { getAllTags, getArticlesByTag, normalizeTag } from '../../utils/tags.ts';
+import { formatDate, calculateReadingTime } from '../../utils/blog.ts';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
-import ArticleList from '../../components/content/ArticleList.astro';
+import MarioPipe from '../../components/MarioPipe.astro';
+import MarioCoin from '../../components/MarioCoin.astro';
+import ArcadeButton from '../../components/ArcadeButton.astro';
 
 export async function getStaticPaths() {
   const tags = await getAllTags();
@@ -15,42 +18,99 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 const articles = await getArticlesByTag(tag);
 
-// Convert CollectionEntry to Article type for ArticleList
-const articleData = articles.map(article => ({
-  id: article.id,
-  slug: article.slug,
-  body: article.body,
-  data: article.data
-}));
+const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
+const tagDisplay = displayName(normalizeTag(tag));
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={`Tag: ${tag}`} description={`Articles tagged with ${tag}`} />
+    <BaseHead title={`Underground: ${tagDisplay}`} description={`Explore ${tagDisplay} in the underground warp bays`} />
   </head>
 
   <body>
     <Header />
-    <main class="max-w-4xl mx-auto px-4 py-8">
-      <article class="max-w-prose mx-auto">
-        <header class="mb-8 border-b border-gray-300 pb-6">
-          <div class="text-sm text-gray-600 mb-2">
-            <a href="/tags" class="hover:underline">Tags</a> → {tag}
-          </div>
-          <h1 class="text-3xl font-bold mb-4 leading-tight">Tag: {tag}</h1>
-          <p class="text-gray-600 dark:text-gray-400">
-            {articles.length} {articles.length === 1 ? 'article' : 'articles'} tagged with "{tag}"
-          </p>
-        </header>
-        
-        <div class="space-y-6">
-          {articles.length > 0 ? (
-            <ArticleList articles={articleData} />
-          ) : (
-            <p class="text-gray-600 dark:text-gray-400">No articles found for this tag.</p>
-          )}
+    <main class="relative mx-auto max-w-6xl px-6 py-10">
+      <!-- Retro scoreboard -->
+      <div class="relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-3 items-center">
+        <div class="text-white font-pixelated text-xs tracking-widest text-center sm:text-left">
+          WORLD: {tagDisplay}
         </div>
-      </article>
+        <div class="text-white font-pixelated text-xs tracking-widest text-center flex items-center justify-center gap-2">
+          <MarioCoin />
+          <span> x{articles.length}</span>
+        </div>
+        <div class="flex justify-center sm:justify-end">
+          <ArcadeButton href="/tags" label="ALL TAGS" full={false} heightClass="h-10" labelClass="text-[10px]" />
+        </div>
+      </div>
+
+      <!-- Brick ceiling -->
+      <div class="mt-6 h-8 w-full bricks-top"></div>
+
+      <!-- Warp bays -->
+      <section class="relative z-10 mt-8">
+        {articles.length === 0 ? (
+          <div class="mx-auto max-w-md border-4 border-black bg-mario-bros-blue-800 text-white p-8 text-center font-pixelated">
+            NO WARP BAYS AVAILABLE
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article) => {
+              const readingTime = calculateReadingTime(article.body ?? '');
+              return (
+                <a href={`/blog/${article.id}`} class="group block focus:outline-none" aria-label={`Read: ${article.data.title}`}>
+                  <div class="relative">
+                    <!-- Bay frame -->
+                    <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>
+                    <div class="relative border-4 border-black bg-mario-bros-blue-800 p-4">
+                      <!-- Bay header (right-aligned meta only) -->
+                      <div class="mb-3 flex items-center justify-end">
+                        <span class="px-2 py-0.5 border-2 border-black bg-white text-black rounded-sm text-[10px] md:text-xs tracking-widest">{readingTime} MIN</span>
+                      </div>
+
+                      <!-- Pipe centerpiece -->
+                      <div class="mx-auto w-fit transform transition-transform duration-150 group-hover:-translate-y-0.5 group-active:translate-y-1">
+                        <MarioPipe width={120} height={150} />
+                      </div>
+
+                      <!-- Info plate -->
+                      <div class="mt-4 relative">
+                        <div class="absolute inset-0 translate-x-1 translate-y-1 bg-mario-bros-blue-950"></div>
+                        <div class="relative border-4 border-black bg-mario-bros-lava-600 p-3">
+                          <h2 class="font-pixelated text-white text-xs tracking-widest leading-snug line-clamp-3">{article.data.title}</h2>
+                          <div class="mt-2 flex items-center justify-between text-white/90 text-[10px]">
+                            <span class="uppercase">{formatDate(article.data.date)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      <!-- Ground -->
+      <div class="mt-12 h-8 w-full ground"></div>
     </main>
+
+    <style>
+      .bricks-top {
+        background-color: var(--color-mario-bros-lava-600);
+        background-image:
+          repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px),
+          repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px);
+        image-rendering: pixelated;
+      }
+      .ground {
+        background-color: var(--color-mario-bros-lava-700);
+        background-image:
+          repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px),
+          repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px);
+        image-rendering: pixelated;
+      }
+    </style>
   </body>
 </html>
