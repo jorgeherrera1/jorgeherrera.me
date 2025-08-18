@@ -43,6 +43,18 @@
   --color-mario-bros-lava-900: oklch(26.07% 0.096 32.23);
   --color-mario-bros-lava-950: oklch(20.58% 0.076 33.13);
 
+  --color-mario-bros-green-50: oklch(95.79% 0.081 139.07);
+  --color-mario-bros-green-100: oklch(92.56% 0.155 138.38);
+  --color-mario-bros-green-200: oklch(85.4% 0.253 136.94);
+  --color-mario-bros-green-300: oklch(76.46% 0.227 136.98);
+  --color-mario-bros-green-400: oklch(67.29% 0.2 136.89);
+  --color-mario-bros-green-500: oklch(58.93% 0.175 136.96);
+  --color-mario-bros-green-600: oklch(49.65% 0.148 137.05);
+  --color-mario-bros-green-700: oklch(40.29% 0.119 136.74);
+  --color-mario-bros-green-800: oklch(30.95% 0.092 136.95);
+  --color-mario-bros-green-900: oklch(22.79% 0.067 136.99);
+  --color-mario-bros-green-950: oklch(17.4% 0.052 136.32);
+
   --color-white: #FFFFFF;
   --color-black: #000000;
 
