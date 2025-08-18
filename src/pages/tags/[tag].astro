@@ -2,7 +2,8 @@
 import { getAllTags, getArticlesByTag } from '../../utils/tags.ts';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
-import ArticleList from '../../components/content/ArticleList.astro';
+import MarioPipe from '../../components/MarioPipe.astro';
+import { formatDate, formatDateForAttribute, calculateReadingTime } from '../../utils/blog.ts';
 
 export async function getStaticPaths() {
   const tags = await getAllTags();
@@ -15,42 +16,169 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 const articles = await getArticlesByTag(tag);
 
-// Convert CollectionEntry to Article type for ArticleList
-const articleData = articles.map(article => ({
-  id: article.id,
-  slug: article.slug,
-  body: article.body,
-  data: article.data
-}));
+const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={`Tag: ${tag}`} description={`Articles tagged with ${tag}`} />
+    <BaseHead title={`Tag: ${displayName(tag)}`} description={`${articles.length} levels tagged with ${displayName(tag)}`} />
   </head>
 
   <body>
     <Header />
-    <main class="max-w-4xl mx-auto px-4 py-8">
-      <article class="max-w-prose mx-auto">
-        <header class="mb-8 border-b border-gray-300 pb-6">
-          <div class="text-sm text-gray-600 mb-2">
-            <a href="/tags" class="hover:underline">Tags</a> → {tag}
-          </div>
-          <h1 class="text-3xl font-bold mb-4 leading-tight">Tag: {tag}</h1>
-          <p class="text-gray-600 dark:text-gray-400">
-            {articles.length} {articles.length === 1 ? 'article' : 'articles'} tagged with "{tag}"
-          </p>
-        </header>
+    <main class="relative max-w-6xl mx-auto px-6 py-12">
+      <!-- 🏰 TAG LEVEL HEADER -->
+      <div class="relative mb-12">
+        <!-- Pixel drop shadow for header -->
+        <div class="absolute inset-0 translate-x-2 translate-y-2 bg-black rounded-sm opacity-90"></div>
         
-        <div class="space-y-6">
-          {articles.length > 0 ? (
-            <ArticleList articles={articleData} />
-          ) : (
-            <p class="text-gray-600 dark:text-gray-400">No articles found for this tag.</p>
-          )}
-        </div>
-      </article>
+        <header class="relative border-4 border-black rounded-sm overflow-hidden bg-white">
+          <!-- Inner bezels -->
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute inset-1 border-4 border-white/70"></div>
+            <div class="absolute inset-2 border-4" style="border-color: #00AA00;"></div>
+          </div>
+
+          <!-- Header content with pipe theme -->
+          <div class="relative bg-gradient-to-r from-green-100 to-green-50 p-8">
+            <div class="flex items-center justify-between mb-6">
+              <!-- Back navigation -->
+              <nav>
+                <a
+                  href="/tags"
+                  class="inline-flex items-center gap-2 px-4 py-2 border-4 border-black rounded-sm shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all text-xs tracking-widest font-pixelated"
+                  style="background-color: #55FF55; color: #000000;"
+                  aria-label="Back to all tags"
+                >
+                  ← BACK TO PIPES
+                </a>
+              </nav>
+
+              <!-- Pipe decoration -->
+              <div class="transform scale-75">
+                <MarioPipe width={80} height={100} />
+              </div>
+            </div>
+
+            <!-- Tag title with gaming aesthetic -->
+            <div class="text-center">
+              <h1 class="font-pixelated text-3xl md:text-4xl mb-4 tracking-wider" style="color: #007700; text-shadow: 2px 2px 0px #000000;">
+                LEVEL: {displayName(tag)}
+              </h1>
+              <div class="inline-flex items-center gap-3 px-6 py-3 border-4 border-black rounded-sm" style="background-color: #00AA00; color: #FFFFFF;">
+                <span class="font-pixelated text-sm tracking-widest">
+                  {articles.length} {articles.length === 1 ? 'LEVEL' : 'LEVELS'} FOUND
+                </span>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <!-- 🎮 LEVELS LISTING -->
+      <div class="space-y-8">
+        {articles.length > 0 ? (
+          articles.map(article => {
+            const readingTime = calculateReadingTime(article.body);
+            return (
+              <div class="relative">
+                <!-- Pixel drop shadow for each level -->
+                <div class="absolute inset-0 translate-x-2 translate-y-2 bg-black rounded-sm opacity-90"></div>
+                
+                <article class="relative border-4 border-black rounded-sm overflow-hidden bg-white">
+                  <!-- Inner bezels -->
+                  <div class="absolute inset-0 pointer-events-none">
+                    <div class="absolute inset-1 border-2 border-white/70"></div>
+                  </div>
+
+                  <!-- Level header with pipe theme -->
+                  <header class="relative border-b-4 border-black p-6" style="background: linear-gradient(135deg, #55FF55 0%, #00AA00 100%);">
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1">
+                        <h2 class="font-pixelated text-lg md:text-xl mb-3 tracking-wide" style="color: #000000; text-shadow: 1px 1px 0px #FFFFFF;">
+                          <a 
+                            href={`/blog/${article.id}`}
+                            class="hover:underline focus:outline-none focus:underline"
+                          >
+                            {article.data.title}
+                          </a>
+                        </h2>
+                        <div class="flex items-center gap-4 text-sm font-mono" style="color: #007700;">
+                          <time datetime={formatDateForAttribute(article.data.date)}>
+                            📅 {formatDate(article.data.date)}
+                          </time>
+                          <span>•</span>
+                          <span>🎯 {readingTime} min read</span>
+                        </div>
+                      </div>
+                      <!-- Mini pipe decoration -->
+                      <div class="transform scale-50 -mt-4">
+                        <MarioPipe width={60} height={75} />
+                      </div>
+                    </div>
+                  </header>
+                  
+                  <!-- Level content preview -->
+                  <div class="relative p-6 bg-white">
+                    <div class="leading-relaxed text-gray-800 mb-4 font-mono">
+                      {article.body.slice(0, 250)}...
+                    </div>
+                    
+                    <!-- Tags footer with pipe theme -->
+                    <footer class="flex items-center justify-between pt-4 border-t-2" style="border-color: #00AA00;">
+                      <div class="flex items-center gap-2">
+                        {article.data.tags?.map(articleTag => (
+                          <a 
+                            href={`/tags/${articleTag.toLowerCase().replace(/\s+/g, '-')}`}
+                            class="inline-flex items-center gap-1 px-3 py-1 border-2 border-black rounded-sm text-xs font-pixelated tracking-widest transition-transform hover:scale-105 active:translate-y-[1px]"
+                            style="background-color: #55FF55; color: #000000;"
+                          >
+                            🏷️ {articleTag.toUpperCase()}
+                          </a>
+                        ))}
+                      </div>
+                      
+                      <a 
+                        href={`/blog/${article.id}`}
+                        class="inline-flex items-center gap-2 px-4 py-2 border-4 border-black rounded-sm shadow-[2px_2px_0_0_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[1px_1px_0_0_rgba(0,0,0,1)] transition-all text-xs tracking-widest font-pixelated"
+                        style="background-color: #00AA00; color: #FFFFFF;"
+                      >
+                        ENTER LEVEL →
+                      </a>
+                    </footer>
+                  </div>
+                </article>
+              </div>
+            );
+          })
+        ) : (
+          <div class="relative">
+            <!-- Pixel drop shadow -->
+            <div class="absolute inset-0 translate-x-2 translate-y-2 bg-black rounded-sm opacity-90"></div>
+            
+            <div class="relative border-4 border-black rounded-sm p-12 text-center" style="background-color: #00AA00;">
+              <div class="mb-6">
+                <MarioPipe width={120} height={150} class="mx-auto" />
+              </div>
+              <h2 class="font-pixelated text-xl mb-4 tracking-widest" style="color: #FFFFFF; text-shadow: 2px 2px 0px #000000;">
+                NO LEVELS FOUND
+              </h2>
+              <p class="font-mono text-sm" style="color: #55FF55;">
+                This pipe seems to be empty. Check back later for new levels!
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </main>
+
+    <style>
+      /* Ensure pipe colors are properly defined */
+      .mario-pipe .pipe-light { fill: #00AA00; }
+      .mario-pipe .pipe-medium { fill: #009900; }
+      .mario-pipe .pipe-dark { fill: #007700; }
+      .mario-pipe .pipe-highlight { fill: #55FF55; }
+      .mario-pipe .pipe-border { fill: #000000; }
+    </style>
   </body>
 </html>
