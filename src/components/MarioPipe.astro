@@ -27,13 +27,13 @@ const pixelSize = 8 * scale;
 >
   <!-- Pipe colors based on authentic Mario palette -->
   <defs>
-    <!-- Authentic Super Mario Bros green palette -->
+    <!-- Authentic Super Mario Bros green palette using theme colors -->
     <style>
-      .pipe-light { fill: #00AA00; }
-      .pipe-medium { fill: #009900; }
-      .pipe-dark { fill: #007700; }
-      .pipe-highlight { fill: #55FF55; }
-      .pipe-border { fill: #000000; }
+      .pipe-light { fill: theme('colors.mario-bros-pipe.600'); }
+      .pipe-medium { fill: theme('colors.mario-bros-pipe.700'); }
+      .pipe-dark { fill: theme('colors.mario-bros-pipe.800'); }
+      .pipe-highlight { fill: theme('colors.mario-bros-pipe.400'); }
+      .pipe-border { fill: theme('colors.black'); }
     </style>
   </defs>
   

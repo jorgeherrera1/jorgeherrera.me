@@ -43,6 +43,18 @@
   --color-mario-bros-lava-900: oklch(26.07% 0.096 32.23);
   --color-mario-bros-lava-950: oklch(20.58% 0.076 33.13);
 
+  --color-mario-bros-pipe-50: oklch(96.85% 0.012 142.5);
+  --color-mario-bros-pipe-100: oklch(93.77% 0.025 142.5);
+  --color-mario-bros-pipe-200: oklch(87.12% 0.053 142.5);
+  --color-mario-bros-pipe-300: oklch(79.21% 0.085 142.5);
+  --color-mario-bros-pipe-400: oklch(70.84% 0.118 142.5);
+  --color-mario-bros-pipe-500: oklch(61.58% 0.153 142.5);
+  --color-mario-bros-pipe-600: oklch(51.82% 0.129 142.5);
+  --color-mario-bros-pipe-700: oklch(42.25% 0.106 142.5);
+  --color-mario-bros-pipe-800: oklch(32.89% 0.081 142.5);
+  --color-mario-bros-pipe-900: oklch(24.35% 0.058 142.5);
+  --color-mario-bros-pipe-950: oklch(18.63% 0.044 142.5);
+
   --color-white: #FFFFFF;
   --color-black: #000000;
 
