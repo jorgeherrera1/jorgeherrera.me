@@ -3,6 +3,7 @@ import { getAllTags, normalizeTag } from '../../utils/tags.ts';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import MarioPipe from '../../components/MarioPipe.astro';
+import PiranhaPlant from '../../components/PiranhaPlant.astro';
 
 const tags = await getAllTags();
 
@@ -22,15 +23,23 @@ const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
         {tags.length > 0 ? (
           <div class="px-2 sm:px-4">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              {tags.map(tag => {
+              {tags.map((tag, index) => {
                 return (
                   <a
                     href={`/tags/${normalizeTag(tag.name)}`}
                     class="group block focus:outline-none"
                     aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${displayName(tag.name)}`}
                   >
-                    <div class="mx-auto mb-3 transform transition-transform duration-150 group-active:translate-y-1">
+                    <div class="mx-auto mb-3 transform transition-transform duration-150 group-active:translate-y-1 relative">
                       <MarioPipe class="mx-auto" width={120} height={150} />
+                      
+                      <!-- Animated Piranha Plant -->
+                      <div 
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 piranha-plant-container"
+                        style={`animation-delay: ${index * 2.5}s;`}
+                      >
+                        <PiranhaPlant width={48} height={60} class="piranha-plant-animated" />
+                      </div>
                     </div>
                     <div class={`mt-3 text-center font-pixelated text-white text-xs tracking-widest`}>{displayName(tag.name)}</div>
                     <div class="mt-1 text-center text-white/80 text-[10px] font-pixelated tracking-widest">x{tag.count}</div>
@@ -64,6 +73,34 @@ const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
         image-rendering: pixelated;
       }
 
+      /* Piranha Plant animations */
+      .piranha-plant-container {
+        animation: piranha-emerge 8s infinite ease-in-out;
+        z-index: 5;
+      }
+
+      .piranha-plant-animated {
+        transform: translateY(60px); /* Start hidden in pipe */
+      }
+
+      @keyframes piranha-emerge {
+        0% { transform: translateX(-50%) translateY(45px); } /* Hidden in pipe */
+        15% { transform: translateX(-50%) translateY(15px); } /* Emerge */
+        25% { transform: translateX(-50%) translateY(10px); } /* Fully emerged */
+        45% { transform: translateX(-50%) translateY(10px); } /* Stay visible */
+        55% { transform: translateX(-50%) translateY(15px); } /* Start retracting */
+        70% { transform: translateX(-50%) translateY(30px); } /* Halfway back */
+        85% { transform: translateX(-50%) translateY(45px); } /* Back in pipe */
+        100% { transform: translateX(-50%) translateY(45px); } /* Hidden */
+      }
+
+      /* Respect users who prefer reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .piranha-plant-container {
+          animation: none;
+          transform: translateX(-50%) translateY(45px);
+        }
+      }
     </style>
   </body>
 </html>

@@ -1,0 +1,74 @@
+---
+// Super Mario Bros authentic Piranha Plant component using SVG for pixel-perfect rendering
+export interface Props {
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const { 
+  class: className = '',
+  width = 64,
+  height = 80
+} = Astro.props;
+---
+
+<svg 
+  viewBox="0 0 64 80" 
+  class={`piranha-plant ${className}`}
+  width={width}
+  height={height}
+  xmlns="http://www.w3.org/2000/svg"
+  style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
+>
+  <!-- Green stem -->
+  <g class="plant-stem">
+    <!-- Main stem body -->
+    <rect x="24" y="48" width="16" height="32" class="fill-mario-bros-green-500"/>
+    
+    <!-- Stem highlights -->
+    <rect x="24" y="48" width="4" height="32" class="fill-mario-bros-green-300"/>
+    <rect x="32" y="48" width="4" height="32" class="fill-mario-bros-green-300"/>
+    
+    <!-- Stem shadows -->
+    <rect x="36" y="48" width="4" height="32" class="fill-mario-bros-green-700"/>
+    
+    <!-- Stem segmentation lines for more detail -->
+    <rect x="24" y="56" width="16" height="2" class="fill-mario-bros-green-700"/>
+    <rect x="24" y="68" width="16" height="2" class="fill-mario-bros-green-700"/>
+  </g>
+
+  <!-- Piranha Plant head -->
+  <g class="plant-head">
+    <!-- Black outline for head -->
+    <rect x="8" y="8" width="48" height="48" class="fill-black"/>
+    
+    <!-- Main head fill (red) -->
+    <rect x="12" y="12" width="40" height="40" class="fill-mario-bros-lava-600"/>
+    
+    <!-- White spots on head -->
+    <rect x="16" y="16" width="6" height="6" class="fill-white"/>
+    <rect x="30" y="20" width="6" height="6" class="fill-white"/>
+    <rect x="42" y="16" width="6" height="6" class="fill-white"/>
+    <rect x="20" y="32" width="6" height="6" class="fill-white"/>
+    <rect x="38" y="36" width="6" height="6" class="fill-white"/>
+    
+    <!-- Mouth opening (black) -->
+    <rect x="16" y="36" width="32" height="12" class="fill-black"/>
+    
+    <!-- White teeth -->
+    <rect x="20" y="40" width="4" height="6" class="fill-white"/>
+    <rect x="28" y="40" width="4" height="6" class="fill-white"/>
+    <rect x="36" y="40" width="4" height="6" class="fill-white"/>
+    <rect x="44" y="40" width="4" height="6" class="fill-white"/>
+    
+    <!-- Bottom teeth pointing up -->
+    <rect x="24" y="44" width="4" height="4" class="fill-white"/>
+    <rect x="32" y="44" width="4" height="4" class="fill-white"/>
+    <rect x="40" y="44" width="4" height="4" class="fill-white"/>
+    
+    <!-- Head shading -->
+    <rect x="44" y="12" width="8" height="40" class="fill-mario-bros-lava-800"/>
+    <rect x="12" y="44" width="40" height="8" class="fill-mario-bros-lava-800"/>
+  </g>
+</svg>
