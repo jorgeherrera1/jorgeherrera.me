@@ -1,16 +1,54 @@
 ---
 // Mario Question Block Component
 // Displays the iconic Super Mario Bros question mark block
-// No props needed - always shows the question mark
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  animate?: boolean;
+  clickable?: boolean;
+}
+
+const { size = 'md', animate = true, clickable = false } = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-12 h-12 text-lg',
+  md: 'w-16 h-16 text-2xl',
+  lg: 'w-24 h-24 text-4xl'
+};
 ---
 
-<div>
-  <!-- 4 Corner Rivets -->
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
+<div 
+  class={`relative ${sizeClasses[size]} ${clickable ? 'cursor-pointer hover:scale-105' : ''} ${animate ? 'animate-bounce' : ''} transition-transform`}
+  data-question-block={clickable}
+>
+  <!-- Drop shadow -->
+  <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>
   
-  <!-- Question Mark -->
-  <span>?</span>
+  <!-- Main block -->
+  <div class="relative w-full h-full border-4 border-black bg-mario-bros-lava-500 grid place-items-center">
+    <!-- 4 Corner Rivets -->
+    <div class="absolute top-1 left-1 w-2 h-2 bg-white border border-black rounded-full"></div>
+    <div class="absolute top-1 right-1 w-2 h-2 bg-white border border-black rounded-full"></div>
+    <div class="absolute bottom-1 left-1 w-2 h-2 bg-white border border-black rounded-full"></div>
+    <div class="absolute bottom-1 right-1 w-2 h-2 bg-white border border-black rounded-full"></div>
+    
+    <!-- Question Mark -->
+    <span class="font-pixelated text-white font-bold tracking-wider text-shadow-md">?</span>
+  </div>
 </div>
+
+{clickable && (
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const questionBlocks = document.querySelectorAll('[data-question-block="true"]');
+      questionBlocks.forEach(block => {
+        block.addEventListener('click', () => {
+          // Add coin sound effect or animation here
+          block.classList.add('animate-ping');
+          setTimeout(() => {
+            block.classList.remove('animate-ping');
+          }, 1000);
+        });
+      });
+    });
+  </script>
+)}
