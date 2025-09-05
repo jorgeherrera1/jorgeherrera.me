@@ -101,6 +101,53 @@ export function generateExcerpt(content: string, maxLength: number = 150): strin
   return truncated + '...';
 }
 
+// Convert title to URL slug (title-case to kebab-case)
+function titleToSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim();
+}
+
+// Convert Obsidian-style [[title]] links to markdown [title](/blog/slug) links
+export async function convertObsidianLinks(content: string): Promise<string> {
+  // Find all Obsidian-style links [[title]]
+  const obsidianLinkRegex = /\[\[([^\]]+)\]\]/g;
+  const matches = Array.from(content.matchAll(obsidianLinkRegex));
+  
+  if (matches.length === 0) {
+    return content;
+  }
+  
+  // Get all blog posts to match titles against
+  const allPosts = await getAllArticles();
+  
+  let processedContent = content;
+  
+  // Process each Obsidian link
+  for (const match of matches) {
+    const fullMatch = match[0]; // [[title]]
+    const linkTitle = match[1]; // title
+    
+    // Find matching blog post by title (case-insensitive)
+    const matchingPost = allPosts.find(post => 
+      post.data.title.toLowerCase() === linkTitle.toLowerCase()
+    );
+    
+    if (matchingPost) {
+      // Convert to markdown link using the actual post title and id as slug
+      const slug = matchingPost.id;
+      const actualTitle = matchingPost.data.title;
+      const markdownLink = `[${actualTitle}](/blog/${slug})`;
+      processedContent = processedContent.replace(fullMatch, markdownLink);
+    }
+  }
+  
+  return processedContent;
+}
+
 // Find related articles based on shared tags
 export function findRelatedArticles(currentPost: CollectionEntry<'blog'>, allPosts: CollectionEntry<'blog'>[], limit = 4): CollectionEntry<'blog'>[] {
   const currentTags = currentPost.data.tags?.map(normalizeTag) || [];
