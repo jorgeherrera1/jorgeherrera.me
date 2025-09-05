@@ -76,7 +76,21 @@ function syncBlogFiles() {
       const targetFilePath = join(targetPath, file);
       
       try {
-        const content = readFileSync(sourcePath, 'utf-8');
+        let content = readFileSync(sourcePath, 'utf-8');
+        
+        // Convert Obsidian-style [[title]] links to markdown [title](/blog/slug) links
+        content = content.replace(/\[\[([^\]]+)\]\]/g, (match, title) => {
+          // Convert title to slug (kebab-case)
+          const slug = title
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+            .trim();
+          
+          return `[${title}](/blog/${slug})`;
+        });
+        
         writeFileSync(targetFilePath, content, 'utf-8');
         console.log(`✅ Copied: ${file}`);
         syncedCount++;
