@@ -1,4 +1,5 @@
 ---
+title: First impressions on GitHub Spec Kit
 date: 2025-09-09
 tags:
    - AI
