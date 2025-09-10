@@ -3,7 +3,6 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 import { findRelatedArticles } from '../../utils/blog';
-import { convertObsidianLinks } from '../../utils/obsidian-links';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -16,17 +15,10 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const allPosts = await getCollection('blog');
-
-// Convert Obsidian-style links in the post body before rendering
-const processedPost = {
-	...post,
-	body: convertObsidianLinks(post.body, allPosts)
-};
-
-const { Content } = await render(processedPost);
+const { Content } = await render(post);
 const relatedArticles = findRelatedArticles(post, allPosts, 4);
 ---
 
-<BlogPost {...post.data} content={processedPost.body} relatedArticles={relatedArticles}>
+<BlogPost {...post.data} content={post.body} relatedArticles={relatedArticles}>
 	<Content />
 </BlogPost>
