@@ -1,18 +1,327 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import QuestionBlock from '../components/QuestionBlock.astro';
+import MarioCoin from '../components/MarioCoin.astro';
+import ArcadeButton from '../components/ArcadeButton.astro';
+import CloudWide from '../components/clouds/CloudWide.astro';
+import CloudTall from '../components/clouds/CloudTall.astro';
+import CloudSmall from '../components/clouds/CloudSmall.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	date={new Date('August 08 2021')}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="About Jorge Herrera" description="Learn about Jorge Herrera in this Mario-themed adventure through his career, skills, and interests." />
+  </head>
+  <body>
+    <Header />
+    
+    <main class="min-h-screen">
+      <!-- 🏰 LEVEL 1: TITLE SCREEN -->
+      <section class="relative overflow-hidden">
+        <div class="relative border-4 border-black bg-mario-bros-blue-400 overflow-hidden min-h-[60vh]">
+          <!-- Animated clouds background -->
+          <div class="absolute inset-0 z-10 pointer-events-none">
+            <div class="cloud cloud-1" aria-hidden="true">
+              <CloudWide class="cloud-svg" />
+            </div>
+            <div class="cloud cloud-2" aria-hidden="true">
+              <CloudTall class="cloud-svg" />
+            </div>
+            <div class="cloud cloud-3" aria-hidden="true">
+              <CloudSmall class="cloud-svg" />
+            </div>
+          </div>
+
+          <!-- Vignette effect -->
+          <div
+            class="absolute inset-0 z-0 opacity-15 pointer-events-none"
+            style="background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);"
+          ></div>
+
+          <!-- Content -->
+          <div class="relative z-20 px-6 md:px-8 py-16 text-center">
+            <h1 class="font-pixelated text-white text-4xl md:text-6xl tracking-widest text-shadow-lg mb-4">ABOUT JORGE</h1>
+            <p class="text-white/90 text-lg md:text-xl tracking-wider mb-8">LEVEL SELECT: CAREER MODE</p>
+            
+            <!-- Floating question blocks -->
+            <div class="flex justify-center gap-8 mb-8">
+              <QuestionBlock size="lg" clickable={true} />
+              <div class="hidden md:block">
+                <QuestionBlock size="md" clickable={true} />
+              </div>
+              <QuestionBlock size="lg" clickable={true} />
+            </div>
+            
+            <p class="text-white text-sm tracking-wider">Click the question blocks to collect bonus points!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🌟 LEVEL 2: POWER-UP STORY -->
+      <section class="relative">
+        <div class="border-4 border-black bg-mario-bros-green-400 overflow-hidden">
+          <!-- Brick pattern background -->
+          <div class="absolute inset-0 opacity-20" style="background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.3) 0 4px, transparent 4px 16px), repeating-linear-gradient(90deg, rgba(0,0,0,0.3) 0 4px, transparent 4px 16px);"></div>
+          
+          <div class="relative z-10 px-6 md:px-8 py-16">
+            <div class="max-w-4xl mx-auto">
+              <div class="text-center mb-12">
+                <h2 class="font-pixelated text-white text-3xl md:text-4xl tracking-widest text-shadow-lg mb-4">PLAYER STATS</h2>
+                <div class="inline-flex items-center gap-2 bg-black/30 px-4 py-2 rounded border-2 border-white">
+                  <MarioCoin />
+                  <span class="text-white font-pixelated text-sm">EXPERIENCE POINTS: 9999+</span>
+                </div>
+              </div>
+
+              <!-- Character stats grid -->
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left column: Background -->
+                <div class="bg-white/90 border-4 border-black p-6 rounded-sm shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                  <div class="flex items-center gap-2 mb-4">
+                    <QuestionBlock size="sm" animate={false} />
+                    <h3 class="font-pixelated text-lg">ORIGIN STORY</h3>
+                  </div>
+                  <p class="leading-relaxed mb-4">
+                    Started as a junior player in the tech world, Jorge has been leveling up his skills 
+                    for over a decade. Specializing in software development and technical leadership, 
+                    he's completed countless quests in various programming kingdoms.
+                  </p>
+                  <p class="leading-relaxed">
+                    From debugging ancient codebases to architecting modern cloud castles, 
+                    Jorge has collected power-ups in Java, TypeScript, Python, and many other magical languages.
+                  </p>
+                </div>
+
+                <!-- Right column: Current mission -->
+                <div class="bg-white/90 border-4 border-black p-6 rounded-sm shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+                  <div class="flex items-center gap-2 mb-4">
+                    <QuestionBlock size="sm" animate={false} />
+                    <h3 class="font-pixelated text-lg">CURRENT QUEST</h3>
+                  </div>
+                  <p class="leading-relaxed mb-4">
+                    Currently serving as a Technical Lead, Jorge guides teams through complex dungeons 
+                    of enterprise software development. He specializes in:
+                  </p>
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-center gap-2">
+                      <MarioCoin />
+                      <span>Full-stack web development</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <MarioCoin />
+                      <span>Team leadership & mentoring</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <MarioCoin />
+                      <span>System architecture design</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <MarioCoin />
+                      <span>Agile methodology mastery</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🔥 LEVEL 3: LAVA WORLD (SKILLS) -->
+      <section class="relative">
+        <div class="border-4 border-black bg-mario-bros-lava-600 overflow-hidden">
+          <!-- Lava bubble animation -->
+          <div class="absolute inset-0">
+            <div class="lava-bubble lava-bubble-1"></div>
+            <div class="lava-bubble lava-bubble-2"></div>
+            <div class="lava-bubble lava-bubble-3"></div>
+          </div>
+          
+          <div class="relative z-10 px-6 md:px-8 py-16">
+            <div class="max-w-4xl mx-auto text-center">
+              <h2 class="font-pixelated text-white text-3xl md:text-4xl tracking-widest text-shadow-lg mb-12">BOSS BATTLE SKILLS</h2>
+              
+              <!-- Skill blocks grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <!-- Skill blocks -->
+                <div class="skill-block">
+                  <div class="bg-mario-bros-blue-500 border-4 border-black p-4 text-center hover:scale-105 transition-transform">
+                    <div class="font-pixelated text-white text-xs mb-2">FRONTEND</div>
+                    <div class="text-white text-xs">React, Vue, Astro</div>
+                  </div>
+                </div>
+                
+                <div class="skill-block">
+                  <div class="bg-mario-bros-green-500 border-4 border-black p-4 text-center hover:scale-105 transition-transform">
+                    <div class="font-pixelated text-white text-xs mb-2">BACKEND</div>
+                    <div class="text-white text-xs">Java, Node.js, Python</div>
+                  </div>
+                </div>
+                
+                <div class="skill-block">
+                  <div class="bg-mario-bros-lava-500 border-4 border-black p-4 text-center hover:scale-105 transition-transform">
+                    <div class="font-pixelated text-white text-xs mb-2">CLOUD</div>
+                    <div class="text-white text-xs">AWS, Azure, GCP</div>
+                  </div>
+                </div>
+                
+                <div class="skill-block">
+                  <div class="bg-mario-bros-blue-600 border-4 border-black p-4 text-center hover:scale-105 transition-transform">
+                    <div class="font-pixelated text-white text-xs mb-2">LEADERSHIP</div>
+                    <div class="text-white text-xs">Teams, Strategy, Mentoring</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Power-up collection -->
+              <div class="flex justify-center gap-4 mb-8">
+                <QuestionBlock size="md" clickable={true} />
+                <QuestionBlock size="md" clickable={true} />
+                <QuestionBlock size="md" clickable={true} />
+              </div>
+              
+              <p class="text-white/90 text-sm tracking-wider">COLLECT ALL POWER-UPS TO UNLOCK BONUS CONTENT!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🏁 LEVEL 4: FINAL CASTLE (CONTACT) -->
+      <section class="relative">
+        <div class="border-4 border-black bg-mario-bros-blue-800 overflow-hidden">
+          <div class="relative z-10 px-6 md:px-8 py-16">
+            <div class="max-w-3xl mx-auto text-center">
+              <h2 class="font-pixelated text-white text-3xl md:text-4xl tracking-widest text-shadow-lg mb-8">FINAL LEVEL</h2>
+              <p class="text-white/90 text-lg mb-8 leading-relaxed">
+                Ready to embark on a new adventure together? Whether you're looking to collaborate on a project, 
+                discuss tech trends, or just want to chat about the latest in software development, 
+                Jorge is always up for connecting with fellow players in the tech world.
+              </p>
+              
+              <!-- Action buttons -->
+              <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                <ArcadeButton href="/blog" label="READ BLOG" variant="secondary" full={false} />
+                <ArcadeButton href="mailto:jorge@example.com" label="SEND MESSAGE" full={false} />
+                <ArcadeButton href="/blog" label="VIEW PORTFOLIO" variant="secondary" full={false} />
+              </div>
+              
+              <!-- Final question block -->
+              <div class="flex justify-center">
+                <QuestionBlock size="lg" clickable={true} />
+              </div>
+              
+              <p class="text-white/70 text-sm mt-4 tracking-wider">GAME COMPLETE! THANKS FOR PLAYING!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  /* Cloud animations */
+  .cloud { 
+    position: absolute; 
+    opacity: 0.85; 
+    animation-timing-function: linear; 
+  }
+  .cloud-svg { 
+    display: block; 
+    image-rendering: pixelated; 
+    shape-rendering: crispEdges; 
+  }
+  .cloud-1 { 
+    top: 22px; 
+    left: -40px; 
+    animation: drift-right 65s infinite; 
+  }
+  .cloud-2 { 
+    top: 78px; 
+    left: calc(100% - 40px); 
+    animation: drift-left 85s infinite; 
+    opacity: 0.7; 
+  }
+  .cloud-3 { 
+    top: 128px; 
+    left: -20px; 
+    animation: drift-right 55s infinite; 
+    opacity: 0.8; 
+  }
+  .cloud-1 .cloud-svg { width: 168px; height: auto; }
+  .cloud-2 .cloud-svg { width: 120px; height: auto; }
+  .cloud-3 .cloud-svg { width: 96px; height: auto; }
+
+  @keyframes drift-right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(140vw); }
+  }
+  @keyframes drift-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-140vw); }
+  }
+
+  /* Lava bubble animations */
+  .lava-bubble {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 165, 0, 0.6);
+    border-radius: 50%;
+    animation: bubble-rise 4s infinite;
+  }
+  .lava-bubble-1 {
+    left: 20%;
+    animation-delay: 0s;
+    animation-duration: 3s;
+  }
+  .lava-bubble-2 {
+    left: 60%;
+    animation-delay: 1s;
+    animation-duration: 4s;
+  }
+  .lava-bubble-3 {
+    left: 80%;
+    animation-delay: 2s;
+    animation-duration: 3.5s;
+  }
+
+  @keyframes bubble-rise {
+    0% {
+      bottom: -20px;
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+      transform: scale(0.3);
+    }
+  }
+
+  /* Skill block hover effects */
+  .skill-block:hover {
+    animation: shake 0.5s;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cloud { animation: none; }
+    .lava-bubble { animation: none; }
+    .skill-block:hover { animation: none; }
+    [class*="animate-"] { animation: none !important; }
+  }
+</style>
