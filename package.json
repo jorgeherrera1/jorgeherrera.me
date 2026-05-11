@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync-blog": "node scripts/sync-blog.js"
+    "sync-blog": "node scripts/sync-blog.js",
+    "commit-new-blog-posts": "node scripts/commit-new-blog-posts.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
