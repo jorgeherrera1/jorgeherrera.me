@@ -11,12 +11,12 @@
     "commit-new-blog-posts": "node scripts/commit-new-blog-posts.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/mdx": "^6.0.2",
     "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.7",
+    "astro": "^6.4.4",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0"
   },
