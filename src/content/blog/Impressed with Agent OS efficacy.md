@@ -2,7 +2,8 @@
 title: Impressed with Agent OS efficacy
 date: 2025-10-14
 tags:
-   - AI
+   - Spec-driven development
+   - Agent OS
 ---
 ## Gave up on GitHub Spec-Kit
 After more than a month testing GitHub Spec-Kit, I decided to take a rest from it. It has potential but it consider it immature compared to other options on spec-driven development (BMAD, Kiro).

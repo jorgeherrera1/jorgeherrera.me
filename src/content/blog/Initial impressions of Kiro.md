@@ -2,7 +2,8 @@
 date: 2025-07-15
 title: Initial Impressions of Kiro
 tags:
-   - AI
+   - Spec-driven Development
+   - Kiro
 ---
 
 After testing Kiro for about an hour or so, I must admit that I kind of liked the experience of the spec-driven approach it takes to implementing features.

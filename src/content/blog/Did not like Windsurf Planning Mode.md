@@ -2,7 +2,7 @@
 date: 2025-07-25
 title: Did not like Windsurf Planning Mode
 tags:
-   - AI
+   - Windsurf
 ---
 
 After using Cursor and Claude Code for a few months, and lately I have been testing Kiro, I have been very curious about Windsurf. Podcasts I have listened, YouTube videos I have watched, articles I have read, they all praise Windsurf's more polished UI compared to Cursor.

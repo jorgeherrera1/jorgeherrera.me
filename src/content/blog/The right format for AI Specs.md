@@ -2,7 +2,7 @@
 date: 2026-05-10
 title: The right format for Specs
 tags:
-  - AI
+  - Spec-driven development
 ---
 
 I came across this blog post https://x.com/trq212/status/2052809885763747935?s=20 and at the beginning I thought it was garbage from random YouTubers that beg for everybody's attention with the promise of making them AI builders (with all the respect and love of the world). 

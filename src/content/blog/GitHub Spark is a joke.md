@@ -2,7 +2,7 @@
 title: GitHub Spark is a joke
 date: 2025-08-17
 tags:
-   - AI
+   - GitHub Spark
 ---
 
 ## Sorry about the title

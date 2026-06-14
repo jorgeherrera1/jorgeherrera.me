@@ -2,7 +2,8 @@
 title: I am trying to like GitHub Spec-Kit, but
 date: 2025-09-17
 tags:
-   - AI
+   - Spec-driven development
+   - Spec-kit
 ---
 So I have been learning more and more about GitHub Spec-Kit. I'm trying to like it, and I have good reasons for liking it:
 1. It's lightweight. Once I install it in my project folder, I can customize prompts and templates. They are small. 

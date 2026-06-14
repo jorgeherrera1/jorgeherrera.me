@@ -2,7 +2,8 @@
 title: Too ignorant or Spec-kit not working for me
 date: 2025-10-07
 tags:
-   - AI
+   - Spec-driven development
+   - Spec-kit
 ---
 Yeah, I'm frustrated. The title says it all. As I said on previous posts ([[I am trying to like GitHub Spec-Kit, but]]), I have been trying to like [GitHub Spec-Kit](https://github.com/github/spec-kit), I keep trying, but it seems it does not like me. 
 

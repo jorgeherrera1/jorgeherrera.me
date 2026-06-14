@@ -2,7 +2,8 @@
 date: 2025-07-28
 title: BMAD can be too waterfall-ish
 tags:
-   - AI
+   - Spec-driven development
+   - BMAD
 ---
 
 ## Context

@@ -3,6 +3,7 @@ title: Managing Teams That Are Not Yours
 date: "2022-11-17"
 tags:
   - Management
+  - Consulting
 ---
 
 When you work in a consulting firm the most valuable asset is the talent doing consulting work for your clients. There is a gigantic amount of knowledge that grows at every angle you look: industry, problem space, technology, enterprise, etc. The faster the organization grows the more difficult challenges you face when it comes to leading all these talented consultants.

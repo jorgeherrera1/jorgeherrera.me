@@ -2,7 +2,8 @@
 title: Disappointed with TRAE and-or GitHub Spec-Kit
 date: 2025-09-19
 tags:
-   - AI
+   - TRAE
+   - Spec-kit
 ---
 The implementation of my sample project just ended. It took about 1 or 2 hours. It was difficult to measure because I was not in front of the computer the whole time, and from time to time, TRAE or GPT5 reported it had completed, when it did not. There were also another times when TRAE said that I had consumed the "Thinking Limit" or something, and I needed to hit "Continue", which I honestly don't know why.
 

@@ -2,7 +2,8 @@
 title: First impressions on GitHub Spec Kit
 date: 2025-09-09
 tags:
-   - AI
+   - Spec-driven development
+   - Spec-kit
 ---
 
 I came across [GitHub Spec-kit](https://github.com/github/spec-kit) and I decided to give it a try. It looked like a lighter version of the [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD). Not that I dislike BMAD but in my quest to finding the right methodology for myself, I kind-of want something lighter than BMAD and Spec-Kit kind-of look like it. 

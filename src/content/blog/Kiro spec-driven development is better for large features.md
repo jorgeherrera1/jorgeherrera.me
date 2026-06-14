@@ -2,7 +2,8 @@
 date: 2025-07-21
 title: Kiro Spec-driven Development is Better for Large Features
 tags:
-   - AI
+   - Spec-driven development
+   - Kiro
 ---
 
 So I kept using Kiro today to test something that I thought it was a good idea but maybe it was overkill to use Kiro's spec driven development.

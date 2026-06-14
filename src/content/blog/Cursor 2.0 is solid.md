@@ -2,7 +2,7 @@
 date: 2025-11-23
 title: Cursor 2.0 rocks
 tags:
-   - AI
+   - Cursor
 ---
 
 I was very sold into Claude Code. Tried Windsurf, tried GitHub Copilot, tried TRAE, and none of them seemed to compete to Claude Code. The simplicity and effectiveness of Claude Code was better for me.

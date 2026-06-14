@@ -2,7 +2,7 @@
 title: Reflecting on spec-driven development
 date: 2025-09-22
 tags:
-   - AI
+   - Spec-driven development
 ---
 This is a follow up on my exploration of GitHub spec-driven development framework Spec-Kit. But rather about speaking about what works and what does not work, I'm just reflecting on the purpose of spec-driven development.
 

@@ -1,6 +1,8 @@
 ---
 title: Career Paths In Consulting
 date: "2022-12-16"
+tags:
+   - Consulting
 ---
 
 When you choose the _dark side_ (management 😈) in a digital transformation company, one task will come your way sooner or later is creating or improving the career path of the company.
