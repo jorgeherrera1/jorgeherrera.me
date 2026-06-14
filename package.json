@@ -11,16 +11,19 @@
     "commit-new-blog-posts": "node scripts/commit-new-blog-posts.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/rss": "^4.0.15",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/mdx": "^6.0.2",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.15",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.4",
     "sharp": "^0.34.5",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "remark-wiki-link": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
