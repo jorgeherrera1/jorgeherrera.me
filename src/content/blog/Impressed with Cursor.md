@@ -1,5 +1,5 @@
 ---
-date: 2026-06-97
+date: 2026-06-07
 title: Impressed with Cursor
 tags:
    - Cursor
