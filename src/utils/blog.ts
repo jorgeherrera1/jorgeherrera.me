@@ -9,28 +9,6 @@ export async function getAllArticles(): Promise<Article[]> {
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
-// Get articles by specific tag
-export async function getArticlesByTag(tagName: string): Promise<Article[]> {
-  const posts = await getAllArticles();
-  return posts.filter(post => post.data.tags?.includes(tagName));
-}
-
-// Get all unique tags with article counts
-export async function getAllTags(): Promise<{ name: string; count: number }[]> {
-  const posts = await getAllArticles();
-  const tagCounts = new Map<string, number>();
-  
-  posts.forEach(post => {
-    post.data.tags?.forEach(tag => {
-      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
-    });
-  });
-  
-  return Array.from(tagCounts.entries())
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count);
-}
-
 // Format date consistently
 export function formatDate(date: Date): string {
   if (!date || isNaN(date.getTime())) {
