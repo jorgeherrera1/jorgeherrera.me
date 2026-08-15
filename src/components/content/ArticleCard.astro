@@ -1,17 +1,16 @@
 ---
-import type { Article } from '../../utils/blog.ts';
-import { formatDate, formatDateForAttribute, calculateReadingTime, generateExcerpt } from '../../utils/blog.ts';
+import type { Article } from '../../utils/blog';
+import { formatDate, formatDateForAttribute, calculateReadingTime, generateExcerpt } from '../../utils/blog';
 import TagList from '../TagList.astro';
 import ArcadeButton from '../ArcadeButton.astro';
 
 export interface Props {
   article: Article;
-  variant?: 'grid' | 'featured';
   showExcerpt?: boolean;
   class?: string;
 }
 
-const { article, variant = 'grid', showExcerpt = true, class: className = '' } = Astro.props;
+const { article, showExcerpt = true, class: className = '' } = Astro.props;
 const readingTime = calculateReadingTime(article.body ?? '');
 const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
 ---
@@ -41,7 +40,7 @@ const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
     <div class="px-6 md:px-8 pt-3">
       <h2 class="text-lg md:text-xl leading-snug text-mario-bros-lava-800 tracking-wider">
         <a
-          href={`/blog/${article.id}`}
+          href={`/blog/${article.id}/`}
           class="no-underline focus:outline-none hover:underline underline-offset-4"
         >
           {article.data.title.toUpperCase()}
@@ -67,7 +66,7 @@ const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
 
       <!-- CTA: Reusable arcade button -->
       <div class="mt-auto">
-        <ArcadeButton href={`/blog/${article.id}`} ariaLabel={`Open article ${article.data.title}`} label="START" />
+        <ArcadeButton href={`/blog/${article.id}/`} ariaLabel={`Open article ${article.data.title}`} label="START" />
       </div>
     </div>
 

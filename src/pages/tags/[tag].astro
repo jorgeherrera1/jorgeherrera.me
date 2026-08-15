@@ -1,6 +1,6 @@
 ---
-import { getAllTags, getArticlesByTag, normalizeTag } from '../../utils/tags.ts';
-import { formatDate, calculateReadingTime } from '../../utils/blog.ts';
+import { getAllTags, normalizeTag } from '../../utils/tags';
+import { formatDate, calculateReadingTime } from '../../utils/blog';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import MarioPipe from '../../components/MarioPipe.astro';
@@ -11,12 +11,14 @@ export async function getStaticPaths() {
   const tags = await getAllTags();
   return tags.map((tag) => ({
     params: { tag: tag.name },
-    props: { tag: tag.name },
+    props: {
+      tag: tag.name,
+      articles: [...tag.articles].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
   }));
 }
 
-const { tag } = Astro.props;
-const articles = await getArticlesByTag(tag);
+const { tag, articles } = Astro.props;
 
 const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
 const tagDisplay = displayName(normalizeTag(tag));
@@ -40,7 +42,7 @@ const tagDisplay = displayName(normalizeTag(tag));
           <span> x{articles.length}</span>
         </div>
         <div class="flex justify-center sm:justify-end">
-          <ArcadeButton href="/tags" label="ALL TAGS" full={false} heightClass="h-10" labelClass="text-[10px]" />
+          <ArcadeButton href="/tags/" label="ALL TAGS" full={false} heightClass="h-10" labelClass="text-[10px]" />
         </div>
       </div>
 
@@ -58,7 +60,7 @@ const tagDisplay = displayName(normalizeTag(tag));
             {articles.map((article) => {
               const readingTime = calculateReadingTime(article.body ?? '');
               return (
-                <a href={`/blog/${article.id}`} class="group block focus:outline-none" aria-label={`Read: ${article.data.title}`}>
+                <a href={`/blog/${article.id}/`} class="group block focus:outline-none" aria-label={`Read: ${article.data.title}`}>
                   <div class="relative">
                     <!-- Bay frame -->
                     <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>

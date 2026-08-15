@@ -36,19 +36,14 @@ const sizeClasses = {
   </div>
 </div>
 
-{clickable && (
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const questionBlocks = document.querySelectorAll('[data-question-block="true"]');
-      questionBlocks.forEach(block => {
-        block.addEventListener('click', () => {
-          // Add coin sound effect or animation here
-          block.classList.add('animate-ping');
-          setTimeout(() => {
-            block.classList.remove('animate-ping');
-          }, 1000);
-        });
-      });
-    });
-  </script>
-)}
+<script>
+  // Delegated handler: hoisted module scripts run once after the document is
+  // parsed, so no DOMContentLoaded wait, and non-clickable blocks render
+  // data-question-block="false" and never match.
+  document.addEventListener('click', (event) => {
+    const block = (event.target as Element).closest('[data-question-block="true"]');
+    if (!block) return;
+    block.classList.add('animate-ping');
+    setTimeout(() => block.classList.remove('animate-ping'), 1000);
+  });
+</script>

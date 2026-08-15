@@ -17,7 +17,7 @@ const { articles } = Astro.props;
       {articles.map(article => (
         <article class="related-item">
           <h4 class="related-item-title">
-            <a href={`/blog/${article.slug}`} class="related-link">
+            <a href={`/blog/${article.id}/`} class="related-link">
               {article.data.title}
             </a>
           </h4>
@@ -31,7 +31,7 @@ const { articles } = Astro.props;
             <div class="related-tags">
               {article.data.tags.slice(0, 3).map(tag => (
                 <a 
-                  href={`/tags/${normalizeTag(tag)}`} 
+                  href={`/tags/${normalizeTag(tag)}/`} 
                   class="related-tag"
                   aria-label={`View articles tagged with ${tag}`}
                 >

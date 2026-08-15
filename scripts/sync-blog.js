@@ -8,27 +8,14 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load environment variables from .env.local
+// Load environment variables from .env.local (Node 22+ built-in parser)
 function loadEnvLocal() {
   const envPath = join(__dirname, '..', '.env.local');
   if (!existsSync(envPath)) {
     console.error('❌ .env.local file not found. Please create it with OBSIDIAN_BLOG_PATH variable.');
     process.exit(1);
   }
-  
-  const envContent = readFileSync(envPath, 'utf-8');
-  const lines = envContent.split('\n');
-  
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed && !trimmed.startsWith('#')) {
-      const [key, ...valueParts] = trimmed.split('=');
-      if (key && valueParts.length > 0) {
-        const value = valueParts.join('=').replace(/^["']|["']$/g, ''); // Remove quotes
-        process.env[key.trim()] = value.trim();
-      }
-    }
-  }
+  process.loadEnvFile(envPath);
 }
 
 

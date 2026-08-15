@@ -56,9 +56,9 @@ const articles = await getAllArticles();
 						<!-- menu options -->
 						<div class="relative z-20 px-6 md:px-8 py-6 grid place-items-center">
 							<div class="w-full max-w-md space-y-3">
-								<ArcadeButton href="/about" label="START" />
-								<ArcadeButton href="/blog" label="VIEW BLOG" variant="secondary" heightClass="h-10" labelClass="text-xs" />
-								<ArcadeButton href="/tags" label="EXPLORE WORLDS" variant="secondary" heightClass="h-10" labelClass="text-xs" />
+								<ArcadeButton href="/about/" label="START" />
+								<ArcadeButton href="/blog/" label="VIEW BLOG" variant="secondary" heightClass="h-10" labelClass="text-xs" />
+								<ArcadeButton href="/tags/" label="EXPLORE WORLDS" variant="secondary" heightClass="h-10" labelClass="text-xs" />
 							</div>
 						</div>
 
@@ -81,7 +81,7 @@ const articles = await getAllArticles();
 					<h2 class="text-2xl font-normal tracking-wide flex items-center gap-3 text-white text-shadow-black shadow-2xl">
 						LATEST ARTICLES
 					</h2>
-					<ArcadeButton href="/blog" label="VIEW ALL" full={false} variant="secondary" heightClass="h-10" labelClass="text-xs" />
+					<ArcadeButton href="/blog/" label="VIEW ALL" full={false} variant="secondary" heightClass="h-10" labelClass="text-xs" />
 				</div>
 				<ArticleCardGrid articles={articles} maxCards={3} showViewAllLink={false} />
 			</section>

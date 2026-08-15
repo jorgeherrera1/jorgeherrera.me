@@ -1,22 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@font-face {
-  font-family: "Press Start 2P";
-  src: url("/fonts/PressStart2P-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Source Code Pro";
-  src: url("/fonts/SourceCodePro-VariableFont_wght.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --color-*: initial;
 
@@ -59,8 +43,10 @@
   --color-white: #FFFFFF;
   --color-black: #000000;
 
-  --font-pixelated: "Press Start 2P", monospace;
-  --font-mono: "Source Code Pro", monospace;
+  /* Font families come from Astro's fonts API (see astro.config.ts),
+     which injects these variables with generated fallback stacks. */
+  --font-pixelated: var(--font-press-start-2p);
+  --font-mono: var(--font-source-code-pro);
 
   --text-shadow-2xs: 1px 1px 0px var(--color-black);
   --text-shadow-xs: 1px 1px 0px var(--color-black), 1px 2px 0px var(--color-black);

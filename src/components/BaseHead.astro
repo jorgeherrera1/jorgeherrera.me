@@ -2,6 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
@@ -26,6 +27,10 @@ const { title, description} = Astro.props;
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Fonts (optimized woff2 + preload via Astro's fonts API) -->
+<Font cssVariable="--font-press-start-2p" preload />
+<Font cssVariable="--font-source-code-pro" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

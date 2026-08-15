@@ -1,5 +1,5 @@
 ---
-import { getAllTags, normalizeTag } from '../../utils/tags.ts';
+import { getAllTags, normalizeTag } from '../../utils/tags';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import MarioPipe from '../../components/MarioPipe.astro';
@@ -25,7 +25,7 @@ const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
               {tags.map(tag => {
                 return (
                   <a
-                    href={`/tags/${normalizeTag(tag.name)}`}
+                    href={`/tags/${normalizeTag(tag.name)}/`}
                     class="group block focus:outline-none"
                     aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${displayName(tag.name)}`}
                   >
@@ -46,24 +46,5 @@ const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
         )}
       </div>
     </main>
-
-    <style>
-      .brick {
-        background-color: var(--color-mario-bros-lava-600);
-        background-image:
-          linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px),
-          repeating-linear-gradient(0deg, transparent 0, transparent 18px, rgba(0,0,0,0.25) 18px, rgba(0,0,0,0.25) 22px),
-          repeating-linear-gradient(90deg, transparent 0, transparent 18px, rgba(0,0,0,0.25) 18px, rgba(0,0,0,0.25) 22px);
-        image-rendering: pixelated;
-      }
-      .ground {
-        background-color: var(--color-mario-bros-lava-700);
-        background-image:
-          repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px),
-          repeating-linear-gradient(90deg, rgba(0,0,0,0.25) 0, rgba(0,0,0,0.25) 4px, transparent 4px, transparent 20px);
-        image-rendering: pixelated;
-      }
-
-    </style>
   </body>
 </html>

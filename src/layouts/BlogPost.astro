@@ -6,10 +6,10 @@ import TagList from '../components/TagList.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import MarioTitleBlock from '../components/MarioTitleBlock.astro';
 import MarioCoin from '../components/MarioCoin.astro';
-import { calculateReadingTime, formatDate, formatDateForAttribute, generateExcerpt } from '../utils/blog.ts';
+import { calculateReadingTime, formatDate, formatDateForAttribute, generateExcerpt } from '../utils/blog';
 
 type Props = CollectionEntry<'blog'>['data'] & {
-  content?: string;
+  content?: string | undefined;
   relatedArticles?: CollectionEntry<'blog'>[];
 };
 
@@ -31,7 +31,7 @@ const metaDescription = generateExcerpt(content ?? '', 160);
 				<!-- 🎮 LEVEL SELECTOR (Back Navigation) -->
 				<nav class="mb-8">
 					<a
-						href="/blog"
+						href="/blog/"
 						class="inline-flex items-center gap-2 px-4 py-2 border-4 border-black bg-white text-black rounded-sm shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all text-xs tracking-widest"
 						aria-label="Back to level selection"
 					>

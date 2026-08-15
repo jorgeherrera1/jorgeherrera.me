@@ -26,7 +26,7 @@ export function formatDateForAttribute(date: Date): string {
   if (!date || isNaN(date.getTime())) {
     return '';
   }
-  return date.toISOString().split('T')[0];
+  return date.toISOString().slice(0, 10);
 }
 
 // Calculate reading time for article content
@@ -84,7 +84,7 @@ export function findRelatedArticles(currentPost: CollectionEntry<'blog'>, allPos
   const currentTags = currentPost.data.tags?.map(normalizeTag) || [];
   
   return allPosts
-    .filter(post => post.slug !== currentPost.slug)
+    .filter(post => post.id !== currentPost.id)
     .map(post => ({
       post,
       sharedTags: (post.data.tags?.map(normalizeTag) || []).filter(tag => currentTags.includes(tag)).length
