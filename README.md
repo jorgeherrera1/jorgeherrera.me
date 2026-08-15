@@ -6,10 +6,10 @@ Welcome to my personal blog! This is where I share my thoughts on web developmen
 
 This blog is built with modern web technologies:
 
-- **[Astro](https://astro.build)** - Static site generator with component islands architecture
-- **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework for styling
-- **[MDX](https://mdxjs.com)** - Markdown with embedded React components
-- **TypeScript** - Type-safe JavaScript development
+- **[Astro 7](https://astro.build)** - Static site generator (Rust compiler, Sätteri markdown pipeline)
+- **[Tailwind CSS v4](https://tailwindcss.com)** - Utility-first CSS framework, configured in CSS
+- **Markdown** - Posts are plain `.md` files with Obsidian-style `[[wiki links]]`
+- **TypeScript** - Type-safe development, checked with `astro check`
 
 ## Features
 
@@ -21,6 +21,8 @@ This blog is built with modern web technologies:
 - ✅ RSS feed support
 - ✅ Syntax highlighting for code blocks
 - ✅ Tag-based article organization
+- ✅ Wiki links between posts (`[[Post Title]]` resolves to the post's URL)
+- ✅ Self-hosted, subsetted woff2 fonts with preloads via Astro's fonts API
 
 ## Architecture
 
@@ -36,7 +38,7 @@ This blog follows Astro's **islands architecture**, which delivers lightning-fas
 │   │   ├── Header.astro     # Site navigation
 │   │   └── content/         # Blog-specific components
 │   ├── content/
-│   │   └── blog/            # Blog posts (Markdown/MDX)
+│   │   └── blog/            # Blog posts (Markdown)
 │   ├── layouts/
 │   │   └── BlogPost.astro   # Blog post layout template
 │   ├── pages/               # File-based routing
@@ -44,25 +46,26 @@ This blog follows Astro's **islands architecture**, which delivers lightning-fas
 │   │   ├── about.astro      # About page
 │   │   ├── blog/            # Blog listing & individual posts
 │   │   └── tags/            # Tag-based filtering
-│   ├── styles/              # Global CSS styles
+│   ├── assets/fonts/        # Self-hosted woff2 fonts
+│   ├── lib/                 # Sätteri markdown plugins (wikilink resolver)
+│   ├── styles/              # Global CSS (Tailwind v4 @theme config)
 │   └── utils/               # Utility functions
-├── astro.config.mjs         # Astro configuration
-└── tailwind.config.js       # Tailwind CSS configuration
+└── astro.config.ts          # Astro configuration (fonts, markdown, sitemap)
 ```
 
 ### Key Architectural Decisions
 
 - **Static-first**: All pages are pre-rendered at build time for optimal performance
-- **Component islands**: Interactive components are hydrated only when needed
-- **Content collections**: Blog posts are managed through Astro's type-safe content system
-- **Tailwind CSS**: Utility-first styling for rapid development and consistent design
-- **MDX support**: Enhanced Markdown with embedded components for rich content
+- **Minimal JavaScript**: pure Astro components; a single tiny script powers the question blocks
+- **Content collections**: Blog posts are managed through Astro's type-safe content layer (glob loader)
+- **Tailwind CSS v4**: CSS-first configuration via `@theme` in `src/styles/global.css` — no tailwind.config.js
+- **Sätteri markdown**: Astro 7's native Rust pipeline with wikilinks enabled; a small mdast plugin maps `[[Page Name]]` to `/blog/page-name/`
 
 ## How to Add New Blog Posts
 
 Adding a new blog post is straightforward:
 
-1. **Create a new file** in the `src/content/blog/` directory with a `.md` or `.mdx` extension
+1. **Create a new file** in the `src/content/blog/` directory with a `.md` extension
 2. **Add frontmatter** at the top of the file with required metadata:
 
 ```yaml
@@ -75,7 +78,7 @@ tags:
 ---
 ```
 
-3. **Write your content** below the frontmatter using Markdown or MDX syntax
+3. **Write your content** below the frontmatter using Markdown (link to other posts with `[[Their Title]]`)
 4. **Save the file** - Astro will automatically generate the blog post page
 
 ### Frontmatter Schema
@@ -121,6 +124,7 @@ All commands are run from the root of the project:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run check`           | Type-check the project with `astro check`        |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
