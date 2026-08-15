@@ -6,10 +6,10 @@ import TagList from '../components/TagList.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import MarioTitleBlock from '../components/MarioTitleBlock.astro';
 import MarioCoin from '../components/MarioCoin.astro';
-import { calculateReadingTime, formatDate, formatDateForAttribute, generateExcerpt } from '../utils/blog.ts';
+import { calculateReadingTime, formatDate, formatDateForAttribute, generateExcerpt } from '../utils/blog';
 
 type Props = CollectionEntry<'blog'>['data'] & {
-  content?: string;
+  content?: string | undefined;
   relatedArticles?: CollectionEntry<'blog'>[];
 };
 

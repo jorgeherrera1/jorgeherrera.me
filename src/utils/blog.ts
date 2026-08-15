@@ -26,7 +26,7 @@ export function formatDateForAttribute(date: Date): string {
   if (!date || isNaN(date.getTime())) {
     return '';
   }
-  return date.toISOString().split('T')[0];
+  return date.toISOString().slice(0, 10);
 }
 
 // Calculate reading time for article content

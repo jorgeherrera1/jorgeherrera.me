@@ -1,17 +1,16 @@
 ---
-import type { Article } from '../../utils/blog.ts';
-import { formatDate, formatDateForAttribute, calculateReadingTime, generateExcerpt } from '../../utils/blog.ts';
+import type { Article } from '../../utils/blog';
+import { formatDate, formatDateForAttribute, calculateReadingTime, generateExcerpt } from '../../utils/blog';
 import TagList from '../TagList.astro';
 import ArcadeButton from '../ArcadeButton.astro';
 
 export interface Props {
   article: Article;
-  variant?: 'grid' | 'featured';
   showExcerpt?: boolean;
   class?: string;
 }
 
-const { article, variant = 'grid', showExcerpt = true, class: className = '' } = Astro.props;
+const { article, showExcerpt = true, class: className = '' } = Astro.props;
 const readingTime = calculateReadingTime(article.body ?? '');
 const excerpt = showExcerpt ? generateExcerpt(article.body ?? '', 150) : '';
 ---
