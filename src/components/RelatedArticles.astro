@@ -17,7 +17,7 @@ const { articles } = Astro.props;
       {articles.map(article => (
         <article class="related-item">
           <h4 class="related-item-title">
-            <a href={`/blog/${article.slug}`} class="related-link">
+            <a href={`/blog/${article.id}/`} class="related-link">
               {article.data.title}
             </a>
           </h4>
