@@ -31,7 +31,7 @@ const { articles } = Astro.props;
             <div class="related-tags">
               {article.data.tags.slice(0, 3).map(tag => (
                 <a 
-                  href={`/tags/${normalizeTag(tag)}`} 
+                  href={`/tags/${normalizeTag(tag)}/`} 
                   class="related-tag"
                   aria-label={`View articles tagged with ${tag}`}
                 >

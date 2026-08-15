@@ -42,7 +42,7 @@ const tagDisplay = displayName(normalizeTag(tag));
           <span> x{articles.length}</span>
         </div>
         <div class="flex justify-center sm:justify-end">
-          <ArcadeButton href="/tags" label="ALL TAGS" full={false} heightClass="h-10" labelClass="text-[10px]" />
+          <ArcadeButton href="/tags/" label="ALL TAGS" full={false} heightClass="h-10" labelClass="text-[10px]" />
         </div>
       </div>
 
@@ -60,7 +60,7 @@ const tagDisplay = displayName(normalizeTag(tag));
             {articles.map((article) => {
               const readingTime = calculateReadingTime(article.body ?? '');
               return (
-                <a href={`/blog/${article.id}`} class="group block focus:outline-none" aria-label={`Read: ${article.data.title}`}>
+                <a href={`/blog/${article.id}/`} class="group block focus:outline-none" aria-label={`Read: ${article.data.title}`}>
                   <div class="relative">
                     <!-- Bay frame -->
                     <div class="absolute inset-0 translate-x-1 translate-y-1 bg-black"></div>

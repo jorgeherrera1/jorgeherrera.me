@@ -25,7 +25,7 @@ const displayName = (slug: string) => slug.replace(/-/g, ' ').toUpperCase();
               {tags.map(tag => {
                 return (
                   <a
-                    href={`/tags/${normalizeTag(tag.name)}`}
+                    href={`/tags/${normalizeTag(tag.name)}/`}
                     class="group block focus:outline-none"
                     aria-label={`View ${tag.count} article${tag.count === 1 ? '' : 's'} tagged with ${displayName(tag.name)}`}
                   >

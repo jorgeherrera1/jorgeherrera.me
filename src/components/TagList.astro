@@ -18,7 +18,7 @@ const { tags, showLinks = true, className = '', tagClass = '' } = Astro.props;
       
       return showLinks ? (
         <a 
-          href={`/tags/${normalizeTag(tag)}`} 
+          href={`/tags/${normalizeTag(tag)}/`} 
           aria-label={`View all articles tagged with ${tag}`}
           class={`${baseClasses} ${tagClass}`}
         >

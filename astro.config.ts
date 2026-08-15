@@ -7,6 +7,7 @@ import { wikilinkResolver } from './src/lib/wikilink-resolver';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jorgeherrera.me',
+  trailingSlash: 'always',
   integrations: [sitemap()],
   fonts: [
     {
