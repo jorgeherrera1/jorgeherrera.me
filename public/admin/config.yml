@@ -1,0 +1,60 @@
+# 🎮 LEVEL EDITOR — Sveltia CMS configuration
+# Git-based CMS: saving an entry commits it to GitHub, and Vercel redeploys.
+# Sveltia is Decap-compatible, mobile-first, and ships as a single script —
+# no framework, no adapter, the site stays fully static.
+# Docs: https://github.com/sveltia/sveltia-cms
+
+backend:
+  name: github
+  repo: jorgeherrera1/jorgeherrera.me
+  branch: main
+  # The GitHub OAuth handshake is served by the Vercel functions in /api
+  base_url: https://jorgeherrera.me
+  auth_endpoint: api/auth
+  commit_messages:
+    create: 'docs: add blog post "{{slug}}"'
+    update: 'docs: update blog post "{{slug}}"'
+    delete: 'docs: delete blog post "{{slug}}"'
+    uploadMedia: 'docs: upload media "{{path}}"'
+    deleteMedia: 'docs: delete media "{{path}}"'
+
+site_url: https://jorgeherrera.me
+display_url: https://jorgeherrera.me
+logo_url: https://jorgeherrera.me/admin/question-block.svg
+
+media_folder: public/images/blog
+public_folder: /images/blog
+
+collections:
+  - name: blog
+    label: Levels
+    label_singular: Level
+    folder: src/content/blog
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    # Filenames follow the "post title verbatim" convention as closely as the
+    # CMS allows: spaces become hyphens, other characters are preserved. The
+    # glob loader slugifies filenames with github-slugger, so routes and
+    # [[wiki links]] keep resolving to the same /blog/<slug>/ URLs.
+    slug: '{{title}}'
+    summary: '{{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Date
+        name: date
+        widget: datetime
+        format: 'YYYY-MM-DD'
+        date_format: 'YYYY-MM-DD'
+        time_format: false
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Body
+        name: body
+        widget: markdown

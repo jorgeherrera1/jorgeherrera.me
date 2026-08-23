@@ -113,7 +113,13 @@ oklch scales (50–950 stops each), plus white/black:
 - **Format**: Markdown (`.md`) files only
 - **Wiki links**: `[[Another Post Title]]` links to another post by title; `[[Title|alias]]` customizes the link text
 - **Static generation**: All content pre-rendered at build time
-- Posts are synced one-way from an Obsidian vault via `npm run sync-blog` (destructive: posts not in the vault are deleted)
+- Posts are synced one-way from an Obsidian vault via `npm run sync-blog` (destructive: posts not in the vault are deleted — including posts authored in the Level Editor)
+
+### Level Editor (Sveltia CMS)
+- **`/admin/`** hosts [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (static files in `public/admin/`: `index.html` loads the CMS from CDN, `config.yml` configures it). Mobile-first, Decap-compatible, no framework code added to the site.
+- Saving an entry commits straight to `main` through the GitHub API; Vercel redeploys.
+- **GitHub OAuth** is handled by two Vercel serverless functions in `api/` (`auth.ts`, `callback.ts`) — plain Web-standard handlers deployed by Vercel's root `api/` directory convention. The Astro build does not touch them (no adapter; the site stays static), but they are type-checked by `npm run check`, so they must pass strictest too. They need `OAUTH_GITHUB_CLIENT_ID` / `OAUTH_GITHUB_CLIENT_SECRET` env vars in Vercel.
+- The homepage's "SECRET WARP ZONE" pipe links to `/admin/`.
 
 ### Frontmatter Schema
 Required fields for all blog posts:
@@ -159,6 +165,11 @@ const blog = defineCollection({
 
 ### Project Structure
 ```
+api/
+├── auth.ts                  # Vercel function: GitHub OAuth entry (Level Editor)
+└── callback.ts              # Vercel function: OAuth callback + CMS handshake
+public/
+└── admin/                   # Level Editor (Sveltia CMS): index.html + config.yml
 src/
 ├── assets/
 │   └── fonts/               # Subsetted woff2 fonts (served via fonts API)

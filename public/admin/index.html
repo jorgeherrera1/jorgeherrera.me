@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>LEVEL EDITOR · Jorge Herrera</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      /* Same subsetted pixel font the site ships in public/fonts */
+      @font-face {
+        font-family: 'Press Start 2P';
+        src: url('/fonts/PressStart2P-Regular.ttf') format('truetype');
+        font-display: swap;
+      }
+
+      /* 🎮 TITLE SCREEN: splash shown while Sveltia CMS boots.
+         Colors mirror the @theme tokens in src/styles/global.css. */
+      #splash {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: oklch(72.16% 0.136 272.83); /* mario-bros-blue-400 sky */
+        font-family: 'Press Start 2P', monospace;
+        text-align: center;
+        color: white;
+      }
+
+      /* Hide the splash the moment the CMS mounts anything else into <body> */
+      body:has(> :not(#splash)) #splash {
+        display: none;
+      }
+
+      #splash .block {
+        width: 96px;
+        height: 96px;
+        margin-inline: auto;
+        image-rendering: pixelated;
+        animation: block-bump 1s ease-in-out infinite;
+      }
+
+      #splash .loading {
+        margin-top: 2rem;
+        font-size: 1rem;
+        text-shadow: 2px 2px 0 black;
+        animation: blink 1s steps(2, jump-none) infinite;
+      }
+
+      #splash .world {
+        margin-top: 1rem;
+        font-size: 0.625rem;
+        letter-spacing: 0.2em;
+        color: oklch(96.58% 0.015 277.91); /* mario-bros-blue-50 */
+        text-shadow: 1px 1px 0 black;
+      }
+
+      @keyframes block-bump {
+        0%, 50%, 100% { translate: 0 0; }
+        25% { translate: 0 -12px; }
+      }
+
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #splash .block,
+        #splash .loading {
+          animation: none;
+        }
+      }
+    </style>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+  </head>
+  <body>
+    <div id="splash">
+      <div>
+        <img class="block" src="/admin/question-block.svg" alt="" width="96" height="96" />
+        <p class="loading">NOW LOADING…</p>
+        <p class="world">WORLD 1-1 · LEVEL EDITOR</p>
+      </div>
+    </div>
+  </body>
+</html>

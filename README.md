@@ -81,6 +81,44 @@ tags:
 3. **Write your content** below the frontmatter using Markdown (link to other posts with `[[Their Title]]`)
 4. **Save the file** - Astro will automatically generate the blog post page
 
+### ✍️ Level Editor (write posts from the website)
+
+Posts can also be written straight from the browser — including on mobile — via
+the **Level Editor** at [`/admin/`](https://jorgeherrera.me/admin/) (or through
+the warp pipe at the bottom of the homepage). It runs
+[Sveltia CMS](https://github.com/sveltia/sveltia-cms), a lightweight, mobile-first,
+Git-based CMS:
+
+- **Sign in with GitHub** — no custom accounts; only users with write access to
+  this repo can publish.
+- **Saving a post commits it to `main`** via the GitHub API, and Vercel picks up
+  the commit and redeploys. No database anywhere.
+- The site itself stays fully static: the CMS is a single script loaded on
+  `/admin/` only, and the OAuth handshake lives in two Vercel serverless
+  functions (`api/auth.ts`, `api/callback.ts`).
+
+#### One-time setup
+
+1. Create a **GitHub OAuth App** ([Settings → Developer settings → OAuth Apps](https://github.com/settings/developers)):
+   - Homepage URL: `https://jorgeherrera.me`
+   - Authorization callback URL: `https://jorgeherrera.me/api/callback`
+2. In the Vercel project, add two environment variables (Production):
+   - `OAUTH_GITHUB_CLIENT_ID` — the OAuth App's client ID
+   - `OAUTH_GITHUB_CLIENT_SECRET` — a generated client secret
+3. Redeploy. Visit `/admin/`, hit **Sign in with GitHub**, and start writing.
+
+#### Local editing
+
+On `localhost` the CMS offers **Work with local repository** (no OAuth needed):
+it edits the files in your working copy directly via the File System Access API.
+
+#### ⚠️ Interplay with the Obsidian sync
+
+`npm run sync-blog` is destructive: it wipes `src/content/blog/` and recreates
+it from the Obsidian vault. Posts created in the Level Editor exist only in
+GitHub — **pull before syncing**, and either copy web-authored posts into the
+vault or avoid committing the deletions the sync leaves behind.
+
 ### Frontmatter Schema
 
 All blog posts must include these frontmatter fields:

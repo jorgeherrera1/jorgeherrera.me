@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import ArticleCardGrid from '../components/content/ArticleCardGrid.astro';
 import ArcadeButton from '../components/ArcadeButton.astro';
+import MarioPipe from '../components/MarioPipe.astro';
 // removed MarioCoin; no longer used in title background
 import CloudWide from '../components/clouds/CloudWide.astro';
 import CloudTall from '../components/clouds/CloudTall.astro';
@@ -84,6 +85,16 @@ const articles = await getAllArticles();
 					<ArcadeButton href="/blog/" label="VIEW ALL" full={false} variant="secondary" heightClass="h-10" labelClass="text-xs" />
 				</div>
 				<ArticleCardGrid articles={articles} maxCards={3} showViewAllLink={false} />
+			</section>
+
+			<!-- 🎯 SECRET WARP ZONE: pipe into the Level Editor (Sveltia CMS at /admin/) -->
+			<section class="mt-16 flex justify-end">
+				<a href="/admin/" class="group flex flex-col items-center gap-2 no-underline" aria-label="Warp to the Level Editor">
+					<span class="font-pixelated text-xs tracking-widest text-white/60 text-shadow-2xs transition-colors group-hover:text-white group-focus-visible:text-white">LEVEL EDITOR</span>
+					<span class="transition-transform group-hover:-translate-y-1 motion-reduce:transition-none">
+						<MarioPipe width={70} height={89} />
+					</span>
+				</a>
 			</section>
 		</main>
 	</body>
