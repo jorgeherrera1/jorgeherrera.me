@@ -18,6 +18,9 @@ pnpm-debug.log*
 .env.local
 .env.production
 
+# blog sync conflict backups (losing side of a two-way sync conflict)
+*.sync-backup
+
 # macOS-specific files
 .DS_Store
 

@@ -112,12 +112,29 @@ Git-based CMS:
 On `localhost` the CMS offers **Work with local repository** (no OAuth needed):
 it edits the files in your working copy directly via the File System Access API.
 
-#### ⚠️ Interplay with the Obsidian sync
+#### 🔄 Two-way sync with Obsidian
 
-`npm run sync-blog` is destructive: it wipes `src/content/blog/` and recreates
-it from the Obsidian vault. Posts created in the Level Editor exist only in
-GitHub — **pull before syncing**, and either copy web-authored posts into the
-vault or avoid committing the deletions the sync leaves behind.
+`npm run sync-blog` is a two-way, additive sync between the Obsidian vault and
+`src/content/blog/`:
+
+- Posts that exist on only one side are copied to the other — Level Editor
+  posts flow back into the vault, vault drafts flow into the repo.
+- **The sync never deletes anything.** To remove a post, delete it in both
+  places yourself and commit.
+- Posts are matched by URL slug (github-slugger, same as the site's routes),
+  not by filename — the vault's `Title verbatim.md` and the Level Editor's
+  `Title-verbatim.md` are recognized as the same post, no duplicates.
+- If both sides changed the same post, the newer edit wins and the losing
+  version is kept next to the winner as `<file>.md.sync-backup` (gitignored,
+  invisible to Astro and Obsidian) — nothing is ever lost silently.
+- The script warns when `origin/main` has blog commits you haven't pulled
+  (fresh Level Editor posts); `git pull` first so they can sync into the vault.
+- `npm run commit-new-blog-posts` still commits new posts only; edits to
+  existing posts are committed manually for now.
+
+`npm test` runs the sync's verification suite (Node's built-in test runner,
+temp directories only): a file placed on either side must appear on the other
+with nothing deleted or clobbered in either direction.
 
 ### Frontmatter Schema
 

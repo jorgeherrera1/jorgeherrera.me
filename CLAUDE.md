@@ -19,7 +19,8 @@ A static-first personal blog built with Astro 7 and styled with a Super Mario Br
 | `npm run preview` | Preview built site locally |
 | `npm run check` | Type-check with `astro check` (strictest tsconfig) |
 | `npm run astro` | Run Astro CLI commands |
-| `npm run sync-blog` | Sync posts from the Obsidian vault (`OBSIDIAN_BLOG_PATH` in `.env.local`) |
+| `npm test` | Run the sync verification suite (`node --test`, no framework) |
+| `npm run sync-blog` | Two-way sync with the Obsidian vault (`OBSIDIAN_BLOG_PATH` in `.env.local`) — additive, never deletes |
 | `npm run commit-new-blog-posts` | Commit and push untracked blog posts |
 
 ## Astro 7 Configuration Notes
@@ -113,7 +114,8 @@ oklch scales (50–950 stops each), plus white/black:
 - **Format**: Markdown (`.md`) files only
 - **Wiki links**: `[[Another Post Title]]` links to another post by title; `[[Title|alias]]` customizes the link text
 - **Static generation**: All content pre-rendered at build time
-- Posts are synced one-way from an Obsidian vault via `npm run sync-blog` (destructive: posts not in the vault are deleted — including posts authored in the Level Editor)
+- Posts sync two ways with an Obsidian vault via `npm run sync-blog`: additive union matched by github-slugger slug (so verbatim vs hyphenated filenames are the same post), never deletes, newer mtime wins conflicts with the losing bytes kept as a gitignored `<file>.md.sync-backup`. `scripts/sync-blog.js` exports `syncBlog()` for the tests in `scripts/sync-blog.test.js`
+- `npm run commit-new-blog-posts` commits untracked posts only — edits to existing posts are committed manually (deliberate, deferred)
 
 ### Level Editor (Sveltia CMS)
 - **`/admin/`** hosts [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (static files in `public/admin/`: `index.html` loads the CMS from CDN, `config.yml` configures it). Mobile-first, Decap-compatible, no framework code added to the site.
