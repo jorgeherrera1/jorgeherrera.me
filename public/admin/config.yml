@@ -8,6 +8,8 @@ backend:
   name: github
   repo: jorgeherrera1/jorgeherrera.me
   branch: main
+  # OAuth only — hides Sveltia's built-in "Sign In Using Access Token" fallback
+  auth_methods: [oauth]
   # The GitHub OAuth handshake is served by the Vercel functions in /api
   base_url: https://jorgeherrera.me
   auth_endpoint: api/auth
