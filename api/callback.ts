@@ -17,7 +17,11 @@ interface TokenResponse {
   error_description?: string;
 }
 
-function handshakePage(origin: string, message: string): Response {
+// The CMS may be open on the apex or www host; the token reply goes to
+// whichever of these the echo actually came from, and nowhere else.
+const ALLOWED_OPENER_ORIGINS = [SITE_ORIGIN, 'https://www.jorgeherrera.me'];
+
+function handshakePage(message: string): Response {
   const html = `<!doctype html>
 <html lang="en">
   <head>
@@ -25,16 +29,29 @@ function handshakePage(origin: string, message: string): Response {
     <title>Authorizing…</title>
   </head>
   <body>
-    <p>Authorizing… this window closes by itself.</p>
+    <p id="status">Authorizing… this window closes by itself.</p>
     <script>
       (() => {
-        const origin = ${JSON.stringify(origin)};
+        const allowedOrigins = ${JSON.stringify(ALLOWED_OPENER_ORIGINS)};
         const message = ${JSON.stringify(message)};
-        window.addEventListener('message', (event) => {
-          if (event.origin !== origin || event.data !== 'authorizing:github') return;
-          window.opener?.postMessage(message, origin);
-        }, { once: true });
-        window.opener?.postMessage('authorizing:github', origin);
+        if (!window.opener) {
+          document.getElementById('status').textContent =
+            'Could not reach the editor window. Close this popup and sign in again.';
+          return;
+        }
+        // Handshake: ping the opener, wait for the CMS to echo the ping back,
+        // then deliver the result to the echo's origin. The listener stays
+        // until a matching message arrives ({ once: true } would be consumed
+        // by unrelated messages, e.g. from browser extensions), and the ping
+        // targets '*' because it carries no secret and the opener may be on
+        // the www host.
+        const receiveMessage = (event) => {
+          if (event.data !== 'authorizing:github' || !allowedOrigins.includes(event.origin)) return;
+          window.removeEventListener('message', receiveMessage);
+          window.opener.postMessage(message, event.origin);
+        };
+        window.addEventListener('message', receiveMessage);
+        window.opener.postMessage('authorizing:github', '*');
       })();
     </script>
   </body>
@@ -55,7 +72,7 @@ export async function GET(request: Request): Promise<Response> {
   const { searchParams } = new URL(request.url);
 
   const fail = (error: string): Response =>
-    handshakePage(SITE_ORIGIN, `authorization:github:error:${JSON.stringify({ error })}`);
+    handshakePage(`authorization:github:error:${JSON.stringify({ error })}`);
 
   if (!clientId || !clientSecret) {
     return fail('OAuth environment variables are not configured');
@@ -83,7 +100,6 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   return handshakePage(
-    SITE_ORIGIN,
     `authorization:github:success:${JSON.stringify({ provider: 'github', token: data.access_token })}`,
   );
 }
