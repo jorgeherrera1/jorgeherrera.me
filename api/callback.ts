@@ -30,28 +30,61 @@ function handshakePage(message: string): Response {
   </head>
   <body>
     <p id="status">Authorizing… this window closes by itself.</p>
+    <pre id="log" style="color: #666; font-size: 12px;"></pre>
     <script>
       (() => {
         const allowedOrigins = ${JSON.stringify(ALLOWED_OPENER_ORIGINS)};
         const message = ${JSON.stringify(message)};
+        const status = document.getElementById('status');
+        const logEl = document.getElementById('log');
+        const log = (line) => { logEl.textContent += line + '\\n'; };
+        const restart = 'Close this popup AND every Level Editor tab, then start fresh from ' +
+          ${JSON.stringify(SITE_ORIGIN)} + '/admin/ in a single tab.';
+
+        // Sveltia opens this popup with the fixed window name "auth", so a
+        // leftover popup from an earlier attempt gets REUSED by later ones —
+        // with window.opener still pointing at the old, possibly closed,
+        // editor tab. Detect that instead of hanging.
         if (!window.opener) {
-          document.getElementById('status').textContent =
-            'Could not reach the editor window. Close this popup and sign in again.';
+          status.textContent = 'Could not reach the editor window. ' + restart;
           return;
         }
-        // Handshake: ping the opener, wait for the CMS to echo the ping back,
-        // then deliver the result to the echo's origin. The listener stays
-        // until a matching message arrives ({ once: true } would be consumed
-        // by unrelated messages, e.g. from browser extensions), and the ping
-        // targets '*' because it carries no secret and the opener may be on
-        // the www host.
-        const receiveMessage = (event) => {
-          if (event.data !== 'authorizing:github' || !allowedOrigins.includes(event.origin)) return;
-          window.removeEventListener('message', receiveMessage);
+        if (window.opener.closed) {
+          status.textContent = 'The editor window that started this sign-in is gone. ' + restart;
+          return;
+        }
+
+        // Handshake: ping the opener until the CMS echoes the ping back, then
+        // deliver the result to the echo's origin (allowlisted). The ping
+        // carries no secret, so '*' is fine and lets the opener be on www.
+        let delivered = false;
+        window.addEventListener('message', (event) => {
+          if (event.data !== 'authorizing:github') return;
+          if (!allowedOrigins.includes(event.origin)) {
+            log('ignored echo from unexpected origin: ' + event.origin);
+            return;
+          }
+          if (delivered) return;
+          delivered = true;
           window.opener.postMessage(message, event.origin);
-        };
-        window.addEventListener('message', receiveMessage);
-        window.opener.postMessage('authorizing:github', '*');
+          status.textContent = 'Done — the editor took it from here.';
+          log('result delivered to ' + event.origin);
+        });
+
+        let attempts = 0;
+        const ping = setInterval(() => {
+          if (delivered || attempts >= 20) {
+            clearInterval(ping);
+            if (!delivered) {
+              status.textContent = 'The editor did not respond. ' + restart;
+              log('gave up after ' + attempts + ' pings; opener.closed=' + window.opener.closed);
+            }
+            return;
+          }
+          attempts += 1;
+          window.opener.postMessage('authorizing:github', '*');
+          if (attempts === 1) log('pinging the editor window…');
+        }, 500);
       })();
     </script>
   </body>
