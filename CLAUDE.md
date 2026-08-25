@@ -19,7 +19,8 @@ A static-first personal blog built with Astro 7 and styled with a Super Mario Br
 | `npm run preview` | Preview built site locally |
 | `npm run check` | Type-check with `astro check` (strictest tsconfig) |
 | `npm run astro` | Run Astro CLI commands |
-| `npm run sync-blog` | Sync posts from the Obsidian vault (`OBSIDIAN_BLOG_PATH` in `.env.local`) |
+| `npm test` | Run the sync verification suite (`node --test`, no framework) |
+| `npm run sync-blog` | Two-way sync with the Obsidian vault (`OBSIDIAN_BLOG_PATH` in `.env.local`) — additive, never deletes |
 | `npm run commit-new-blog-posts` | Commit and push untracked blog posts |
 
 ## Astro 7 Configuration Notes
@@ -113,7 +114,14 @@ oklch scales (50–950 stops each), plus white/black:
 - **Format**: Markdown (`.md`) files only
 - **Wiki links**: `[[Another Post Title]]` links to another post by title; `[[Title|alias]]` customizes the link text
 - **Static generation**: All content pre-rendered at build time
-- Posts are synced one-way from an Obsidian vault via `npm run sync-blog` (destructive: posts not in the vault are deleted)
+- Posts sync two ways with an Obsidian vault via `npm run sync-blog`: additive union matched by github-slugger slug (so verbatim vs hyphenated filenames are the same post), never deletes, newer mtime wins conflicts with the losing bytes kept as a gitignored `<file>.md.sync-backup`. `scripts/sync-blog.js` exports `syncBlog()` for the tests in `scripts/sync-blog.test.js`
+- `npm run commit-new-blog-posts` commits untracked posts only — edits to existing posts are committed manually (deliberate, deferred)
+
+### Level Editor (Sveltia CMS)
+- **`/admin/`** hosts [Sveltia CMS](https://github.com/sveltia/sveltia-cms) (static files in `public/admin/`: `index.html` loads the CMS from CDN, `config.yml` configures it). Mobile-first, Decap-compatible, no framework code added to the site.
+- Saving an entry commits straight to `main` through the GitHub API; Vercel redeploys.
+- **GitHub OAuth** is handled by two Vercel serverless functions in `api/` (`auth.ts`, `callback.ts`) — plain Web-standard handlers deployed by Vercel's root `api/` directory convention. The Astro build does not touch them (no adapter; the site stays static), but they are type-checked by `npm run check`, so they must pass strictest too. They need `OAUTH_GITHUB_CLIENT_ID` / `OAUTH_GITHUB_CLIENT_SECRET` env vars in Vercel.
+- The homepage's "SECRET WARP ZONE" pipe links to `/admin/`.
 
 ### Frontmatter Schema
 Required fields for all blog posts:
@@ -159,6 +167,11 @@ const blog = defineCollection({
 
 ### Project Structure
 ```
+api/
+├── auth.ts                  # Vercel function: GitHub OAuth entry (Level Editor)
+└── callback.ts              # Vercel function: OAuth callback + CMS handshake
+public/
+└── admin/                   # Level Editor (Sveltia CMS): index.html + config.yml
 src/
 ├── assets/
 │   └── fonts/               # Subsetted woff2 fonts (served via fonts API)

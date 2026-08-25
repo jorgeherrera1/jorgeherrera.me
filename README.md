@@ -81,6 +81,61 @@ tags:
 3. **Write your content** below the frontmatter using Markdown (link to other posts with `[[Their Title]]`)
 4. **Save the file** - Astro will automatically generate the blog post page
 
+### ✍️ Level Editor (write posts from the website)
+
+Posts can also be written straight from the browser — including on mobile — via
+the **Level Editor** at [`/admin/`](https://jorgeherrera.me/admin/) (or through
+the warp pipe at the bottom of the homepage). It runs
+[Sveltia CMS](https://github.com/sveltia/sveltia-cms), a lightweight, mobile-first,
+Git-based CMS:
+
+- **Sign in with GitHub** — no custom accounts; only users with write access to
+  this repo can publish.
+- **Saving a post commits it to `main`** via the GitHub API, and Vercel picks up
+  the commit and redeploys. No database anywhere.
+- The site itself stays fully static: the CMS is a single script loaded on
+  `/admin/` only, and the OAuth handshake lives in two Vercel serverless
+  functions (`api/auth.ts`, `api/callback.ts`).
+
+#### One-time setup
+
+1. Create a **GitHub OAuth App** ([Settings → Developer settings → OAuth Apps](https://github.com/settings/developers)):
+   - Homepage URL: `https://jorgeherrera.me`
+   - Authorization callback URL: `https://jorgeherrera.me/api/callback`
+2. In the Vercel project, add two environment variables (Production):
+   - `OAUTH_GITHUB_CLIENT_ID` — the OAuth App's client ID
+   - `OAUTH_GITHUB_CLIENT_SECRET` — a generated client secret
+3. Redeploy. Visit `/admin/`, hit **Sign in with GitHub**, and start writing.
+
+#### Local editing
+
+On `localhost` the CMS offers **Work with local repository** (no OAuth needed):
+it edits the files in your working copy directly via the File System Access API.
+
+#### 🔄 Two-way sync with Obsidian
+
+`npm run sync-blog` is a two-way, additive sync between the Obsidian vault and
+`src/content/blog/`:
+
+- Posts that exist on only one side are copied to the other — Level Editor
+  posts flow back into the vault, vault drafts flow into the repo.
+- **The sync never deletes anything.** To remove a post, delete it in both
+  places yourself and commit.
+- Posts are matched by URL slug (github-slugger, same as the site's routes),
+  not by filename — the vault's `Title verbatim.md` and the Level Editor's
+  `Title-verbatim.md` are recognized as the same post, no duplicates.
+- If both sides changed the same post, the newer edit wins and the losing
+  version is kept next to the winner as `<file>.md.sync-backup` (gitignored,
+  invisible to Astro and Obsidian) — nothing is ever lost silently.
+- The script warns when `origin/main` has blog commits you haven't pulled
+  (fresh Level Editor posts); `git pull` first so they can sync into the vault.
+- `npm run commit-new-blog-posts` still commits new posts only; edits to
+  existing posts are committed manually for now.
+
+`npm test` runs the sync's verification suite (Node's built-in test runner,
+temp directories only): a file placed on either side must appear on the other
+with nothing deleted or clobbered in either direction.
+
 ### Frontmatter Schema
 
 All blog posts must include these frontmatter fields:

@@ -14,10 +14,11 @@ function git(args, opts = {}) {
 }
 
 function listNewBlogPosts() {
-  const output = git(['ls-files', '--others', '--exclude-standard', '--', blogDir]);
+  // -z: NUL-separated, unquoted paths — plain \n output C-quotes non-ASCII
+  // filenames (core.quotePath default), which would fail the .md filter below
+  const output = git(['ls-files', '-z', '--others', '--exclude-standard', '--', blogDir]);
   return output
-    .split('\n')
-    .map(line => line.trim())
+    .split('\0')
     .filter(line => line.endsWith('.md'));
 }
 
