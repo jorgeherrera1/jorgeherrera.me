@@ -3,17 +3,22 @@
 // itself stays fully static. Redirects the CMS popup to GitHub's authorize
 // screen, carrying a CSRF `state` that is verified in /api/callback.
 
-export function GET(request: Request): Response {
+// Pinned rather than derived from request.url: Vercel's function runtime can
+// reconstruct the URL with the deployment host (*.vercel.app), which GitHub
+// rejects as "redirect_uri not associated with this application". Must match
+// the OAuth App's registered callback URL and config.yml's base_url.
+const SITE_ORIGIN = 'https://jorgeherrera.me';
+
+export function GET(): Response {
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
   if (!clientId) {
     return new Response('OAUTH_GITHUB_CLIENT_ID is not configured', { status: 500 });
   }
 
-  const { origin } = new URL(request.url);
   const state = crypto.randomUUID();
   const params = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: `${origin}/api/callback`,
+    redirect_uri: `${SITE_ORIGIN}/api/callback`,
     scope: 'repo',
     state,
   });

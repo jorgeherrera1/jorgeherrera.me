@@ -7,6 +7,10 @@
 // Both sides only talk to `origin`, so the token can never be handed to a
 // window on another site.
 
+// Pinned rather than derived from request.url (see api/auth.ts): the CMS
+// popup handshake must target the real site origin, not the deployment host.
+const SITE_ORIGIN = 'https://jorgeherrera.me';
+
 interface TokenResponse {
   access_token?: string;
   error?: string;
@@ -48,10 +52,10 @@ function handshakePage(origin: string, message: string): Response {
 export async function GET(request: Request): Promise<Response> {
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
   const clientSecret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
-  const { origin, searchParams } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
 
   const fail = (error: string): Response =>
-    handshakePage(origin, `authorization:github:error:${JSON.stringify({ error })}`);
+    handshakePage(SITE_ORIGIN, `authorization:github:error:${JSON.stringify({ error })}`);
 
   if (!clientId || !clientSecret) {
     return fail('OAuth environment variables are not configured');
@@ -79,7 +83,7 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   return handshakePage(
-    origin,
+    SITE_ORIGIN,
     `authorization:github:success:${JSON.stringify({ provider: 'github', token: data.access_token })}`,
   );
 }
