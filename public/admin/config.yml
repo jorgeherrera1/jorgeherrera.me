@@ -10,8 +10,11 @@ backend:
   branch: main
   # OAuth only — hides Sveltia's built-in "Sign In Using Access Token" fallback
   auth_methods: [oauth]
-  # The GitHub OAuth handshake is served by the Vercel functions in /api
-  base_url: https://jorgeherrera.me
+  # The GitHub OAuth handshake is served by the Vercel functions in /api.
+  # MUST be the canonical www host: Vercel redirects the apex to www, so the
+  # OAuth popup always ends on www, and Sveltia only accepts postMessage
+  # events whose origin matches this URL's origin.
+  base_url: https://www.jorgeherrera.me
   auth_endpoint: api/auth
   commit_messages:
     create: 'docs: add blog post "{{slug}}"'
@@ -20,9 +23,9 @@ backend:
     uploadMedia: 'docs: upload media "{{path}}"'
     deleteMedia: 'docs: delete media "{{path}}"'
 
-site_url: https://jorgeherrera.me
-display_url: https://jorgeherrera.me
-logo_url: https://jorgeherrera.me/admin/question-block.svg
+site_url: https://www.jorgeherrera.me
+display_url: https://www.jorgeherrera.me
+logo_url: https://www.jorgeherrera.me/admin/question-block.svg
 
 media_folder: public/images/blog
 public_folder: /images/blog

@@ -7,9 +7,11 @@
 // Both sides only talk to `origin`, so the token can never be handed to a
 // window on another site.
 
-// Pinned rather than derived from request.url (see api/auth.ts): the CMS
-// popup handshake must target the real site origin, not the deployment host.
-const SITE_ORIGIN = 'https://jorgeherrera.me';
+// The canonical host. Vercel 307-redirects the apex (jorgeherrera.me) to www,
+// so this popup ALWAYS ends up on www — and Sveltia only listens to messages
+// whose origin equals the origin of `base_url` in public/admin/config.yml.
+// Keep the two in sync or the handshake below is silently ignored.
+const SITE_ORIGIN = 'https://www.jorgeherrera.me';
 
 interface TokenResponse {
   access_token?: string;
@@ -17,9 +19,10 @@ interface TokenResponse {
   error_description?: string;
 }
 
-// The CMS may be open on the apex or www host; the token reply goes to
-// whichever of these the echo actually came from, and nowhere else.
-const ALLOWED_OPENER_ORIGINS = [SITE_ORIGIN, 'https://www.jorgeherrera.me'];
+// The token reply goes to whichever of these the echo actually came from,
+// and nowhere else. The apex is kept only as a safety net (it normally
+// redirects to www before the CMS ever loads).
+const ALLOWED_OPENER_ORIGINS = [SITE_ORIGIN, 'https://jorgeherrera.me'];
 
 function handshakePage(message: string): Response {
   const html = `<!doctype html>

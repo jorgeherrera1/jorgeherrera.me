@@ -3,11 +3,12 @@
 // itself stays fully static. Redirects the CMS popup to GitHub's authorize
 // screen, carrying a CSRF `state` that is verified in /api/callback.
 
-// Pinned rather than derived from request.url: Vercel's function runtime can
-// reconstruct the URL with the deployment host (*.vercel.app), which GitHub
-// rejects as "redirect_uri not associated with this application". Must match
-// the OAuth App's registered callback URL and config.yml's base_url.
-const SITE_ORIGIN = 'https://jorgeherrera.me';
+// No `redirect_uri` is sent: GitHub then falls back to the callback URL
+// registered on the OAuth App, so the app settings stay the single source of
+// truth and a mismatch (apex vs www, *.vercel.app) can't be introduced here.
+// Whatever host GitHub sends the popup back to, Vercel's domain redirect
+// lands it on https://www.jorgeherrera.me/api/callback, which is the origin
+// the CMS is told to trust (`base_url` in public/admin/config.yml).
 
 export function GET(): Response {
   const clientId = process.env.OAUTH_GITHUB_CLIENT_ID;
@@ -18,7 +19,6 @@ export function GET(): Response {
   const state = crypto.randomUUID();
   const params = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: `${SITE_ORIGIN}/api/callback`,
     scope: 'repo',
     state,
   });
