@@ -11,6 +11,7 @@ import { slug } from 'github-slugger';
  */
 export const wikilinkResolver = defineMdastPlugin({
   name: 'wikilink-resolver',
+  options: { position: true },
   link(node, ctx) {
     const isWikilink =
       node.position !== undefined &&
