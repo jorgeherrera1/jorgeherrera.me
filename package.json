@@ -24,7 +24,7 @@
     "tailwindcss": "^4.3.3"
   },
   "engines": {
-    "node": ">=26"
+    "node": ">=24"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
