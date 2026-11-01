@@ -11,6 +11,9 @@ import { slug } from 'github-slugger';
  */
 export const wikilinkResolver = defineMdastPlugin({
   name: 'wikilink-resolver',
+  // Positions are off unless a plugin opts in. Without them this visitor
+  // cannot see the `[[` and leaves the raw page name as the href.
+  options: { position: true },
   link(node, ctx) {
     const isWikilink =
       node.position !== undefined &&
